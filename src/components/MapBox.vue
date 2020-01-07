@@ -54,7 +54,8 @@
         </MglMap>
       </div>
       <div id="story-section">
-        <StoryBoard :map="map" />
+        <button @click="runFlyByTour">Take Tour</button>
+        <StoryBoard />
       </div>
     </div>
     <!--The next div contains information to show the current zoom level of the map. This will only show on the
@@ -125,7 +126,26 @@
             addZoomLevelIndicator() {
                 document.getElementById("zoom-level-div").innerHTML = 'Current Zoom Level (listed for development purposes): ' + this.map.getZoom() ;
             },
+            runFlyByTour() {
+                let map = this.map;
 
+                let interval = 10000;
+                let promise = Promise.resolve();
+                delawareBasinNextGenerationLocations.delawareBasinNewGenerationsLocations.features.forEach(function(feature) {
+                   promise = promise.then(function () {
+                       console.log(feature)
+                       map.flyTo(feature.properties.flyToCommands)
+                       return new Promise(function (resolve) {
+                          setTimeout(resolve, interval)
+                       });
+                   });
+                });
+
+                promise.then(function () {
+                    console.log('Loop finished.');
+                });
+
+            },
             onMapLoaded(event) {
                 this.map = event.map; // This gives us access to the map as an object but only after the map has loaded.
                 this.map.resize(); // This cures the mysterious whitespace that appears above the footer is was caused by the 'official' banner at the top.
@@ -152,9 +172,6 @@
                         "circle-color": "#000"
                     }
                 });
-
-
-
             }
         }
     };

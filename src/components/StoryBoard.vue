@@ -16,17 +16,26 @@
           {{ chapter.content }}
         </p>
       </section>
+      <button
+          v-show="chapter.extendedContent"
+          @click="runTour(chapter.tourType)"
+      >
+        take a tour
+      </button>
     </div>
   </div>
 </template>
 <script>
     import mapStory from "../assets/mapStory/mapStory";
+    import delawareBasinNextGenerationLocations
+        from "../assets/monitoring_locations/delawareBasinNextGenerationLocations";
 
     export default {
         name: "StoryBoard",
         data() {
             return {
-                mapStory: mapStory
+                mapStory: mapStory,
+                extendedContent: "chapter.extendedContent"
             };
         },
         methods: {
@@ -34,10 +43,34 @@
                 let allActiveSectionElements = document.querySelectorAll("section.active");
                 [...allActiveSectionElements].forEach((selection) => {
                     selection.setAttribute('class', '');
-                })
+                });
                 document.getElementById(elementId).setAttribute('class', 'active');
                 this.$store.map.flyTo(flyToCommands);
-            }
+            },
+            runTour(tourType) {
+                let map = this.$store.map;
+                let interval = 10000;
+                let promise = Promise.resolve();
+                let locationsInTour = [];
+                // Pick out the monitoring locations for the tour from the list
+                delawareBasinNextGenerationLocations.delawareBasinNewGenerationsLocations.features.forEach(function(feature) {
+                    if (feature.properties[tourType]) {
+                        locationsInTour.push(feature);
+                    }
+                });
+
+                // Fly to the locations on the tour list
+                locationsInTour.forEach(function(feature) {
+                    promise = promise.then(function () {
+                        console.log('number of stops on tour ' + locationsInTour.length)
+                        console.log('flying to ', feature.properties)
+                        map.flyTo(feature.properties.flyToCommands)
+                        return new Promise(function (resolve) {
+                            setTimeout(resolve, interval)
+                        });
+                    });
+                });
+            },
         }
     };
 </script>

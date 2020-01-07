@@ -1,5 +1,5 @@
 export default {
-    delawareBasinNewGenerationsLocations: {
+    delawareBasinCameraLocations: {
         "type": "FeatureCollection",
         "features": [
             {

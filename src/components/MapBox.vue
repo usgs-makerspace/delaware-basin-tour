@@ -77,6 +77,8 @@
         MglAttributionControl
     } from "vue-mapbox";
     import mapStyles from "../assets/mapStyles/mapStyles";
+    import delawareBasinNextGenerationLocations
+        from "../assets/monitoring_locations/delawareBasinNextGenerationLocations";
 
     export default {
         name: "MapBox",
@@ -134,7 +136,25 @@
                 // Pause the code here to make sure the fitbounds has time to finish before fade away of loading screen.
                 setTimeout(() => { this.isLoading = false; }, 200);
                 // Next line adds the current zoom level display. The zoom level should only show in 'development' versions of the application.
-                process.env.VUE_APP_ADD_ZOOM_LEVEL_DISPLAY === 'true' ? this.map.on("zoomend", this.addZoomLevelIndicator) : null
+                process.env.VUE_APP_ADD_ZOOM_LEVEL_DISPLAY === 'true' ? this.map.on("zoomend", this.addZoomLevelIndicator) : null;
+
+                this.map.addSource('delawareBasinNextGenerationLocations', {
+                    type: 'geojson',
+                    data: delawareBasinNextGenerationLocations.delawareBasinNewGenerationsLocations
+                });
+
+                this.map.addLayer({
+                    "id": "point",
+                    "source": "delawareBasinNextGenerationLocations",
+                    "type": "circle",
+                    "paint": {
+                        "circle-radius": 8,
+                        "circle-color": "#000"
+                    }
+                });
+
+
+
             }
         }
     };

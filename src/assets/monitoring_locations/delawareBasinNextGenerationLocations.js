@@ -15,7 +15,7 @@ export default {
                     "camera": false,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-74.6536111,42.1447222],
+                        "center": [-74.6536111, 42.1447222],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -25,7 +25,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-74.6536111,42.1447222]
+                    "coordinates": [-74.6536111, 42.1447222]
                 }
             },
             {
@@ -40,7 +40,7 @@ export default {
                     "camera": false,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-74.81277778,41.9033333],
+                        "center": [-74.81277778, 41.9033333],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -50,7 +50,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-74.81277778,41.9033333]
+                    "coordinates": [-74.81277778, 41.9033333]
                 }
             },
             {
@@ -66,7 +66,7 @@ export default {
                     "camera": false,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-74.9796667,41.94641667],
+                        "center": [-74.9796667, 41.94641667],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -76,7 +76,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-74.9796667,41.94641667]
+                    "coordinates": [-74.9796667, 41.94641667]
                 }
             },
             {
@@ -92,7 +92,7 @@ export default {
                     "camera": false,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-75.1751944,41.97355556],
+                        "center": [-75.1751944, 41.97355556],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -102,7 +102,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-75.1751944,41.97355556]
+                    "coordinates": [-75.1751944, 41.97355556]
                 }
             },
             {
@@ -118,7 +118,7 @@ export default {
                     "camera": false,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-75.14002778,42.1661111],
+                        "center": [-75.14002778, 42.1661111],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -128,7 +128,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-75.14002778,42.1661111]
+                    "coordinates": [-75.14002778, 42.1661111]
                 }
             },
             {
@@ -144,7 +144,7 @@ export default {
                     "camera": false,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-75.3798977,42.0628618],
+                        "center": [-75.3798977, 42.0628618],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -154,7 +154,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-75.3798977,42.0628618]
+                    "coordinates": [-75.3798977, 42.0628618]
                 }
             },
             {
@@ -170,7 +170,7 @@ export default {
                     "camera": false,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-75.38352778,42.00302778],
+                        "center": [-75.38352778, 42.00302778],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -180,7 +180,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-75.38352778,42.00302778]
+                    "coordinates": [-75.38352778, 42.00302778]
                 }
             },
             {
@@ -196,7 +196,7 @@ export default {
                     "camera": false,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-75.2315615,41.83758785],
+                        "center": [-75.2315615, 41.83758785],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -206,7 +206,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-75.2315615,41.83758785]
+                    "coordinates": [-75.2315615, 41.83758785]
                 }
             },
             {
@@ -222,7 +222,7 @@ export default {
                     "camera": false,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-75.21375,41.86727778],
+                        "center": [-75.21375, 41.86727778],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -232,7 +232,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-75.21375,41.86727778]
+                    "coordinates": [-75.21375, 41.86727778]
                 }
             },
             {
@@ -248,7 +248,7 @@ export default {
                     "camera": false,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-75.04838889,41.76055556],
+                        "center": [-75.04838889, 41.76055556],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -258,7 +258,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-75.04838889,41.76055556]
+                    "coordinates": [-75.04838889, 41.76055556]
                 }
             },
             {
@@ -274,7 +274,7 @@ export default {
                     "camera": false,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-75.0574167,41.75675],
+                        "center": [-75.0574167, 41.75675],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -284,7 +284,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-75.0574167,41.75675]
+                    "coordinates": [-75.0574167, 41.75675]
                 }
             },
             {
@@ -300,7 +300,7 @@ export default {
                     "camera": false,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-75.0144444,41.56388889],
+                        "center": [-75.0144444, 41.56388889],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -310,7 +310,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-75.0144444,41.56388889]
+                    "coordinates": [-75.0144444, 41.56388889]
                 }
             },
             {
@@ -326,7 +326,7 @@ export default {
                     "camera": false,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-75.1721186,41.4762002],
+                        "center": [-75.1721186, 41.4762002],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -336,7 +336,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-75.1721186,41.4762002]
+                    "coordinates": [-75.1721186, 41.4762002]
                 }
             },
             {
@@ -352,7 +352,7 @@ export default {
                     "camera": false,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-74.91238898,41.47536824],
+                        "center": [-74.91238898, 41.47536824],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -362,7 +362,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-74.91238898,41.47536824]
+                    "coordinates": [-74.91238898, 41.47536824]
                 }
             },
             {
@@ -378,7 +378,7 @@ export default {
                     "camera": false,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-74.9232228,41.4556462],
+                        "center": [-74.9232228, 41.4556462],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -388,7 +388,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-74.9232228,41.4556462]
+                    "coordinates": [-74.9232228, 41.4556462]
                 }
             },
             {
@@ -404,7 +404,7 @@ export default {
                     "camera": false,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-74.9232228,41.4556462],
+                        "center": [-74.9232228, 41.4556462],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -414,7 +414,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-74.75877778,41.4612222]
+                    "coordinates": [-74.75877778, 41.4612222]
                 }
             },
             {
@@ -430,7 +430,7 @@ export default {
                     "camera": true,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-74.6975,41.37055556],
+                        "center": [-74.6975, 41.37055556],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -440,7 +440,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-74.6975,41.37055556]
+                    "coordinates": [-74.6975, 41.37055556]
                 }
             },
             {
@@ -456,7 +456,7 @@ export default {
                     "camera": false,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-74.6387701,41.82786867],
+                        "center": [-74.6387701, 41.82786867],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -466,7 +466,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-74.6387701,41.82786867]
+                    "coordinates": [-74.6387701, 41.82786867]
                 }
             },
             {
@@ -482,7 +482,7 @@ export default {
                     "camera": true,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-74.6019444,41.4411111],
+                        "center": [-74.6019444, 41.4411111],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -492,7 +492,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-74.6019444,41.4411111]
+                    "coordinates": [-74.6019444, 41.4411111]
                 }
             },
             {
@@ -508,7 +508,7 @@ export default {
                     "camera": true,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-74.79527778,41.30916667],
+                        "center": [-74.79527778, 41.30916667],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -518,7 +518,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-74.79527778,41.30916667]
+                    "coordinates": [-74.79527778, 41.30916667]
                 }
             },
             {
@@ -534,7 +534,7 @@ export default {
                     "camera": true,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-75.0825,40.82638889],
+                        "center": [-75.0825, 40.82638889],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -544,7 +544,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-75.0825,40.82638889]
+                    "coordinates": [-75.0825, 40.82638889]
                 }
             },
             {
@@ -560,7 +560,7 @@ export default {
                     "camera": false,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-75.1858333,40.625],
+                        "center": [-75.1858333, 40.625],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -570,7 +570,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-75.1858333,40.625]
+                    "coordinates": [-75.1858333, 40.625]
                 }
             },
             {
@@ -586,7 +586,7 @@ export default {
                     "camera": false,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-75.1897222,40.5947222],
+                        "center": [-75.1897222, 40.5947222],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -596,7 +596,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-75.1897222,40.5947222]
+                    "coordinates": [-75.1897222, 40.5947222]
                 }
             },
             {
@@ -612,7 +612,7 @@ export default {
                     "camera": false,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-75.065,40.5261111],
+                        "center": [-75.065, 40.5261111],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -622,7 +622,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-75.065,40.5261111]
+                    "coordinates": [-75.065, 40.5261111]
                 }
             },
             {
@@ -638,7 +638,7 @@ export default {
                     "camera": true,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-74.94888889,40.3647222],
+                        "center": [-74.94888889, 40.3647222],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -648,7 +648,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-74.94888889,40.3647222]
+                    "coordinates": [-74.94888889, 40.3647222]
                 }
             },
             {
@@ -664,7 +664,7 @@ export default {
                     "camera": true,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-74.7780556,40.22166667],
+                        "center": [-74.7780556, 40.22166667],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -674,7 +674,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-74.7780556,40.22166667]
+                    "coordinates": [-74.7780556, 40.22166667]
                 }
             },
             {
@@ -690,7 +690,7 @@ export default {
                     "camera": false,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-74.7558333,40.18916667],
+                        "center": [-74.7558333, 40.18916667],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -700,7 +700,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-74.7558333,40.18916667]
+                    "coordinates": [-74.7558333, 40.18916667]
                 }
             },
             {
@@ -716,7 +716,7 @@ export default {
                     "camera": false,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-74.8691667,40.08],
+                        "center": [-74.8691667, 40.08],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -726,7 +726,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-74.8691667,40.08]
+                    "coordinates": [-74.8691667, 40.08]
                 }
             },
             {
@@ -742,7 +742,7 @@ export default {
                     "camera": true,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-74.9568342,40.1739982],
+                        "center": [-74.9568342, 40.1739982],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -752,7 +752,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-74.9568342,40.1739982]
+                    "coordinates": [-74.9568342, 40.1739982]
                 }
             },
             {
@@ -768,7 +768,7 @@ export default {
                     "camera": false,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-75.0968411,40.0159454],
+                        "center": [-75.0968411, 40.0159454],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -778,7 +778,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-75.0968411,40.0159454]
+                    "coordinates": [-75.0968411, 40.0159454]
                 }
             },
             {
@@ -794,7 +794,7 @@ export default {
                     "camera": false,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-75.1373987,39.95400165],
+                        "center": [-75.1373987, 39.95400165],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -804,7 +804,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-75.1373987,39.95400165]
+                    "coordinates": [-75.1373987, 39.95400165]
                 }
             },
             {
@@ -820,7 +820,7 @@ export default {
                     "camera": true,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-75.99826819,40.5225932],
+                        "center": [-75.99826819, 40.5225932],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -830,7 +830,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-75.99826819,40.5225932]
+                    "coordinates": [-75.99826819, 40.5225932]
                 }
             },
             {
@@ -846,7 +846,7 @@ export default {
                     "camera": false,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-75.7421359,40.339538],
+                        "center": [-75.7421359, 40.339538],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -856,7 +856,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-75.7421359,40.339538]
+                    "coordinates": [-75.7421359, 40.339538]
                 }
             },
             {
@@ -872,7 +872,7 @@ export default {
                     "camera": false,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-75.451567,40.22954725],
+                        "center": [-75.451567, 40.22954725],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -882,7 +882,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-75.451567,40.22954725]
+                    "coordinates": [-75.451567, 40.22954725]
                 }
             },
             {
@@ -898,7 +898,7 @@ export default {
                     "camera": false,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-75.1885123,39.9678905],
+                        "center": [-75.1885123, 39.9678905],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -908,7 +908,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-75.1885123,39.9678905]
+                    "coordinates": [-75.1885123, 39.9678905]
                 }
             },
             {
@@ -924,7 +924,7 @@ export default {
                     "camera": false,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-75.2724064,39.92900154],
+                        "center": [-75.2724064, 39.92900154],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -934,7 +934,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-75.2724064,39.92900154]
+                    "coordinates": [-75.2724064, 39.92900154]
                 }
             },
             {
@@ -950,7 +950,7 @@ export default {
                     "camera": false,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-75.74875,39.6892222],
+                        "center": [-75.74875, 39.6892222],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -960,7 +960,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-75.74875,39.6892222]
+                    "coordinates": [-75.74875, 39.6892222]
                 }
             },
             {
@@ -976,7 +976,7 @@ export default {
                     "camera": false,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-75.67502778,39.6992222],
+                        "center": [-75.67502778, 39.6992222],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -986,7 +986,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-75.67502778,39.6992222]
+                    "coordinates": [-75.67502778, 39.6992222]
                 }
             },
             {
@@ -1002,7 +1002,7 @@ export default {
                     "camera": true,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-75.6365,39.76280556],
+                        "center": [-75.6365, 39.76280556],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -1012,7 +1012,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-75.6365,39.76280556]
+                    "coordinates": [-75.6365, 39.76280556]
                 }
             },
             {
@@ -1028,7 +1028,7 @@ export default {
                     "camera": true,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-75.5932623,39.8698328],
+                        "center": [-75.5932623, 39.8698328],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -1038,7 +1038,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-75.5932623,39.8698328]
+                    "coordinates": [-75.5932623, 39.8698328]
                 }
             },
             {
@@ -1054,7 +1054,7 @@ export default {
                     "camera": false,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-75.4605556,39.5086111],
+                        "center": [-75.4605556, 39.5086111],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -1064,7 +1064,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-75.4605556,39.5086111]
+                    "coordinates": [-75.4605556, 39.5086111]
                 }
             }]
     }

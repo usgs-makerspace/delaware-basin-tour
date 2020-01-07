@@ -54,7 +54,6 @@
         </MglMap>
       </div>
       <div id="story-section">
-        <button @click="runFlyByTour">Take Tour</button>
         <StoryBoard />
       </div>
     </div>
@@ -80,6 +79,10 @@
     import mapStyles from "../assets/mapStyles/mapStyles";
     import delawareBasinNextGenerationLocations
         from "../assets/monitoring_locations/delawareBasinNextGenerationLocations";
+
+    import conductanceTour from "../assets/monitoring_locations/conductanceTour";
+    import temperatureTour from "../assets/monitoring_locations/temperatureTour";
+
 
     export default {
         name: "MapBox",
@@ -126,26 +129,6 @@
             addZoomLevelIndicator() {
                 document.getElementById("zoom-level-div").innerHTML = 'Current Zoom Level (listed for development purposes): ' + this.map.getZoom() ;
             },
-            runFlyByTour() {
-                let map = this.map;
-
-                let interval = 10000;
-                let promise = Promise.resolve();
-                delawareBasinNextGenerationLocations.delawareBasinNewGenerationsLocations.features.forEach(function(feature) {
-                   promise = promise.then(function () {
-                       console.log(feature)
-                       map.flyTo(feature.properties.flyToCommands)
-                       return new Promise(function (resolve) {
-                          setTimeout(resolve, interval)
-                       });
-                   });
-                });
-
-                promise.then(function () {
-                    console.log('Loop finished.');
-                });
-
-            },
             onMapLoaded(event) {
                 this.map = event.map; // This gives us access to the map as an object but only after the map has loaded.
                 this.map.resize(); // This cures the mysterious whitespace that appears above the footer is was caused by the 'official' banner at the top.
@@ -163,13 +146,33 @@
                     data: delawareBasinNextGenerationLocations.delawareBasinNewGenerationsLocations
                 });
 
+                this.map.addSource('conductanceTour', {
+                    type: 'geojson',
+                    data: conductanceTour.conductanceTour
+                });
+
+                this.map.addSource('temperatureTour', {
+                    type: 'geojson',
+                    data: temperatureTour.temperatureTour
+                });
+
                 this.map.addLayer({
-                    "id": "point",
-                    "source": "delawareBasinNextGenerationLocations",
+                    "id": "conductanceTour",
+                    "source": "conductanceTour",
                     "type": "circle",
                     "paint": {
-                        "circle-radius": 8,
-                        "circle-color": "#000"
+                        "circle-radius": 4,
+                        "circle-color": "green"
+                    }
+                });
+
+                this.map.addLayer({
+                    "id": "temperatureTour",
+                    "source": "temperatureTour",
+                    "type": "circle",
+                    "paint": {
+                        "circle-radius": 3,
+                        "circle-color": "red"
                     }
                 });
             }

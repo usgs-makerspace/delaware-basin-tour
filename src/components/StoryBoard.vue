@@ -27,6 +27,9 @@
 </template>
 <script>
     import mapStory from "../assets/mapStory/mapStory";
+    import conductanceTour from "../assets/monitoring_locations/conductanceTour";
+    import temperatureTour from "../assets/monitoring_locations/temperatureTour";
+
     import delawareBasinNextGenerationLocations
         from "../assets/monitoring_locations/delawareBasinNextGenerationLocations";
 

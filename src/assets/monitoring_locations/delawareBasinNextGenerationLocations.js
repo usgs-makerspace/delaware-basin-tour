@@ -11,7 +11,16 @@ export default {
                     "new_gage": false,
                     "enhanced_gage": true,
                     "temperature": true,
-                    "specific_conductance": false
+                    "specific_conductance": false,
+                    "flyToCommands": {
+                        "bearing": 350,
+                        "center": [-74.6536111, 42.1447222],
+                        "zoom": 13,
+                        "pitch": 90,
+                        "speed": 0.2,
+                        "curve": 1,
+                        "essential": true
+                    }
                 },
                 "geometry": {
                     "type": "Point",
@@ -25,7 +34,16 @@ export default {
                     "longitude": -74.81277778,
                     "new_gage": true,
                     "enhanced_gage": false,
-                    "specific_conductance": false
+                    "specific_conductance": false,
+                    "flyToCommands": {
+                        "bearing": 350,
+                        "center": [-74.81277778, 41.9033333],
+                        "zoom": 13,
+                        "pitch": 90,
+                        "speed": 0.2,
+                        "curve": 1,
+                        "essential": true
+                    }
                 },
                 "geometry": {
                     "type": "Point",
@@ -40,7 +58,16 @@ export default {
                     "new_gage": false,
                     "enhanced_gage": true,
                     "temperature": false,
-                    "specific_conductance": false
+                    "specific_conductance": false,
+                    "flyToCommands": {
+                        "bearing": 350,
+                        "center": [-74.9796667, 41.94641667],
+                        "zoom": 13,
+                        "pitch": 90,
+                        "speed": 0.2,
+                        "curve": 1,
+                        "essential": true
+                    }
                 },
                 "geometry": {
                     "type": "Point",
@@ -55,7 +82,16 @@ export default {
                     "new_gage": false,
                     "enhanced_gage": true,
                     "temperature": false,
-                    "specific_conductance": false
+                    "specific_conductance": false,
+                    "flyToCommands": {
+                        "bearing": 350,
+                        "center": [-74.9796667, 41.94641667],
+                        "zoom": 13,
+                        "pitch": 90,
+                        "speed": 0.2,
+                        "curve": 1,
+                        "essential": true
+                    }
                 },
                 "geometry": {
                     "type": "Point",
@@ -70,7 +106,16 @@ export default {
                     "new_gage": false,
                     "enhanced_gage": true,
                     "temperature": true,
-                    "specific_conductance": false
+                    "specific_conductance": false,
+                    "flyToCommands": {
+                        "bearing": 350,
+                        "center": [-74.9796667, 41.94641667],
+                        "zoom": 13,
+                        "pitch": 90,
+                        "speed": 0.2,
+                        "curve": 1,
+                        "essential": true
+                    }
                 },
                 "geometry": {
                     "type": "Point",
@@ -85,7 +130,16 @@ export default {
                     "new_gage": true,
                     "enhanced_gage": false,
                     "temperature": false,
-                    "specific_conductance": false
+                    "specific_conductance": false,
+                    "flyToCommands": {
+                        "bearing": 350,
+                        "center": [-75.3798977, 42.0628618],
+                        "zoom": 13,
+                        "pitch": 90,
+                        "speed": 0.2,
+                        "curve": 1,
+                        "essential": true
+                    }
                 },
                 "geometry": {
                     "type": "Point",
@@ -100,7 +154,16 @@ export default {
                     "new_gage": false,
                     "enhanced_gage": true,
                     "temperature": false,
-                    "specific_conductance": false
+                    "specific_conductance": false,
+                    "flyToCommands": {
+                        "bearing": 350,
+                        "center": [-75.38352778, 42.00302778],
+                        "zoom": 13,
+                        "pitch": 90,
+                        "speed": 0.2,
+                        "curve": 1,
+                        "essential": true
+                    }
                 },
                 "geometry": {
                     "type": "Point",
@@ -115,7 +178,16 @@ export default {
                     "new_gage": true,
                     "enhanced_gage": false,
                     "temperature": false,
-                    "specific_conductance": false
+                    "specific_conductance": false,
+                    "flyToCommands": {
+                        "bearing": 350,
+                        "center": [-75.2315615, 41.83758785],
+                        "zoom": 13,
+                        "pitch": 90,
+                        "speed": 0.2,
+                        "curve": 1,
+                        "essential": true
+                    }
                 },
                 "geometry": {
                     "type": "Point",
@@ -130,7 +202,16 @@ export default {
                     "new_gage": false,
                     "enhanced_gage": true,
                     "temperature": true,
-                    "specific_conductance": true
+                    "specific_conductance": true,
+                    "flyToCommands": {
+                        "bearing": 350,
+                        "center": [-75.21375, 41.86727778],
+                        "zoom": 13,
+                        "pitch": 90,
+                        "speed": 0.2,
+                        "curve": 1,
+                        "essential": true
+                    }
                 },
                 "geometry": {
                     "type": "Point",
@@ -145,7 +226,16 @@ export default {
                     "new_gage": true,
                     "enhanced_gage": false,
                     "temperature": false,
-                    "specific_conductance": false
+                    "specific_conductance": false,
+                    "flyToCommands": {
+                        "bearing": 350,
+                        "center": [-75.04838889, 41.76055556],
+                        "zoom": 13,
+                        "pitch": 90,
+                        "speed": 0.2,
+                        "curve": 1,
+                        "essential": true
+                    }
                 },
                 "geometry": {
                     "type": "Point",
@@ -160,7 +250,16 @@ export default {
                     "new_gage": false,
                     "enhanced_gage": true,
                     "temperature": false,
-                    "specific_conductance": false
+                    "specific_conductance": false,
+                    "flyToCommands": {
+                        "bearing": 350,
+                        "center": [-75.0574167, 41.75675],
+                        "zoom": 13,
+                        "pitch": 90,
+                        "speed": 0.2,
+                        "curve": 1,
+                        "essential": true
+                    }
                 },
                 "geometry": {
                     "type": "Point",
@@ -175,7 +274,16 @@ export default {
                     "new_gage": true,
                     "enhanced_gage": false,
                     "temperature": false,
-                    "specific_conductance": false
+                    "specific_conductance": false,
+                    "flyToCommands": {
+                        "bearing": 350,
+                        "center": [-75.0144444, 41.56388889],
+                        "zoom": 13,
+                        "pitch": 90,
+                        "speed": 0.2,
+                        "curve": 1,
+                        "essential": true
+                    }
                 },
                 "geometry": {
                     "type": "Point",
@@ -190,7 +298,16 @@ export default {
                     "new_gage": false,
                     "enhanced_gage": true,
                     "temperature": true,
-                    "specific_conductance": false
+                    "specific_conductance": false,
+                    "flyToCommands": {
+                        "bearing": 350,
+                        "center": [-75.1721186, 41.4762002],
+                        "zoom": 13,
+                        "pitch": 90,
+                        "speed": 0.2,
+                        "curve": 1,
+                        "essential": true
+                    }
                 },
                 "geometry": {
                     "type": "Point",
@@ -205,7 +322,16 @@ export default {
                     "new_gage": false,
                     "enhanced_gage": true,
                     "temperature": true,
-                    "specific_conductance": false
+                    "specific_conductance": false,
+                    "flyToCommands": {
+                        "bearing": 350,
+                        "center": [-74.91238898, 41.47536824],
+                        "zoom": 13,
+                        "pitch": 90,
+                        "speed": 0.2,
+                        "curve": 1,
+                        "essential": true
+                    }
                 },
                 "geometry": {
                     "type": "Point",

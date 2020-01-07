@@ -15,6 +15,7 @@
         <p>
           {{ chapter.content }}
         </p>
+        <button v-show=chapter.extendedContent>take the tour</button>
       </section>
     </div>
   </div>
@@ -26,7 +27,8 @@
         name: "StoryBoard",
         data() {
             return {
-                mapStory: mapStory
+                mapStory: mapStory,
+                extendedContent: "chapter.extendedContent"
             };
         },
         methods: {

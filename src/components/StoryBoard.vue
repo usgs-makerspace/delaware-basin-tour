@@ -11,8 +11,8 @@
       >
         <div
           v-show="!isTourRunning"
-          @click="moveToLocation(chapter.flyToCommands, chapter.id)"
-          @mouseover="moveToLocation(chapter.flyToCommands, chapter.id)"
+          @click="moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility('layer name')"
+          @mouseover="moveToLocation(chapter.flyToCommands, chapter.id, toggleLayerVisibility('layer name'))"
         >
           <h3>{{ chapter.title }}</h3>
           <p>
@@ -79,15 +79,17 @@
                 };
                 return locationsInTour[tourType] || locationsInTour['default'];
             },
+            toggleLayerVisibility(layer) {
+                console.log('toggle this layer ', layer)
+            },
             runTour(tourType) {
-                let self = this; // create an 'alias' for this, so that we can access this inside deeper scopes
-                this.isTourRunning = true;
+                let self = this; // create an 'alias' for 'this', so that we can access 'this' inside deeper scopes
+                self.isTourRunning = true;
                 let map = this.$store.map;
                 let interval = 500;
                 let promise = Promise.resolve();
                 let locationsInTour = this.getLocationsInTour(tourType);
                 let remainingLocations = locationsInTour.length;
-
                 // Fly to the locations on the tour list
                 locationsInTour.forEach(function(feature) {
                       promise = promise.then(function () {

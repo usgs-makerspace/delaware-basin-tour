@@ -2,29 +2,43 @@
   <div id="story-chapters-container">
     <div
       v-for="chapter in mapStory.chapters"
-      id="features"
       :key="chapter.id"
+      class="features"
     >
       <section
         :id="chapter.id"
         :class="chapter.class"
-        @click="moveToLocation(chapter.flyToCommands, chapter.id)"
-        @mouseover="moveToLocation(chapter.flyToCommands, chapter.id)"
       >
-        <h3>{{ chapter.title }}</h3>
-        <p>
-          {{ chapter.content }}
-        </p>
+        <div
+          v-show="!isTourRunning"
+          @click="moveToLocation(chapter.flyToCommands, chapter.id)"
+          @mouseover="moveToLocation(chapter.flyToCommands, chapter.id)"
+        >
+          <h3>{{ chapter.title }}</h3>
+          <p>
+            {{ chapter.content }}
+          </p>
+        </div>
+        <div
+          v-show="isTourRunning"
+        >
+          <h3>{{ chapter.title }}</h3>
+          <p>
+            {{ chapter.content }}
+          </p>
+        </div>
+        <div class="button-container">
+          <button
+            v-show="chapter.extendedContent && !isTourRunning"
+            @click="runTour(chapter.tourType)"
+          >
+            take a tour
+          </button>
+          <button v-show="chapter.extendedContent && isTourRunning">
+            Tour is Running
+          </button>
+        </div>
       </section>
-      <button
-        v-show="chapter.extendedContent && show"
-        @click="runTour(chapter.tourType)"
-      >
-        take a tour
-      </button>
-      <button v-show="chapter.extendedContent && !show">
-        Tour is Running
-      </button>
     </div>
   </div>
 </template>
@@ -42,13 +56,8 @@
         data() {
             return {
                 mapStory: mapStory,
-                show: true
+                isTourRunning: false
             };
-        },
-        computed: {
-            isTourRunning() {
-                return this.$store.getters.getDataForIsTourRunning();
-            }
         },
         methods: {
             moveToLocation(flyToCommands, elementId) {
@@ -71,17 +80,16 @@
                 return locationsInTour[tourType] || locationsInTour['default'];
             },
             runTour(tourType) {
+                let self = this; // create an 'alias' for this, so that we can access this inside deeper scopes
+                this.isTourRunning = true;
                 let map = this.$store.map;
-
                 let interval = 500;
                 let promise = Promise.resolve();
                 let locationsInTour = this.getLocationsInTour(tourType);
-
                 let remainingLocations = locationsInTour.length;
 
                 // Fly to the locations on the tour list
                 locationsInTour.forEach(function(feature) {
-                    console.log('first remaining ', remainingLocations)
                       promise = promise.then(function () {
                           console.log('number of stops left in tour ' + remainingLocations)
                           remainingLocations = remainingLocations - 1;
@@ -89,8 +97,7 @@
                           map.flyTo(feature.properties.flyToCommands);
                           return new Promise(function (resolve) {
                               if (remainingLocations === 0) {
-                                  console.log('yea');
-
+                                  self.isTourRunning = false;
                               }
                               setTimeout(resolve, interval);
                           });
@@ -101,21 +108,30 @@
     };
 </script>
 <style scoped lang="scss">
-  #features {
+  .features {
     font-family: sans-serif;
     background-color: #fafafa;
-  }
-  section {
-    padding: 25px 50px;
-    line-height: 25px;
-    border-bottom: 1px solid #ddd;
-    opacity: 0.25;
-    font-size: 13px;
-  }
-  section.active {
-    opacity: 1;
-  }
-  section:last-child {
-    border-bottom: none;
+
+    section {
+      padding: 25px 50px;
+      line-height: 25px;
+      border-bottom: 1px solid #ddd;
+      opacity: 0.25;
+      font-size: 13px;
+    }
+    section.active {
+      opacity: 1;
+    }
+    section:last-child {
+      border-bottom: none;
+    }
+
+    .button-container {
+      display: flex;
+
+      button {
+        flex: 1;
+      }
+    }
   }
 </style>

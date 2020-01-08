@@ -138,7 +138,10 @@ export default {
                     "site_id": "USGS-01420500",
                     "latitude": 41.94641667,
                     "longitude": -74.9796667,
-                    "new_gage":01420500onductance": false,
+                    "new_gage": false,
+                    "enhanced_gage": true,
+                    "temperature": false,
+                    "specific_conductance": false,
                     "camera": false,
                     "flyToCommands": {
                         "bearing": 350,

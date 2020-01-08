@@ -1,8 +1,8 @@
 <template>
   <div>
     <LoadingScreen
-        v-if="!isInternetExplorer"
-        :is-loading="isLoading"
+      v-if="!isInternetExplorer"
+      :is-loading="isLoading"
     />
 
     <div class="header-container">
@@ -14,47 +14,46 @@
     </div>
     <InternetExplorerPage v-if="isInternetExplorer" />
     <div
-        v-if="!isInternetExplorer"
-        id="mapContainer"
+      v-if="!isInternetExplorer"
+      id="mapContainer"
     >
       <div id="map-section">
         <MglMap
-            id="mapgl"
-            :container="container"
-            :map-style="mapStyle"
-            :zoom="zoom"
-            :min-zoom="minZoom"
-            :max-zoom="maxZoom"
-            :center="center"
-            :pitch="pitch"
-            :bearing="bearing"
-            :pitch-with-rotate="false"
-            :drag-rotate="false"
-            :touch-zoom-rotate="false"
-            :max-bounds="maxBounds"
-            @load="onMapLoaded"
+          id="mapgl"
+          :container="container"
+          :map-style="mapStyle"
+          :zoom="zoom"
+          :min-zoom="minZoom"
+          :max-zoom="maxZoom"
+          :center="center"
+          :pitch="pitch"
+          :bearing="bearing"
+          :pitch-with-rotate="false"
+          :drag-rotate="false"
+          :touch-zoom-rotate="false"
+          :max-bounds="maxBounds"
+          @load="onMapLoaded"
         >
           <MglAttributionControl
-              position="bottom-right"
-              :compact="false"
-              custom-attribution="© <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
+            position="bottom-right"
+            :compact="false"
+            custom-attribution="© <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
           />
 
           <MglNavigationControl
-              position="top-right"
-              :show-compass="false"
+            position="top-right"
+            :show-compass="false"
           />
           <QuestionControl />
           <MglScaleControl
-              position="bottom-right"
-              unit="imperial"
+            position="bottom-right"
+            unit="imperial"
           />
           <MglFullscreenControl position="bottom-right" />
           <MglGeolocateControl position="bottom-right" />
         </MglMap>
       </div>
       <div id="story-section">
-        <button @click="runFlyByTour">Take Tour</button>
         <StoryBoard />
       </div>
     </div>
@@ -78,8 +77,11 @@
         MglAttributionControl
     } from "vue-mapbox";
     import mapStyles from "../assets/mapStyles/mapStyles";
-    import delawareBasinNextGenerationLocations
-        from "../assets/monitoring_locations/delawareBasinNextGenerationLocations";
+    import delawareBasinCameraLocations from "../assets/monitoring_locations/delawareBasinCameraLocations";
+    import delawareBasinConductanceLocations from "../assets/monitoring_locations/delawareBasinConductanceLocations";
+    import delawareBasinEnhancedLocations from "../assets/monitoring_locations/delawareBasinEnhancedLocations";
+    import delawareBasinNewLocations from "../assets/monitoring_locations/delawareBasinNewLocations";
+    import delawareBasinTemperatureLocations from "../assets/monitoring_locations/delawareBasinTemperatureLocations";
 
     export default {
         name: "MapBox",
@@ -126,26 +128,6 @@
             addZoomLevelIndicator() {
                 document.getElementById("zoom-level-div").innerHTML = 'Current Zoom Level (listed for development purposes): ' + this.map.getZoom() ;
             },
-            runFlyByTour() {
-                let map = this.map;
-
-                let interval = 10000;
-                let promise = Promise.resolve();
-                delawareBasinNextGenerationLocations.delawareBasinNewGenerationsLocations.features.forEach(function(feature) {
-                   promise = promise.then(function () {
-                       console.log(feature)
-                       map.flyTo(feature.properties.flyToCommands)
-                       return new Promise(function (resolve) {
-                          setTimeout(resolve, interval)
-                       });
-                   });
-                });
-
-                promise.then(function () {
-                    console.log('Loop finished.');
-                });
-
-            },
             onMapLoaded(event) {
                 this.map = event.map; // This gives us access to the map as an object but only after the map has loaded.
                 this.map.resize(); // This cures the mysterious whitespace that appears above the footer is was caused by the 'official' banner at the top.
@@ -158,18 +140,80 @@
                 // Next line adds the current zoom level display. The zoom level should only show in 'development' versions of the application.
                 process.env.VUE_APP_ADD_ZOOM_LEVEL_DISPLAY === 'true' ? this.map.on("zoomend", this.addZoomLevelIndicator) : null;
 
-                this.map.addSource('delawareBasinNextGenerationLocations', {
+                this.map.addSource('delawareBasinCameraLocations', {
                     type: 'geojson',
-                    data: delawareBasinNextGenerationLocations.delawareBasinNewGenerationsLocations
+                    data: delawareBasinCameraLocations.delawareBasinCameraLocations
+                });
+
+                this.map.addSource('delawareBasinConductanceLocations', {
+                    type: 'geojson',
+                    data: delawareBasinConductanceLocations.delawareBasinConductanceLocations
+                });
+
+                this.map.addSource('delawareBasinEnhancedLocations', {
+                    type: 'geojson',
+                    data: delawareBasinEnhancedLocations.delawareBasinEnhancedLocations
+                });
+
+                this.map.addSource('delawareBasinTemperatureLocations', {
+                    type: 'geojson',
+                    data: delawareBasinTemperatureLocations.delawareBasinTemperatureLocations
+                });
+
+                this.map.addSource('delawareBasinNewLocations', {
+                    type: 'geojson',
+                    data: delawareBasinNewLocations.delawareBasinNewLocations
+                });
+
+
+
+                this.map.addLayer({
+                    "id": "delawareBasinCameraLocations",
+                    "source": "delawareBasinCameraLocations",
+                    "type": "circle",
+                    "paint": {
+                        "circle-radius": 11,
+                        "circle-color": "green"
+                    }
                 });
 
                 this.map.addLayer({
-                    "id": "point",
-                    "source": "delawareBasinNextGenerationLocations",
+                    "id": "delawareBasinConductanceLocations",
+                    "source": "delawareBasinConductanceLocations",
                     "type": "circle",
                     "paint": {
-                        "circle-radius": 8,
-                        "circle-color": "#000"
+                        "circle-radius": 9,
+                        "circle-color": "red"
+                    }
+                });
+
+                this.map.addLayer({
+                    "id": "delawareBasinEnhancedLocations",
+                    "source": "delawareBasinEnhancedLocations",
+                    "type": "circle",
+                    "paint": {
+                        "circle-radius": 7,
+                        "circle-color": "blue"
+                    }
+                });
+
+                this.map.addLayer({
+                    "id": "delawareBasinTemperatureLocations",
+                    "source": "delawareBasinTemperatureLocations",
+                    "type": "circle",
+                    "paint": {
+                        "circle-radius": 5,
+                        "circle-color": "yellow"
+                    }
+                });
+
+                this.map.addLayer({
+                    "id": "delawareBasinNewLocations",
+                    "source": "delawareBasinNewLocations",
+                    "type": "circle",
+                    "paint": {
+                        "circle-radius": 3,
+                        "circle-color": "pink"
                     }
                 });
             }

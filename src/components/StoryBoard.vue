@@ -1,15 +1,15 @@
 <template>
   <div id="story-chapters-container">
     <div
-        v-for="chapter in mapStory.chapters"
-        id="features"
-        :key="chapter.id"
+      v-for="chapter in mapStory.chapters"
+      id="features"
+      :key="chapter.id"
     >
       <section
-          :id="chapter.id"
-          :class="chapter.class"
-          @click="moveToLocation(chapter.flyToCommands, chapter.id)"
-          @mouseover="moveToLocation(chapter.flyToCommands, chapter.id)"
+        :id="chapter.id"
+        :class="chapter.class"
+        @click="moveToLocation(chapter.flyToCommands, chapter.id)"
+        @mouseover="moveToLocation(chapter.flyToCommands, chapter.id)"
       >
         <h3>{{ chapter.title }}</h3>
         <p>
@@ -17,26 +17,38 @@
         </p>
       </section>
       <button
-          v-show="chapter.extendedContent"
-          @click="runTour(chapter.tourType)"
+        v-show="chapter.extendedContent && show"
+        @click="runTour(chapter.tourType)"
       >
         take a tour
+      </button>
+      <button v-show="chapter.extendedContent && !show">
+        Tour is Running
       </button>
     </div>
   </div>
 </template>
 <script>
     import mapStory from "../assets/mapStory/mapStory";
-    import delawareBasinNextGenerationLocations
-        from "../assets/monitoring_locations/delawareBasinNextGenerationLocations";
+
+    import delawareBasinCameraLocations from "../assets/monitoring_locations/delawareBasinCameraLocations";
+    import delawareBasinConductanceLocations from "../assets/monitoring_locations/delawareBasinConductanceLocations";
+    import delawareBasinEnhancedLocations from "../assets/monitoring_locations/delawareBasinEnhancedLocations";
+    import delawareBasinNewLocations from "../assets/monitoring_locations/delawareBasinNewLocations";
+    import delawareBasinTemperatureLocations from "../assets/monitoring_locations/delawareBasinTemperatureLocations";
 
     export default {
         name: "StoryBoard",
         data() {
             return {
                 mapStory: mapStory,
-                extendedContent: "chapter.extendedContent"
+                show: true
             };
+        },
+        computed: {
+            isTourRunning() {
+                return this.$store.getters.getDataForIsTourRunning();
+            }
         },
         methods: {
             moveToLocation(flyToCommands, elementId) {
@@ -47,28 +59,42 @@
                 document.getElementById(elementId).setAttribute('class', 'active');
                 this.$store.map.flyTo(flyToCommands);
             },
+            getLocationsInTour(tourType) {
+                const locationsInTour = {
+                    'cameras': delawareBasinCameraLocations.delawareBasinCameraLocations.features,
+                    'specific_conductance': delawareBasinConductanceLocations.delawareBasinConductanceLocations.features,
+                    'enhanced_gage': delawareBasinEnhancedLocations.delawareBasinEnhancedLocations.features,
+                    'new_gage': delawareBasinNewLocations.delawareBasinNewLocations.features,
+                    'temperature': delawareBasinTemperatureLocations.delawareBasinTemperatureLocations.features,
+                    'default': []
+                };
+                return locationsInTour[tourType] || locationsInTour['default'];
+            },
             runTour(tourType) {
                 let map = this.$store.map;
-                let interval = 10000;
+
+                let interval = 500;
                 let promise = Promise.resolve();
-                let locationsInTour = [];
-                // Pick out the monitoring locations for the tour from the list
-                delawareBasinNextGenerationLocations.delawareBasinNewGenerationsLocations.features.forEach(function(feature) {
-                    if (feature.properties[tourType]) {
-                        locationsInTour.push(feature);
-                    }
-                });
+                let locationsInTour = this.getLocationsInTour(tourType);
+
+                let remainingLocations = locationsInTour.length;
 
                 // Fly to the locations on the tour list
                 locationsInTour.forEach(function(feature) {
-                    promise = promise.then(function () {
-                        console.log('number of stops on tour ' + locationsInTour.length)
-                        console.log('flying to ', feature.properties)
-                        map.flyTo(feature.properties.flyToCommands)
-                        return new Promise(function (resolve) {
-                            setTimeout(resolve, interval)
-                        });
-                    });
+                    console.log('first remaining ', remainingLocations)
+                      promise = promise.then(function () {
+                          console.log('number of stops left in tour ' + remainingLocations)
+                          remainingLocations = remainingLocations - 1;
+                          console.log('flying to ', feature.properties)
+                          map.flyTo(feature.properties.flyToCommands);
+                          return new Promise(function (resolve) {
+                              if (remainingLocations === 0) {
+                                  console.log('yea');
+
+                              }
+                              setTimeout(resolve, interval);
+                          });
+                      });
                 });
             },
         }

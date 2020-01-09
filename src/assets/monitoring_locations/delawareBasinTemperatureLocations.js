@@ -5,32 +5,6 @@ export default {
             {
                 "type": "Feature",
                 "properties": {
-                    "site_id": "USGS-01413500",
-                    "latitude": 42.1447222,
-                    "longitude": -74.6536111,
-                    "new_gage": false,
-                    "enhanced_gage": true,
-                    "temperature": true,
-                    "specific_conductance": false,
-                    "camera": false,
-                    "flyToCommands": {
-                        "bearing": 350,
-                        "center": [-74.6536111, 42.1447222],
-                        "zoom": 8,
-                        "pitch": 90,
-                        "speed": 0.2,
-                        "curve": 1,
-                        "essential": true
-                    },
-                },
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": [-74.6536111, 42.1447222]
-                }
-            },
-            {
-                "type": "Feature",
-                "properties": {
                     "site_id": "USGS-01423000",
                     "latitude": 42.1661111,
                     "longitude": -75.14002778,
@@ -52,6 +26,32 @@ export default {
                 "geometry": {
                     "type": "Point",
                     "coordinates": [-75.14002778, 42.1661111]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "site_id": "USGS-01413500",
+                    "latitude": 42.1447222,
+                    "longitude": -74.6536111,
+                    "new_gage": false,
+                    "enhanced_gage": true,
+                    "temperature": true,
+                    "specific_conductance": false,
+                    "camera": false,
+                    "flyToCommands": {
+                        "bearing": 350,
+                        "center": [-74.6536111, 42.1447222],
+                        "zoom": 8,
+                        "pitch": 90,
+                        "speed": 0.2,
+                        "curve": 1,
+                        "essential": true
+                    },
+                },
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [-74.6536111, 42.1447222]
                 }
             },
             {
@@ -135,32 +135,6 @@ export default {
             {
                 "type": "Feature",
                 "properties": {
-                    "site_id": "USGS-01434000",
-                    "latitude": 41.37055556,
-                    "longitude": -74.6975,
-                    "new_gage": false,
-                    "enhanced_gage": true,
-                    "temperature": true,
-                    "specific_conductance": true,
-                    "camera": true,
-                    "flyToCommands": {
-                        "bearing": 350,
-                        "center": [-74.6975, 41.37055556],
-                        "zoom": 8,
-                        "pitch": 90,
-                        "speed": 0.2,
-                        "curve": 1,
-                        "essential": true
-                    },
-                },
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": [-74.6975, 41.37055556]
-                }
-            },
-            {
-                "type": "Feature",
-                "properties": {
                     "site_id": "USGS-01437500",
                     "latitude": 41.4411111,
                     "longitude": -74.6019444,
@@ -182,6 +156,32 @@ export default {
                 "geometry": {
                     "type": "Point",
                     "coordinates": [-74.6019444, 41.4411111]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "site_id": "USGS-01434000",
+                    "latitude": 41.37055556,
+                    "longitude": -74.6975,
+                    "new_gage": false,
+                    "enhanced_gage": true,
+                    "temperature": true,
+                    "specific_conductance": true,
+                    "camera": true,
+                    "flyToCommands": {
+                        "bearing": 350,
+                        "center": [-74.6975, 41.37055556],
+                        "zoom": 8,
+                        "pitch": 90,
+                        "speed": 0.2,
+                        "curve": 1,
+                        "essential": true
+                    },
+                },
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [-74.6975, 41.37055556]
                 }
             },
             {
@@ -265,6 +265,32 @@ export default {
             {
                 "type": "Feature",
                 "properties": {
+                    "site_id": "USGS-01470500",
+                    "latitude": 40.5225932,
+                    "longitude": -75.99826819,
+                    "new_gage": false,
+                    "enhanced_gage": true,
+                    "temperature": true,
+                    "specific_conductance": true,
+                    "camera": true,
+                    "flyToCommands": {
+                        "bearing": 350,
+                        "center": [-75.99826819, 40.5225932],
+                        "zoom": 8,
+                        "pitch": 90,
+                        "speed": 0.2,
+                        "curve": 1,
+                        "essential": true
+                    },
+                },
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [-75.99826819, 40.5225932]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {
                     "site_id": "USGS-01462000",
                     "latitude": 40.3647222,
                     "longitude": -74.94888889,
@@ -286,6 +312,32 @@ export default {
                 "geometry": {
                     "type": "Point",
                     "coordinates": [-74.94888889, 40.3647222]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "site_id": "USGS-01473000",
+                    "latitude": 40.22954725,
+                    "longitude": -75.451567,
+                    "new_gage": false,
+                    "enhanced_gage": true,
+                    "temperature": true,
+                    "specific_conductance": true,
+                    "camera": false,
+                    "flyToCommands": {
+                        "bearing": 350,
+                        "center": [-75.451567, 40.22954725],
+                        "zoom": 8,
+                        "pitch": 90,
+                        "speed": 0.2,
+                        "curve": 1,
+                        "essential": true
+                    },
+                },
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [-75.451567, 40.22954725]
                 }
             },
             {
@@ -343,58 +395,6 @@ export default {
             {
                 "type": "Feature",
                 "properties": {
-                    "site_id": "USGS-01470500",
-                    "latitude": 40.5225932,
-                    "longitude": -75.99826819,
-                    "new_gage": false,
-                    "enhanced_gage": true,
-                    "temperature": true,
-                    "specific_conductance": true,
-                    "camera": true,
-                    "flyToCommands": {
-                        "bearing": 350,
-                        "center": [-75.99826819, 40.5225932],
-                        "zoom": 8,
-                        "pitch": 90,
-                        "speed": 0.2,
-                        "curve": 1,
-                        "essential": true
-                    },
-                },
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": [-75.99826819, 40.5225932]
-                }
-            },
-            {
-                "type": "Feature",
-                "properties": {
-                    "site_id": "USGS-01473000",
-                    "latitude": 40.22954725,
-                    "longitude": -75.451567,
-                    "new_gage": false,
-                    "enhanced_gage": true,
-                    "temperature": true,
-                    "specific_conductance": true,
-                    "camera": false,
-                    "flyToCommands": {
-                        "bearing": 350,
-                        "center": [-75.451567, 40.22954725],
-                        "zoom": 8,
-                        "pitch": 90,
-                        "speed": 0.2,
-                        "curve": 1,
-                        "essential": true
-                    },
-                },
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": [-75.451567, 40.22954725]
-                }
-            },
-            {
-                "type": "Feature",
-                "properties": {
                     "site_id": "USGS-01474500",
                     "latitude": 39.9678905,
                     "longitude": -75.1885123,
@@ -421,17 +421,17 @@ export default {
             {
                 "type": "Feature",
                 "properties": {
-                    "site_id": "USGS-01478650",
-                    "latitude": 39.6892222,
-                    "longitude": -75.74875,
+                    "site_id": "USGS-01480000",
+                    "latitude": 39.76280556,
+                    "longitude": -75.6365,
                     "new_gage": false,
                     "enhanced_gage": true,
                     "temperature": true,
                     "specific_conductance": false,
-                    "camera": false,
+                    "camera": true,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-75.74875, 39.6892222],
+                        "center": [-75.6365, 39.76280556],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -441,7 +441,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-75.74875, 39.6892222]
+                    "coordinates": [-75.6365, 39.76280556]
                 }
             },
             {
@@ -473,17 +473,17 @@ export default {
             {
                 "type": "Feature",
                 "properties": {
-                    "site_id": "USGS-01480000",
-                    "latitude": 39.76280556,
-                    "longitude": -75.6365,
+                    "site_id": "USGS-01478650",
+                    "latitude": 39.6892222,
+                    "longitude": -75.74875,
                     "new_gage": false,
                     "enhanced_gage": true,
                     "temperature": true,
                     "specific_conductance": false,
-                    "camera": true,
+                    "camera": false,
                     "flyToCommands": {
                         "bearing": 350,
-                        "center": [-75.6365, 39.76280556],
+                        "center": [-75.74875, 39.6892222],
                         "zoom": 8,
                         "pitch": 90,
                         "speed": 0.2,
@@ -493,7 +493,7 @@ export default {
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-75.6365, 39.76280556]
+                    "coordinates": [-75.74875, 39.6892222]
                 }
             }
         ]

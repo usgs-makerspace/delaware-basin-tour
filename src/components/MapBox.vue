@@ -111,10 +111,10 @@
                 developmentTier: process.env.VUE_APP_TIER,
                 mapStyle: mapStyles.style,
                 container: "map",
-                zoom: 2,
+                zoom: 7,
                 minZoom: 2,
                 maxZoom: 15,
-                center: [-95.7129, 37.0902],
+                center: [-74.717076, 40.251693],
                 pitch: 0, // tips the map from 0 to 60 degrees
                 bearing: 0, // starting rotation of the map from 0 to 360
                 maxBounds: [[-168.534393,-4.371744], [-19.832382,71.687625]], // The coordinates needed to make a bounding box for the continental United States.
@@ -133,7 +133,6 @@
                 this.map.resize(); // This cures the mysterious whitespace that appears above the footer is was caused by the 'official' banner at the top.
                 this.map.touchZoomRotate.enable({ around: 'center' }); // Add pinch to zoom for touch devices.
                 this.map.touchZoomRotate.disableRotation(); // Disable the rotation functionality, but keep pinch to zoom.
-                this.map.fitBounds([[-125.3321, 23.8991], [-65.7421, 49.4325]]); // Once map is loaded, zoom in a bit more so that the map neatly fills the screen.
                 this.$store.map = event.map; // Add the map to the Vuex store so that we can use it in other components.
                 // Pause the code here to make sure the fitbounds has time to finish before fade away of loading screen.
                 setTimeout(() => { this.isLoading = false; }, 200);
@@ -168,7 +167,7 @@
 
 
                 this.map.addLayer({
-                    "id": "delawareBasinCameraLocations",
+                    "id": "cameras",
                     "source": "delawareBasinCameraLocations",
                     "type": "circle",
                     "paint": {
@@ -178,27 +177,27 @@
                 });
 
                 this.map.addLayer({
-                    "id": "delawareBasinConductanceLocations",
+                    "id": "specific_conductance",
                     "source": "delawareBasinConductanceLocations",
                     "type": "circle",
                     "paint": {
-                        "circle-radius": 9,
+                        "circle-radius": 10,
                         "circle-color": "red"
                     }
                 });
 
                 this.map.addLayer({
-                    "id": "delawareBasinEnhancedLocations",
+                    "id": "enhanced_gage",
                     "source": "delawareBasinEnhancedLocations",
                     "type": "circle",
                     "paint": {
-                        "circle-radius": 7,
+                        "circle-radius": 8,
                         "circle-color": "blue"
                     }
                 });
 
                 this.map.addLayer({
-                    "id": "delawareBasinTemperatureLocations",
+                    "id": "temperature",
                     "source": "delawareBasinTemperatureLocations",
                     "type": "circle",
                     "paint": {
@@ -208,7 +207,7 @@
                 });
 
                 this.map.addLayer({
-                    "id": "delawareBasinNewLocations",
+                    "id": "new_gage",
                     "source": "delawareBasinNewLocations",
                     "type": "circle",
                     "paint": {

@@ -39,7 +39,6 @@
           </button>
         </div>
       </section>
->>>>>>> 92deb277949f307fb5ab49d5c74a47a1db6d9eed
     </div>
   </div>
 </template>

@@ -1304,20 +1304,15 @@ export default {
                 },
                 'filter': ['has', 'point_count'],
                 'paint': {
-                    'circle-color': [
-                        'step',
-                        ['get', 'point_count'],
-                        'rgba(0, 87, 239, .25)', 100, // if less than 101 monitoring locations in the cluster, make it this color
-                        'rgba(0, 106, 210, .5)', 750, // if there is less than 751 monitoring locations in the cluster make it this color
-                        'rgba(0, 49, 74.9, .5)'
-                    ],
+                    'circle-color': 'gray',
                     'circle-radius': [
                         'step',
                         ['get', 'point_count'],
                         20, 100, // if there are less than 101 monitoring locations in the cluster, make it 20 px in radius
                         30, 750,
                         40
-                    ]
+                    ],
+                    'circle-opacity': .5
                 },
                 'minzoom': 3,
                 'maxzoom': 23,
@@ -1362,19 +1357,8 @@ export default {
                 },
                 'filter': ['!', ['has', 'point_count']],
                 'paint': {
-                    'circle-color':  {
-                        'property': 'nobsBin',
-                        'type': 'categorical',
-                        'stops': [
-                            ['1-10', '#A1F7FA'],
-                            ['10-100','#6A6EE7'],
-                            ['100-1000','#C239D4'],
-                            ['1000+','#C10F32']
-                        ]
-                    },
-                    'circle-radius': 4,
-                    'circle-stroke-width': 1,
-                    'circle-stroke-color': '#11b4da'
+                    'circle-color':  'gray',
+                    'circle-radius': 4
                 },
                 'minzoom': 3,
                 'maxzoom': 23,

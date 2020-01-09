@@ -44,7 +44,7 @@
 </template>
 <script>
     import mapStory from "../assets/mapStory/mapStory";
-
+    import mapboxgl from "mapbox-gl";
     import delawareBasinCameraLocations from "../assets/monitoring_locations/delawareBasinCameraLocations";
     import delawareBasinConductanceLocations from "../assets/monitoring_locations/delawareBasinConductanceLocations";
     import delawareBasinEnhancedLocations from "../assets/monitoring_locations/delawareBasinEnhancedLocations";
@@ -118,7 +118,7 @@
                 let self = this; // create an 'alias' for 'this', so that we can access 'this' inside deeper scopes
                 self.isTourRunning = true;
                 let map = this.$store.map;
-                let interval = 500;
+                let interval = 1000;
                 let promise = Promise.resolve();
                 let locationsInTour = this.getLocationsInTour(tourType);
                 let remainingLocations = locationsInTour.length;
@@ -129,6 +129,7 @@
                           remainingLocations = remainingLocations - 1;
                           console.log('flying to ', feature.properties)
                           map.flyTo(feature.properties.flyToCommands);
+                          animateCircle(tourType, feature);
                           return new Promise(function (resolve) {
                               if (remainingLocations === 0) {
                                   self.isTourRunning = false;
@@ -137,6 +138,17 @@
                           });
                       });
                 });
+                function animateCircle(layer, feature){
+                  const markerColor = map.getPaintProperty(layer, 'circle-color');
+                  const element = document.createElement('div')
+                  element.className = 'marker';
+
+                  new mapboxgl.Marker({
+                    "color": markerColor
+                  })
+                    .setLngLat(feature.geometry.coordinates)
+                    .addTo(map);
+                }
             },
         }
     };

@@ -113,7 +113,6 @@
                 // add the layers we changed to the component data, so that the next time the toggle is run we can reset them
                 this.layersToUnhide = layersToHide;
                 this.layersToUnshow = layersToShow;
-
             },
             runTour(tourType) {
                 let self = this; // create an 'alias' for 'this', so that we can access 'this' inside deeper scopes

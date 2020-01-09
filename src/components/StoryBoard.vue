@@ -11,7 +11,7 @@
       >
         <div
           v-show="!isTourRunning"
-          @click="moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility('layer name')"
+          @click="moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.layersToHide, chapter.hiddenLayersToShow)"
           @mouseover="moveToLocation(chapter.flyToCommands, chapter.id, toggleLayerVisibility('layer name'))"
         >
           <h3>{{ chapter.title }}</h3>
@@ -56,7 +56,10 @@
         data() {
             return {
                 mapStory: mapStory,
-                isTourRunning: false
+                isTourRunning: false,
+                layersToUnhide: [],
+                layersToUnshow: [],
+
             };
         },
         methods: {
@@ -79,8 +82,21 @@
                 };
                 return locationsInTour[tourType] || locationsInTour['default'];
             },
-            toggleLayerVisibility(layer) {
-                console.log('toggle this layer ', layer)
+            toggleLayerVisibility(layersToHide, layersToShow) {
+
+                console.log('maybe the layers ', this.$store.map.getStyle().layers.id)
+                // Reset all layer visibility to the way it was when the page was first loaded.
+
+
+                // loop layers and adjust visibility
+                layersToHide.forEach(function (layerToHide) {
+
+                })
+
+                // add the layers we changed to the component data, so that the next time the toggle is run we can reset them
+                this.LayersToUnhide = layersToHide;
+                this.layersToUnshow = layersToShow;
+
             },
             runTour(tourType) {
                 let self = this; // create an 'alias' for 'this', so that we can access 'this' inside deeper scopes

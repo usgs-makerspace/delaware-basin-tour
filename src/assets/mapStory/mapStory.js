@@ -82,8 +82,8 @@ export default {
             "flyToCommands": {
                 "duration": 15000,
                 "bearing": 100,
-                "center": [-76.316, 38.82],
-                "zoom": 12,
+                "center": [-74.9214, 40.4467],
+                "zoom": 7,
                 "pitch": 20,
                 "speed": 0.5,
                 "essential": true
@@ -101,8 +101,8 @@ export default {
             "flyToCommands": {
                 "duration": 12000,
                 "bearing": 45,
-                "center": [-76.3761, 39.1993],
-                "zoom": 9,
+                "center": [-74.9214, 40.4467],
+                "zoom": 7,
                 "pitch": 20,
                 "speed": 0.5,
                 "essential": true
@@ -120,8 +120,8 @@ export default {
             "flyToCommands": {
                 "duration": 8000,
                 "bearing": 180,
-                "center": [-76.3768, 39.5362],
-                "zoom": 14,
+                "center": [-74.9214, 40.4467],
+                "zoom": 7,
                 "pitch": 0,
                 "speed": 0.5,
                 "essential": true
@@ -139,8 +139,8 @@ export default {
             "flyToCommands": {
                 "duration": 8000,
                 "bearing": 180,
-                "center": [-76.3768, 39.5362],
-                "zoom": 14,
+                "center": [-74.9214, 40.4467],
+                "zoom": 7,
                 "pitch": 0,
                 "speed": 0.5,
                 "essential": true

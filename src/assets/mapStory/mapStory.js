@@ -92,8 +92,8 @@ export default {
             "content": "At twenty-eight existing monitoring locations, enhancements were made to improve two-way communication enabling remote operation and troubleshooting of equipment as well as allow for redundant communication capability to ensure data are delivered during critical periods.",
             "extendedContent": true,
             "tourType": "enhanced_gage",
-            "layersToHide": ["monitoring-location-clusters", "monitoring-location-cluster-count",  "monitoring-location-unclustered-point", "delawareBasinCameraLocations", "delawareBasinConductanceLocations", "delawareBasinTemperatureLocations", "delawareBasinNewLocations"],
-            "hiddenLayersToShow": ["site names"]
+            "layersToHide": ["monitoring-location-clusters", "monitoring-location-cluster-count",  "monitoring-location-unclustered-point", "cameras", "specific_conductance", "temperature", "new_gage"],
+            "hiddenLayersToShow": []
         },
         {
             "id": "cameras",
@@ -111,8 +111,8 @@ export default {
             "content": "Cameras can be used as non-contact sensors monitoring stream flow, water level, ice cover, suspended-sediment concentration, turbidity, harmful algal blooms, channel erosion, and other conditions at monitoring locations.",
             "extendedContent": true,
             "tourType": "camera",
-            "layersToHide": ["monitoring-location-clusters", "monitoring-location-cluster-count",  "monitoring-location-unclustered-point", "delawareBasinConductanceLocations", "delawareBasinEnhancedLocations", "delawareBasinTemperatureLocations", "delawareBasinNewLocations"],
-            "hiddenLayersToShow": ["site names"]
+            "layersToHide": ["monitoring-location-clusters", "monitoring-location-cluster-count",  "monitoring-location-unclustered-point", "specific_conductance", "enhanced_gage", "temperature", "new_gage"],
+            "hiddenLayersToShow": []
         },
         {
             "id": "temperature",
@@ -130,8 +130,8 @@ export default {
             "content": "Water temperature influences water chemistry, aquatic metabolism and the health of fisheries. Specific conductance data can be used to improve models and predictions and understanding of surface water and groundwater connections. Real-time temperature will be added to about thirty-six sites and specific conductance at about ten sites. ",
             "extendedContent": true,
             "tourType": "temperature",
-            "layersToHide": ["monitoring-location-clusters", "monitoring-location-cluster-count",  "monitoring-location-unclustered-point", "delawareBasinCameraLocations", "delawareBasinConductanceLocations", "delawareBasinEnhancedLocations", "delawareBasinNewLocations"],
-            "hiddenLayersToShow": ["site names"]
+            "layersToHide": ["monitoring-location-clusters", "monitoring-location-cluster-count",  "monitoring-location-unclustered-point", "cameras", "specific_conductance", "enhanced_gage", "new_gage"],
+            "hiddenLayersToShow": []
         },
         {
             "id": "specific_conductance",
@@ -149,8 +149,8 @@ export default {
             "content": "Water temperature influences water chemistry, aquatic metabolism and the health of fisheries. Specific conductance data can be used to improve models and predictions and understanding of surface water and groundwater connections. Real-time temperature will be added to about thirty-six sites and specific conductance at about ten sites. ",
             "extendedContent": true,
             "tourType": "specific_conductance",
-            "layersToHide": ["monitoring-location-clusters", "monitoring-location-cluster-count",  "monitoring-location-unclustered-point", "delawareBasinCameraLocations", "delawareBasinEnhancedLocations", "delawareBasinTemperatureLocations", "delawareBasinNewLocations"],
-            "hiddenLayersToShow": ["site names"]
+            "layersToHide": ["monitoring-location-clusters", "monitoring-location-cluster-count",  "monitoring-location-unclustered-point", "cameras", "enhanced_gage", "temperature", "new_gage"],
+            "hiddenLayersToShow": []
         },
         {
             "id": "summary",

@@ -111,10 +111,10 @@
                 developmentTier: process.env.VUE_APP_TIER,
                 mapStyle: mapStyles.style,
                 container: "map",
-                zoom: 7,
+                zoom: 2,
                 minZoom: 2,
                 maxZoom: 15,
-                center: [-74.717076, 40.251693],
+                center: [-95.7129, 37.0902],
                 pitch: 0, // tips the map from 0 to 60 degrees
                 bearing: 0, // starting rotation of the map from 0 to 360
                 maxBounds: [[-168.534393,-4.371744], [-19.832382,71.687625]], // The coordinates needed to make a bounding box for the continental United States.
@@ -133,6 +133,7 @@
                 this.map.resize(); // This cures the mysterious whitespace that appears above the footer is was caused by the 'official' banner at the top.
                 this.map.touchZoomRotate.enable({ around: 'center' }); // Add pinch to zoom for touch devices.
                 this.map.touchZoomRotate.disableRotation(); // Disable the rotation functionality, but keep pinch to zoom.
+                this.map.fitBounds([[-125.3321, 23.8991], [-65.7421, 49.4325]]); // Once map is loaded, zoom in a bit more so that the map neatly fills the screen.
                 this.$store.map = event.map; // Add the map to the Vuex store so that we can use it in other components.
                 // Pause the code here to make sure the fitbounds has time to finish before fade away of loading screen.
                 setTimeout(() => { this.isLoading = false; }, 200);

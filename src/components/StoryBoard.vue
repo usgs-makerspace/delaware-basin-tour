@@ -11,8 +11,8 @@
       >
         <div
           v-show="!isTourRunning"
-          @click="moveToLocation(chapter.flyToCommands, chapter.id)"
-          @mouseover="moveToLocation(chapter.flyToCommands, chapter.id)"
+          @click="moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.layersToHide, chapter.hiddenLayersToShow)"
+          @mouseover="moveToLocation(chapter.flyToCommands, chapter.id, toggleLayerVisibility(chapter.layersToHide, chapter.hiddenLayersToShow))"
         >
           <h3>{{ chapter.title }}</h3>
           <p>
@@ -56,7 +56,10 @@
         data() {
             return {
                 mapStory: mapStory,
-                isTourRunning: false
+                isTourRunning: false,
+                layersToUnhide: [],
+                layersToUnshow: [],
+
             };
         },
         methods: {
@@ -79,15 +82,46 @@
                 };
                 return locationsInTour[tourType] || locationsInTour['default'];
             },
+            toggleLayerVisibility(layersToHide, layersToShow) {
+                let self = this;
+                let map = this.$store.map;
+                let layersList = self.$store.map.getStyle().layers;
+                // Reset all layer visibility to the way it was when the page was first loaded.
+                layersList.forEach(function(layer) {
+                    if (self.layersToUnhide.includes(layer.id)) {
+                        let visibility = map.getLayoutProperty(layer.id, 'visibility');
+                        map.setLayoutProperty(layer.id, 'visibility', 'visible');
+                    }
+                    if (self.layersToUnshow.includes(layer.id)) {
+                        let visibility = map.getLayoutProperty(layer.id, 'visibility');
+                        map.setLayoutProperty(layer.id, 'visibility', 'none');
+                    }
+                });
+
+                // Show or hide layer based on what is listed in the 'mapStory.js'
+                layersList.forEach(function(layer) {
+                    if (layersToShow.includes(layer.id)) {
+                        let visibility = map.getLayoutProperty(layer.id, 'visibility');
+                        map.setLayoutProperty(layer.id, 'visibility', 'visible');
+                    }
+                    if (layersToHide.includes(layer.id)) {
+                        let visibility = map.getLayoutProperty(layer.id, 'visibility');
+                        map.setLayoutProperty(layer.id, 'visibility', 'none');
+                    }
+                });
+
+                // add the layers we changed to the component data, so that the next time the toggle is run we can reset them
+                this.layersToUnhide = layersToHide;
+                this.layersToUnshow = layersToShow;
+            },
             runTour(tourType) {
-                let self = this; // create an 'alias' for this, so that we can access this inside deeper scopes
-                this.isTourRunning = true;
+                let self = this; // create an 'alias' for 'this', so that we can access 'this' inside deeper scopes
+                self.isTourRunning = true;
                 let map = this.$store.map;
                 let interval = 1000;
                 let promise = Promise.resolve();
                 let locationsInTour = this.getLocationsInTour(tourType);
                 let remainingLocations = locationsInTour.length;
-
                 // Fly to the locations on the tour list
                 locationsInTour.forEach(function(feature) {
                       promise = promise.then(function () {

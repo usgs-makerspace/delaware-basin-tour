@@ -8,15 +8,12 @@
       <section
         :id="chapter.id"
         :class="chapter.class"
-        @click="moveToLocation(chapter.flyToCommands, chapter.id)"
-        @mouseover="moveToLocation(chapter.flyToCommands, chapter.id)"
       >
         <h3>{{ chapter.title }}</h3>
         <p>
           {{ chapter.content }}
         </p>
-      </section>
-      <button
+        <button
         v-show="chapter.extendedContent && show"
         @click="runTour(chapter.tourType)"
       >
@@ -25,12 +22,14 @@
       <button v-show="chapter.extendedContent && !show">
         Tour is Running
       </button>
+      </section>
+      
     </div>
   </div>
 </template>
 <script>
     import mapStory from "../assets/mapStory/mapStory";
-
+    import mapboxgl from "mapbox-gl";
     import delawareBasinCameraLocations from "../assets/monitoring_locations/delawareBasinCameraLocations";
     import delawareBasinConductanceLocations from "../assets/monitoring_locations/delawareBasinConductanceLocations";
     import delawareBasinEnhancedLocations from "../assets/monitoring_locations/delawareBasinEnhancedLocations";
@@ -73,10 +72,9 @@
             runTour(tourType) {
                 let map = this.$store.map;
 
-                let interval = 500;
+                let interval = 1000;
                 let promise = Promise.resolve();
                 let locationsInTour = this.getLocationsInTour(tourType);
-
                 let remainingLocations = locationsInTour.length;
 
                 // Fly to the locations on the tour list
@@ -87,6 +85,7 @@
                           remainingLocations = remainingLocations - 1;
                           console.log('flying to ', feature.properties)
                           map.flyTo(feature.properties.flyToCommands);
+                          animateCircle(tourType, feature);
                           return new Promise(function (resolve) {
                               if (remainingLocations === 0) {
                                   console.log('yea');
@@ -96,6 +95,17 @@
                           });
                       });
                 });
+                function animateCircle(layer, feature){
+                  const markerColor = map.getPaintProperty(layer, 'circle-color');
+                  const element = document.createElement('div')
+                  element.className = 'marker';
+
+                  new mapboxgl.Marker({
+                    "color": markerColor
+                  })
+                    .setLngLat(feature.geometry.coordinates)
+                    .addTo(map);
+                }
             },
         }
     };
@@ -108,14 +118,23 @@
   section {
     padding: 25px 50px;
     line-height: 25px;
-    border-bottom: 1px solid #ddd;
-    opacity: 0.25;
+    opacity: 0.30;
     font-size: 13px;
+    cursor: pointer;
+
+    button{
+      outline: none;
+      border-radius: 5px;
+      cursor: pointer;
+      &:hover{
+        background: #003366;
+        color: #fff;
+      }
+    }
   }
   section.active {
     opacity: 1;
-  }
-  section:last-child {
-    border-bottom: none;
+     border-bottom: 1px solid #ddd;
+      border-top: 1px solid #ddd;
   }
 </style>

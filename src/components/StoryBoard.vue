@@ -139,8 +139,8 @@
                 });
                 function animateCircle(layer, feature){
                   let markerColor = map.getPaintProperty(layer, 'circle-color');
-                  let popup = new mapboxgl.Popup({ 
-                      closeOnClick: false, 
+                  let popup = new mapboxgl.Popup({
+                      closeOnClick: false,
                       closeButton: false
                     }
                   ).setText(feature.properties.site_id);
@@ -166,7 +166,7 @@
                     element.parentNode.removeChild(element);
                   })
                 }
-            },
+            }
         }
     };
 </script>

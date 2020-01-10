@@ -121,6 +121,8 @@
                 let promise = Promise.resolve();
                 let locationsInTour = this.getLocationsInTour(tourType);
                 let remainingLocations = locationsInTour.length;
+                let markerElement;
+                let currentMarkers = [];
                 // Fly to the locations on the tour list
                 locationsInTour.forEach(function(feature) {
                       promise = promise.then(function () {
@@ -132,21 +134,30 @@
                           return new Promise(function (resolve) {
                               if (remainingLocations === 0) {
                                   self.isTourRunning = false;
+                                  removeMarkers();
                               }
                               setTimeout(resolve, interval);
                           });
                       });
                 });
                 function animateCircle(layer, feature){
-                  const markerColor = map.getPaintProperty(layer, 'circle-color');
-                  const element = document.createElement('div')
-                  element.className = 'marker';
+                  let markerColor = map.getPaintProperty(layer, 'circle-color');
 
                   new mapboxgl.Marker({
                     "color": markerColor
                   })
                     .setLngLat(feature.geometry.coordinates)
                     .addTo(map);
+                    currentMarkers.push(markerElement);
+                }
+                function removeMarkers(){
+                  var test = document.querySelectorAll(".mapboxgl-marker");
+                  setTimeout(function(){
+                    for(let i = 0; i < test.length; i++){
+                      test[i].parentNode.removeChild(test[i]);
+                    }
+                  }, 3000);
+                  
                 }
             },
         }
@@ -178,5 +189,13 @@
         flex: 1;
       }
     }
+  }
+</style>
+<style>
+  .marker{
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    background: red;
   }
 </style>

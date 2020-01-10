@@ -121,7 +121,7 @@
                 let promise = Promise.resolve();
                 let locationsInTour = this.getLocationsInTour(tourType);
                 let remainingLocations = locationsInTour.length;
-
+                let currentMarkers = [];
                 // Fly to the locations on the tour list
                 locationsInTour.forEach(function(feature) {
                       promise = promise.then(function () {
@@ -139,20 +139,32 @@
                 });
                 function animateCircle(layer, feature){
                   let markerColor = map.getPaintProperty(layer, 'circle-color');
+                  let popup = new mapboxgl.Popup({
+                      closeOnClick: false,
+                      closeButton: false
+                    }
+                  ).setText(feature.properties.site_id);
 
                   new mapboxgl.Marker({
                     "color": markerColor
                   })
                     .setLngLat(feature.geometry.coordinates)
-                    .addTo(map);
+                    .setPopup(popup)
+                    .addTo(map)
+                    .togglePopup();
                 }
                 function removeMarkers(){
                   let markerElements = document.querySelectorAll(".mapboxgl-marker");
+                  let popupElements = document.querySelectorAll(".mapboxgl-popup");
                   setTimeout(function(){
-                      markerElements.forEach(function(markerElement) {
-                          markerElement.parentNode.removeChild(markerElement)
-                      })
+                    deleteElement(markerElements);
+                    deleteElement(popupElements);
                   }, 3000); //based on the duration for the last enhanced gage location duration
+                }
+                function deleteElement(elements){
+                  elements.forEach(function(element) {
+                    element.parentNode.removeChild(element);
+                  })
                 }
             }
         }

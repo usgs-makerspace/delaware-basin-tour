@@ -121,7 +121,6 @@
                 let promise = Promise.resolve();
                 let locationsInTour = this.getLocationsInTour(tourType);
                 let remainingLocations = locationsInTour.length;
-                let markerElement;
                 let currentMarkers = [];
                 // Fly to the locations on the tour list
                 locationsInTour.forEach(function(feature) {
@@ -148,15 +147,14 @@
                   })
                     .setLngLat(feature.geometry.coordinates)
                     .addTo(map);
-                    currentMarkers.push(markerElement);
                 }
                 function removeMarkers(){
-                  var test = document.querySelectorAll(".mapboxgl-marker");
+                  var markerElement = document.querySelectorAll(".mapboxgl-marker");
                   setTimeout(function(){
-                    for(let i = 0; i < test.length; i++){
-                      test[i].parentNode.removeChild(test[i]);
+                    for(let i = 0; i < markerElement.length; i++){
+                      markerElement[i].parentNode.removeChild(markerElement[i]);
                     }
-                  }, 3000);
+                  }, 3000); //based on the duration for the last enhanced gage location duration
                   
                 }
             },

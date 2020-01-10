@@ -110,7 +110,7 @@ export default {
             "title": "Monitoring Location Cameras",
             "content": "Cameras can be used as non-contact sensors monitoring stream flow, water level, ice cover, suspended-sediment concentration, turbidity, harmful algal blooms, channel erosion, and other conditions at monitoring locations.",
             "extendedContent": true,
-            "tourType": "camera",
+            "tourType": "cameras",
             "layersToHide": ["monitoring-location-clusters", "monitoring-location-cluster-count",  "monitoring-location-unclustered-point", "specific_conductance", "enhanced_gage", "temperature", "new_gage"],
             "hiddenLayersToShow": []
         },

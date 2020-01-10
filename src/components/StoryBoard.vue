@@ -12,7 +12,7 @@
         <div
           v-show="!isTourRunning"
           @click="moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.layersToHide, chapter.hiddenLayersToShow)"
-          @mouseover="moveToLocation(chapter.flyToCommands, chapter.id, toggleLayerVisibility(chapter.layersToHide, chapter.hiddenLayersToShow))"
+          @mouseover="moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.layersToHide, chapter.hiddenLayersToShow)"
         >
           <h3>{{ chapter.title }}</h3>
           <p>
@@ -58,8 +58,7 @@
                 mapStory: mapStory,
                 isTourRunning: false,
                 layersToUnhide: [],
-                layersToUnshow: [],
-
+                layersToUnshow: []
             };
         },
         methods: {

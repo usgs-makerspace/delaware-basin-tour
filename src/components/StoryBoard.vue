@@ -114,7 +114,6 @@
                 this.layersToUnshow = layersToShow;
             },
             runTour(tourType) {
-                console.log('this is tour ', tourType)
                 let self = this; // create an 'alias' for 'this', so that we can access 'this' inside deeper scopes
                 self.isTourRunning = true;
                 let map = this.$store.map;
@@ -122,13 +121,11 @@
                 let promise = Promise.resolve();
                 let locationsInTour = this.getLocationsInTour(tourType);
                 let remainingLocations = locationsInTour.length;
-                let currentMarkers = [];
+
                 // Fly to the locations on the tour list
                 locationsInTour.forEach(function(feature) {
                       promise = promise.then(function () {
-                          console.log('number of stops left in tour ' + remainingLocations)
                           remainingLocations = remainingLocations - 1;
-                          console.log('flying to ', feature.properties)
                           map.flyTo(feature.properties.flyToCommands);
                           animateCircle(tourType, feature);
                           return new Promise(function (resolve) {
@@ -150,15 +147,14 @@
                     .addTo(map);
                 }
                 function removeMarkers(){
-                  var markerElement = document.querySelectorAll(".mapboxgl-marker");
+                  let markerElements = document.querySelectorAll(".mapboxgl-marker");
                   setTimeout(function(){
-                    for(let i = 0; i < markerElement.length; i++){
-                      markerElement[i].parentNode.removeChild(markerElement[i]);
-                    }
+                      markerElements.forEach(function(markerElement) {
+                          markerElement.parentNode.removeChild(markerElement)
+                      })
                   }, 3000); //based on the duration for the last enhanced gage location duration
-                  
                 }
-            },
+            }
         }
     };
 </script>

@@ -74,7 +74,7 @@ export default {
             "extendedContent": true,
             "tourType": "new_gage",
             "layersToHide": ["monitoring-location-clusters", "monitoring-location-cluster-count",  "monitoring-location-unclustered-point"],
-            "hiddenLayersToShow": ["site names"]
+            "hiddenLayersToShow": []
         },
         {
             "id": "enhanced-monitoring-systems",
@@ -171,6 +171,6 @@ export default {
             "tourType": "none",
             "layersToHide": [],
             "hiddenLayersToShow": []
-        },
+        }
     ]
 };

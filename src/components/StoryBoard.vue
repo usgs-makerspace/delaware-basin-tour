@@ -125,9 +125,7 @@
                 // Fly to the locations on the tour list
                 locationsInTour.forEach(function(feature) {
                       promise = promise.then(function () {
-                          console.log('number of stops left in tour ' + remainingLocations)
                           remainingLocations = remainingLocations - 1;
-                          console.log('flying to ', feature.properties)
                           map.flyTo(feature.properties.flyToCommands);
                           animateCircle(tourType, feature);
                           return new Promise(function (resolve) {
@@ -141,21 +139,32 @@
                 });
                 function animateCircle(layer, feature){
                   let markerColor = map.getPaintProperty(layer, 'circle-color');
+                  let popup = new mapboxgl.Popup({ 
+                      closeOnClick: false, 
+                      closeButton: false
+                    }
+                  ).setText(feature.properties.site_id);
 
                   new mapboxgl.Marker({
                     "color": markerColor
                   })
                     .setLngLat(feature.geometry.coordinates)
-                    .addTo(map);
+                    .setPopup(popup)
+                    .addTo(map)
+                    .togglePopup();
                 }
                 function removeMarkers(){
-                  var markerElement = document.querySelectorAll(".mapboxgl-marker");
+                  let markerElements = document.querySelectorAll(".mapboxgl-marker");
+                  let popupElements = document.querySelectorAll(".mapboxgl-popup");
                   setTimeout(function(){
-                    for(let i = 0; i < markerElement.length; i++){
-                      markerElement[i].parentNode.removeChild(markerElement[i]);
-                    }
+                    deleteElement(markerElements);
+                    deleteElement(popupElements);
                   }, 3000); //based on the duration for the last enhanced gage location duration
-                  
+                }
+                function deleteElement(elements){
+                  elements.forEach(function(element) {
+                    element.parentNode.removeChild(element);
+                  })
                 }
             },
         }

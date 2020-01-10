@@ -122,6 +122,7 @@
                 let promise = Promise.resolve();
                 let locationsInTour = this.getLocationsInTour(tourType);
                 let remainingLocations = locationsInTour.length;
+                let currentMarkers = [];
                 // Fly to the locations on the tour list
                 locationsInTour.forEach(function(feature) {
                       promise = promise.then(function () {
@@ -133,21 +134,29 @@
                           return new Promise(function (resolve) {
                               if (remainingLocations === 0) {
                                   self.isTourRunning = false;
+                                  removeMarkers();
                               }
                               setTimeout(resolve, interval);
                           });
                       });
                 });
                 function animateCircle(layer, feature){
-                  const markerColor = map.getPaintProperty(layer, 'circle-color');
-                  const element = document.createElement('div')
-                  element.className = 'marker';
+                  let markerColor = map.getPaintProperty(layer, 'circle-color');
 
                   new mapboxgl.Marker({
                     "color": markerColor
                   })
                     .setLngLat(feature.geometry.coordinates)
                     .addTo(map);
+                }
+                function removeMarkers(){
+                  var markerElement = document.querySelectorAll(".mapboxgl-marker");
+                  setTimeout(function(){
+                    for(let i = 0; i < markerElement.length; i++){
+                      markerElement[i].parentNode.removeChild(markerElement[i]);
+                    }
+                  }, 3000); //based on the duration for the last enhanced gage location duration
+                  
                 }
             },
         }

@@ -16,7 +16,7 @@ export default {
                     "flyToCommands": {
                         "bearing": 0,
                         "center": [-74.6536111, 42.1447222],
-                        "zoom": 11,
+                        "zoom": 10,
                         "pitch": 180,
                         "speed": 1,
                         "duration": 1000,
@@ -42,7 +42,7 @@ export default {
                     "flyToCommands": {
                         "bearing": 0,
                         "center": [-75.14002778, 42.1661111],
-                        "zoom": 11,
+                        "zoom": 10,
                         "pitch": 180,
                         "speed": 1,
                           "duration": 5000,
@@ -71,7 +71,7 @@ export default {
                     "flyToCommands": {
                         "bearing": 0,
                         "center": [-75.38352778, 42.00302778],
-                        "zoom": 11,
+                        "zoom": 10,
                         "pitch": 180,
                         "speed": 1,
                         
@@ -101,7 +101,7 @@ export default {
                     "flyToCommands": {
                         "bearing": 0,
                         "center": [-75.1751944, 41.97355556],
-                        "zoom": 11,
+                        "zoom": 10,
                         "pitch": 180,
                         "speed": 1,
                         
@@ -131,7 +131,7 @@ export default {
                     "flyToCommands": {
                         "bearing": 0,
                         "center": [-74.9796667, 41.94641667],
-                        "zoom": 11,
+                        "zoom": 10,
                         "pitch": 180,
                         "speed": 1,
                         
@@ -161,7 +161,7 @@ export default {
                     "flyToCommands": {
                         "bearing": 0,
                         "center": [-75.21375, 41.86727778],
-                        "zoom": 11,
+                        "zoom": 10,
                         "pitch": 180,
                         "speed": 1,
                         
@@ -191,7 +191,7 @@ export default {
                     "flyToCommands": {
                         "bearing": 0,
                         "center": [-75.0574167, 41.75675],
-                        "zoom": 11,
+                        "zoom": 10,
                         "pitch": 180,
                         "speed": 1,
                         
@@ -221,7 +221,7 @@ export default {
                     "flyToCommands": {
                         "bearing": 0,
                         "center": [-75.1721186, 41.4762002],
-                        "zoom": 11,
+                        "zoom": 10,
                         "pitch": 180,
                         "speed": 1,
                         
@@ -251,7 +251,7 @@ export default {
                     "flyToCommands": {
                         "bearing": 0,
                         "center": [-74.9232228, 41.4556462],
-                        "zoom": 11,
+                        "zoom": 10,
                         "pitch": 180,
                         "speed": 1,
                         
@@ -281,7 +281,7 @@ export default {
                     "flyToCommands": {
                         "bearing": 0,
                         "center": [-74.6019444, 41.4411111],
-                        "zoom": 11,
+                        "zoom": 10,
                         "pitch": 180,
                         "speed": 1,
                         
@@ -311,7 +311,7 @@ export default {
                     "flyToCommands": {
                         "bearing": 0,
                         "center": [-74.6975, 41.37055556],
-                        "zoom": 11,
+                        "zoom": 10,
                         "pitch": 180,
                         "speed": 1,
                         
@@ -341,7 +341,7 @@ export default {
                     "flyToCommands": {
                         "bearing": 0,
                         "center": [-74.79527778, 41.30916667],
-                        "zoom": 11,
+                        "zoom": 10,
                         "pitch": 180,
                         "speed": 1,
                         
@@ -371,7 +371,7 @@ export default {
                     "flyToCommands": {
                         "bearing": 0,
                         "center": [-75.0825, 40.82638889],
-                        "zoom": 11,
+                        "zoom": 10,
                         "pitch": 180,
                         "speed": 1,
                         
@@ -401,7 +401,7 @@ export default {
                     "flyToCommands": {
                         "bearing": 0,
                         "center": [-75.1897222, 40.5947222],
-                        "zoom": 11,
+                        "zoom": 10,
                         "pitch": 180,
                         "speed": 1,
                         
@@ -431,7 +431,7 @@ export default {
                     "flyToCommands": {
                         "bearing": 0,
                         "center": [-75.065, 40.5261111],
-                        "zoom": 11,
+                        "zoom": 10,
                         "pitch": 180,
                         "speed": 1,
                         
@@ -461,7 +461,7 @@ export default {
                     "flyToCommands": {
                         "bearing": 0,
                         "center": [-74.94888889, 40.3647222],
-                        "zoom": 11,
+                        "zoom": 10,
                         "pitch": 180,
                         "speed": 1,
                         
@@ -491,7 +491,7 @@ export default {
                     "flyToCommands": {
                         "bearing": 0,
                         "center": [-74.7780556, 40.22166667],
-                        "zoom": 11,
+                        "zoom": 10,
                         "pitch": 180,
                         "speed": 1,
                         
@@ -521,7 +521,7 @@ export default {
                     "flyToCommands": {
                         "bearing": 0,
                         "center": [-74.9568342, 40.1739982],
-                        "zoom": 11,
+                        "zoom": 10,
                         "pitch": 180,
                         "speed": 1,
                         
@@ -551,7 +551,7 @@ export default {
                     "flyToCommands": {
                         "bearing": 0,
                         "center": [-75.0968411, 40.0159454],
-                        "zoom": 11,
+                        "zoom": 10,
                         "pitch": 180,
                         "speed": 1,
                         
@@ -581,7 +581,7 @@ export default {
                     "flyToCommands": {
                         "bearing": 0,
                         "center": [-75.1885123, 39.9678905],
-                        "zoom": 11,
+                        "zoom": 10,
                         "pitch": 180,
                         "speed": 1,
                         
@@ -611,7 +611,7 @@ export default {
                     "flyToCommands": {
                         "bearing": 0,
                         "center": [-75.5932623, 39.8698328],
-                        "zoom": 11,
+                        "zoom": 10,
                         "pitch": 180,
                         "speed": 1,
                         
@@ -641,7 +641,7 @@ export default {
                     "flyToCommands": {
                         "bearing": 0,
                         "center": [-75.6365, 39.76280556],
-                        "zoom": 11,
+                        "zoom": 10,
                         "pitch": 180,
                         "speed": 1,
                         
@@ -671,7 +671,7 @@ export default {
                     "flyToCommands": {
                         "bearing": 0,
                         "center": [-75.67502778, 39.6992222],
-                        "zoom": 11,
+                        "zoom": 10,
                         "pitch": 180,
                         "speed": 1,
                         
@@ -701,7 +701,7 @@ export default {
                     "flyToCommands": {
                         "bearing": 0,
                         "center": [-75.74875, 39.6892222],
-                        "zoom": 11,
+                        "zoom": 10,
                         "pitch": 180,
                         "speed": 1,
                         
@@ -731,7 +731,7 @@ export default {
                     "flyToCommands": {
                         "bearing": 0,
                         "center": [-75.451567, 40.22954725],
-                        "zoom": 11,
+                        "zoom": 10,
                         "pitch": 180,
                         "speed": 1,
                         

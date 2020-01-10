@@ -189,11 +189,3 @@
     }
   }
 </style>
-<style>
-  .marker{
-    width: 30px;
-    height: 30px;
-    border-radius: 15px;
-    background: red;
-  }
-</style>

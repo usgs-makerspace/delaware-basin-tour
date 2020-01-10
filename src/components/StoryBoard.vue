@@ -114,6 +114,7 @@
                 this.layersToUnshow = layersToShow;
             },
             runTour(tourType) {
+                console.log('this is tour ', tourType)
                 let self = this; // create an 'alias' for 'this', so that we can access 'this' inside deeper scopes
                 self.isTourRunning = true;
                 let map = this.$store.map;

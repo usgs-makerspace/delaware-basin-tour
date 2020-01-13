@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="viz_container">
     <LoadingScreen
       v-if="!isInternetExplorer"
       :is-loading="isLoading"
@@ -13,50 +13,53 @@
       </div>
     </div>
     <InternetExplorerPage v-if="isInternetExplorer" />
-    <div
-      v-if="!isInternetExplorer"
-      id="mapContainer"
-    >
-      <div id="map-section">
-        <MglMap
-          id="mapgl"
-          :container="container"
-          :map-style="mapStyle"
-          :zoom="zoom"
-          :min-zoom="minZoom"
-          :max-zoom="maxZoom"
-          :center="center"
-          :pitch="pitch"
-          :bearing="bearing"
-          :pitch-with-rotate="false"
-          :drag-rotate="false"
-          :touch-zoom-rotate="false"
-          :max-bounds="maxBounds"
-          @load="onMapLoaded"
-        >
-          <MglAttributionControl
-            position="bottom-right"
-            :compact="false"
-            custom-attribution="© <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
-          />
+    <div id="viz_sections">
+      <div
+        v-if="!isInternetExplorer"
+        id="mapContainer"
+      >
+        <div id="map-section">
+          <MglMap
+            id="mapgl"
+            :container="container"
+            :map-style="mapStyle"
+            :zoom="zoom"
+            :min-zoom="minZoom"
+            :max-zoom="maxZoom"
+            :center="center"
+            :pitch="pitch"
+            :bearing="bearing"
+            :pitch-with-rotate="false"
+            :drag-rotate="false"
+            :touch-zoom-rotate="false"
+            :max-bounds="maxBounds"
+            @load="onMapLoaded"
+          >
+            <MglAttributionControl
+              position="bottom-right"
+              :compact="false"
+              custom-attribution="© <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
+            />
 
-          <MglNavigationControl
-            position="top-right"
-            :show-compass="false"
-          />
-          <QuestionControl />
-          <MglScaleControl
-            position="bottom-right"
-            unit="imperial"
-          />
-          <MglFullscreenControl position="bottom-right" />
-          <MglGeolocateControl position="bottom-right" />
-        </MglMap>
+            <MglNavigationControl
+              position="top-right"
+              :show-compass="false"
+            />
+            <QuestionControl />
+            <MglScaleControl
+              position="bottom-right"
+              unit="imperial"
+            />
+            <MglFullscreenControl position="bottom-right" />
+            <MglGeolocateControl position="bottom-right" />
+          </MglMap>
+        </div>
       </div>
       <div id="story-section">
         <StoryBoard />
       </div>
     </div>
+    
     <!--The next div contains information to show the current zoom level of the map. This will only show on the
           development version of the application. To find the code controlling this, search for 'zoom level display' -->
     <div id="zoom-level-div" />
@@ -296,19 +299,33 @@
       color: #fff;
     }
   }
+  #viz_container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+  #viz_sections{
+    flex: 1;
+    display: flex;
+    /*Stops Story Section from being full heigh tot show all of its content*/
+    max-height: 79vh;
+  }
   #mapContainer {
     position: relative;
     min-height: 200px;
-    max-height: 1080px;
     display: flex;
+    flex: 3;
     #map-section {
-      flex: 3;
-    }
-    #story-section {
       flex: 1;
-      overflow-y: auto;
     }
   }
+  #story-section {
+      display: flex;
+      flex: 1;
+      min-height: 100px;
+      overflow: hidden;
+      background: #fafafa;
+    }
 </style>
 
 

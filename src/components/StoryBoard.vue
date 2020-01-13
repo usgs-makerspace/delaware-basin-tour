@@ -1,6 +1,7 @@
 <template>
   <div id="story-chapters-container">
-    <div
+      <div id="chapters">
+        <div
       v-for="chapter in mapStory.chapters"
       :key="chapter.id"
       class="features"
@@ -40,6 +41,7 @@
         </div>
       </section>
     </div>
+      </div>
   </div>
 </template>
 <script>
@@ -139,8 +141,8 @@
                 });
                 function animateCircle(layer, feature){
                   let markerColor = map.getPaintProperty(layer, 'circle-color');
-                  let popup = new mapboxgl.Popup({
-                      closeOnClick: false,
+                  let popup = new mapboxgl.Popup({ 
+                      closeOnClick: false, 
                       closeButton: false
                     }
                   ).setText(feature.properties.site_id);
@@ -166,14 +168,30 @@
                     element.parentNode.removeChild(element);
                   })
                 }
-            }
+            },
         }
     };
 </script>
 <style scoped lang="scss">
+
+  #story-chapters-container{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #chapters{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    /* for Firefox */
+    min-height: 0;
+  }
+
   .features {
     font-family: sans-serif;
-    background-color: #fafafa;
+    flex-grow: 1;
 
     section {
       padding: 25px 50px;

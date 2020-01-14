@@ -216,7 +216,7 @@
                     "type": "circle",
                     "paint": {
                         "circle-radius": 3,
-                        "circle-color": "pink"
+                        "circle-color": "black"
                     }
                 });
             }

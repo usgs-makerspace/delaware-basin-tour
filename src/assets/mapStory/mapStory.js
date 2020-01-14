@@ -69,7 +69,7 @@ export default {
             "content": "In 2018, seventeen new monitoring systems were added to the Delaware River Basin region to address monitoring gaps to improve the quantification of the amount of water in the headwater and tributary streams and to track the salt front in the mainstem",
             "extendedContent": true,
             "tourType": "new_gage",
-            "layersToHide": ["monitoring-location-clusters", "monitoring-location-cluster-count",  "monitoring-location-unclustered-point"],
+            "layersToHide": ["monitoring-location-clusters", "monitoring-location-cluster-count",  "monitoring-location-unclustered-point", "cameras", "specific_conductance", "enhanced_gage", "temperature"],
             "hiddenLayersToShow": []
         },
         {

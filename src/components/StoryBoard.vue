@@ -146,7 +146,8 @@
                       closeOnClick: false, 
                       closeButton: false
                     }
-                  ).setHTML('<div>' + feature.properties.site_id + '</div><div><img src="' + image + '"/></div>');
+                  );
+                  tourType !== 'cameras' ? popup.setText(feature.properties.site_id) : popup.setHTML('<div>' + feature.properties.site_id + '</div><div><img src="' + image + '"/></div>');
 
                   new mapboxgl.Marker({
                     "color": markerColor

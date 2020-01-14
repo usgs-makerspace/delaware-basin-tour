@@ -52,6 +52,7 @@
     import delawareBasinEnhancedLocations from "../assets/monitoring_locations/delawareBasinEnhancedLocations";
     import delawareBasinNewLocations from "../assets/monitoring_locations/delawareBasinNewLocations";
     import delawareBasinTemperatureLocations from "../assets/monitoring_locations/delawareBasinTemperatureLocations";
+    import image from "../images/gages/01581960_gage.jpg";
 
     export default {
         name: "StoryBoard",
@@ -145,7 +146,7 @@
                       closeOnClick: false, 
                       closeButton: false
                     }
-                  ).setText(feature.properties.site_id);
+                  ).setHTML('<div>' + feature.properties.site_id + '</div><div><img src="' + image + '"/></div>');
 
                   new mapboxgl.Marker({
                     "color": markerColor
@@ -213,6 +214,16 @@
       button {
         flex: 1;
       }
+    }
+  }
+</style>
+<style lang="scss">
+  .mapboxgl-popup-content{
+    text-align: center;
+    img{
+      margin-top: 5px;
+      width: 150px;
+      height: auto;
     }
   }
 </style>

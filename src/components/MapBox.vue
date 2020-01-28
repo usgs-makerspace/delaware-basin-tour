@@ -232,8 +232,8 @@
                     "source": "delawareBasinNewLocations",
                     "type": "circle",
                     "paint": {
-                        "circle-radius": 1,
-                        "circle-color": "black"
+                        "circle-radius": 5,
+                        "circle-color": "#2f44ad"
                     }
                 })
             }

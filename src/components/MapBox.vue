@@ -85,6 +85,8 @@
     import delawareBasinEnhancedLocations from "../assets/monitoring_locations/delawareBasinEnhancedLocations";
     import delawareBasinNewLocations from "../assets/monitoring_locations/delawareBasinNewLocations";
     import delawareBasinTemperatureLocations from "../assets/monitoring_locations/delawareBasinTemperatureLocations";
+    import delawareBasinNextGenerationLocationsSorted
+        from "../assets/monitoring_locations/delawareBasinNextGenerationLocationsSorted";
 
     export default {
         name: "MapBox",
@@ -168,6 +170,11 @@
                     data: delawareBasinNewLocations.delawareBasinNewLocations
                 });
 
+                this.map.addSource('delawareBasinAllNewEnhancedLocations', {
+                    type: 'geojson',
+                    data: delawareBasinNextGenerationLocationsSorted.delawareBasinNewGenerationsLocations
+                });
+
 
 
                 this.map.addLayer({
@@ -219,6 +226,16 @@
                         "circle-color": "black"
                     }
                 });
+
+                this.map.addLayer({
+                    "id": "all_locations",
+                    "source": "delawareBasinNewLocations",
+                    "type": "circle",
+                    "paint": {
+                        "circle-radius": 1,
+                        "circle-color": "black"
+                    }
+                })
             }
         }
     };

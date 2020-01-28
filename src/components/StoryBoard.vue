@@ -53,7 +53,7 @@
     import delawareBasinNewLocations from "../assets/monitoring_locations/delawareBasinNewLocations";
     import delawareBasinTemperatureLocations from "../assets/monitoring_locations/delawareBasinTemperatureLocations";
     import delawareBasinNextGenerationLocationsSorted from "../assets/monitoring_locations/delawareBasinNextGenerationLocationsSorted";
-    import image from "../images/icons/PNG/COLORED/temperature.png";
+    import image from "../images/gages/01581960_gage.jpg";
 
 
     export default {

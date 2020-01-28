@@ -1,47 +1,47 @@
 <template>
   <div id="story-chapters-container">
-      <div id="chapters">
-        <div
-      v-for="chapter in mapStory.chapters"
-      :key="chapter.id"
-      class="features"
-    >
-      <section
-        :id="chapter.id"
-        :class="chapter.class"
+    <div id="chapters">
+      <div
+        v-for="chapter in mapStory.chapters"
+        :key="chapter.id"
+        class="features"
       >
-        <div
-          v-show="!isTourRunning"
-          @click="moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.layersToHide, chapter.hiddenLayersToShow)"
-          @mouseover="moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.layersToHide, chapter.hiddenLayersToShow)"
+        <section
+          :id="chapter.id"
+          :class="chapter.class"
         >
-          <h3>{{ chapter.title }}</h3>
-          <p>
-            {{ chapter.content }}
-          </p>
-        </div>
-        <div
-          v-show="isTourRunning"
-        >
-          <h3>{{ chapter.title }}</h3>
-          <p>
-            {{ chapter.content }}
-          </p>
-        </div>
-        <div class="button-container">
-          <button
-            v-show="chapter.extendedContent && !isTourRunning"
-            @click="runTour(chapter.tourType)"
+          <div
+            v-show="!isTourRunning"
+            @click="moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.layersToHide, chapter.hiddenLayersToShow)"
+            @mouseover="moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.layersToHide, chapter.hiddenLayersToShow)"
           >
-            take a tour
-          </button>
-          <button v-show="chapter.extendedContent && isTourRunning">
-            Tour is Running
-          </button>
-        </div>
-      </section>
-    </div>
+            <h3>{{ chapter.title }}</h3>
+            <p>
+              {{ chapter.content }}
+            </p>
+          </div>
+          <div
+            v-show="isTourRunning"
+          >
+            <h3>{{ chapter.title }}</h3>
+            <p>
+              {{ chapter.content }}
+            </p>
+          </div>
+          <div class="button-container">
+            <button
+              v-show="chapter.extendedContent && !isTourRunning"
+              @click="runTour(chapter.tourType)"
+            >
+              take a tour
+            </button>
+            <button v-show="chapter.extendedContent && isTourRunning">
+              Tour is Running
+            </button>
+          </div>
+        </section>
       </div>
+    </div>
   </div>
 </template>
 <script>
@@ -116,61 +116,56 @@
                 this.layersToUnhide = layersToHide;
                 this.layersToUnshow = layersToShow;
             },
+            removeElements(ListOfElements) {
+                ListOfElements.forEach(function(element) {
+                    element.parentNode.removeChild(element)
+                });
+            },
+            addCustomMarker(layer, feature){
+                let map = this.$store.map;
+                this.removeElements(document.querySelectorAll('.mapboxgl-popup')); // Remove marker before adding a new one.
+                let popup = new mapboxgl.Popup({
+                            closeOnClick: false,
+                            closeButton: false
+                        }
+                );
+                layer !== 'cameras' ? popup.setText(feature.properties.site_id) : popup.setHTML('<div>' + feature.properties.site_id + '</div><div><img alt="sample camera image" src="' + image + '"/></div>');
+
+                new mapboxgl.Marker({
+                    "color": map.getPaintProperty(layer, 'circle-color') // Make the custom marker color the same as the 'dot/circle' color from the layer
+                })
+                        .setLngLat(feature.geometry.coordinates)
+                        .setPopup(popup)
+                        .addTo(map)
+                        .togglePopup();
+            },
             runTour(tourType) {
                 let self = this; // create an 'alias' for 'this', so that we can access 'this' inside deeper scopes
                 self.isTourRunning = true;
                 let map = this.$store.map;
                 let interval = 1000;
                 let promise = Promise.resolve();
-                let locationsInTour = this.getLocationsInTour(tourType);
+                let locationsInTour = self.getLocationsInTour(tourType);
                 let remainingLocations = locationsInTour.length;
-                let currentMarkers = [];
                 // Fly to the locations on the tour list
                 locationsInTour.forEach(function(feature) {
                       promise = promise.then(function () {
                           remainingLocations = remainingLocations - 1;
                           map.flyTo(feature.properties.flyToCommands);
-                          animateCircle(tourType, feature);
+                          self.addCustomMarker(tourType, feature);
                           return new Promise(function (resolve) {
                               if (remainingLocations === 0) {
                                   self.isTourRunning = false;
-                                  removeMarkers();
+                                  setTimeout(function () { // Wait a little after the tour, then remove the any markers and popups.
+                                      self.removeElements(document.querySelectorAll(".mapboxgl-marker"));
+                                      self.removeElements(document.querySelectorAll(".mapboxgl-popup"));
+                                  }, 3000);
                               }
                               setTimeout(resolve, interval);
                           });
                       });
                 });
-                function animateCircle(layer, feature){
-                  let markerColor = map.getPaintProperty(layer, 'circle-color');
-                  let popup = new mapboxgl.Popup({ 
-                      closeOnClick: false, 
-                      closeButton: false
-                    }
-                  );
-                  tourType !== 'cameras' ? popup.setText(feature.properties.site_id) : popup.setHTML('<div>' + feature.properties.site_id + '</div><div><img src="' + image + '"/></div>');
-
-                  new mapboxgl.Marker({
-                    "color": markerColor
-                  })
-                    .setLngLat(feature.geometry.coordinates)
-                    .setPopup(popup)
-                    .addTo(map)
-                    .togglePopup();
-                }
-                function removeMarkers(){
-                  let markerElements = document.querySelectorAll(".mapboxgl-marker");
-                  let popupElements = document.querySelectorAll(".mapboxgl-popup");
-                  setTimeout(function(){
-                    deleteElement(markerElements);
-                    deleteElement(popupElements);
-                  }, 3000); //based on the duration for the last enhanced gage location duration
-                }
-                function deleteElement(elements){
-                  elements.forEach(function(element) {
-                    element.parentNode.removeChild(element);
-                  })
-                }
-            },
+            }
         }
     };
 </script>

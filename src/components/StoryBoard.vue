@@ -53,7 +53,7 @@
     import delawareBasinNewLocations from "../assets/monitoring_locations/delawareBasinNewLocations";
     import delawareBasinTemperatureLocations from "../assets/monitoring_locations/delawareBasinTemperatureLocations";
     import delawareBasinNextGenerationLocationsSorted from "../assets/monitoring_locations/delawareBasinNextGenerationLocationsSorted";
-    import image from "../images/gages/01581960_gage.jpg";
+    import image from "../images/icons/PNG/COLORED/temperature.png";
 
 
     export default {
@@ -132,7 +132,23 @@
                             closeButton: false
                         }
                 );
-                layer !== 'cameras' ? popup.setText(feature.properties.site_id) : popup.setHTML('<div>' + feature.properties.site_id + '</div><div><img alt="sample camera image" src="' + image + '"/></div>');
+                let icons = "";
+                const gageTypes = feature.properties;
+                const keys = Object.keys(gageTypes);
+                const filtered = keys.filter((key) => {
+                  if(gageTypes[key] === true){
+                    return gageTypes[key];
+                  }
+                });
+                //Create Dynamic Icons based on the filtered object keys
+                filtered.forEach(function(d){
+                  //Need this for webpack to find the icons
+                  let iconURL = require('../images/icons/PNG/COLORED/' + d + '.png');
+                  //icons stores the multiple img tags to be fed to the popup
+                  icons += "<img src='" + iconURL + "'/> ";
+                });
+                
+                layer !== 'all_locations' ? popup.setText(feature.properties.site_id) : popup.setHTML('<div>' + feature.properties.site_id + '</div><div id="iconContainer">' + icons +'</div>');
 
                 new mapboxgl.Marker({
                     "color": map.getPaintProperty(layer, 'circle-color') // Make the custom marker color the same as the 'dot/circle' color from the layer
@@ -173,7 +189,6 @@
     };
 </script>
 <style scoped lang="scss">
-
   #story-chapters-container{
     flex: 1;
     display: flex;
@@ -217,6 +232,16 @@
   }
 </style>
 <style lang="scss">
+  #iconContainer{
+    display: flex;
+    justify-content: center;
+
+    img{
+      height: 40px;
+      width: 40px;
+      margin-right: 5px;
+    }
+  }
   .mapboxgl-popup-content {
     text-align: center;
 

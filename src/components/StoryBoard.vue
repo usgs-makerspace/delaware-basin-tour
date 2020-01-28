@@ -220,12 +220,6 @@
   .mapboxgl-popup-content {
     text-align: center;
 
-    embed {
-      margin-top: 5px;
-      width: 150px;
-      height: auto;
-    }
-
     img {
       margin-top: 5px;
       width: 150px;

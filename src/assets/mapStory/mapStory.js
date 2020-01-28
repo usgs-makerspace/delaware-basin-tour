@@ -163,8 +163,8 @@ export default {
             "title": "Basin Summary",
             "content": "The Basin has experienced periods when flows persist above or below the long-term average, such as the dry period of the 1960s and the wet periods of the 1970s and mid-2000s. Freshwater inflows impact salinity in the estuary, which affects the availability of estuary water for drinking water and industrial uses. The bjective at Trenton appears to be keeping the salt front below river mile (RM) 98, the salinity\n" +
                     "management goal. However, sea level rise may require new management measures, operations plans and/or additional water to maintain control of salinity.",
-            "extendedContent": false,
-            "tourType": "none",
+            "extendedContent": true,
+            "tourType": "all_locations",
             "layersToHide": ["monitoring-location-clusters", "monitoring-location-cluster-count"],
             "hiddenLayersToShow": []
         }

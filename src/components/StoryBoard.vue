@@ -52,7 +52,9 @@
     import delawareBasinEnhancedLocations from "../assets/monitoring_locations/delawareBasinEnhancedLocations";
     import delawareBasinNewLocations from "../assets/monitoring_locations/delawareBasinNewLocations";
     import delawareBasinTemperatureLocations from "../assets/monitoring_locations/delawareBasinTemperatureLocations";
+    import delawareBasinNextGenerationLocationsSorted from "../assets/monitoring_locations/delawareBasinNextGenerationLocationsSorted";
     import image from "../images/gages/01581960_gage.jpg";
+
 
     export default {
         name: "StoryBoard",
@@ -80,6 +82,7 @@
                     'enhanced_gage': delawareBasinEnhancedLocations.delawareBasinEnhancedLocations.features,
                     'new_gage': delawareBasinNewLocations.delawareBasinNewLocations.features,
                     'temperature': delawareBasinTemperatureLocations.delawareBasinTemperatureLocations.features,
+                    'all_locations': delawareBasinNextGenerationLocationsSorted.delawareBasinNewGenerationsLocations.features,
                     'default': []
                 };
                 return locationsInTour[tourType] || locationsInTour['default'];
@@ -214,9 +217,16 @@
   }
 </style>
 <style lang="scss">
-  .mapboxgl-popup-content{
+  .mapboxgl-popup-content {
     text-align: center;
-    img{
+
+    embed {
+      margin-top: 5px;
+      width: 150px;
+      height: auto;
+    }
+
+    img {
       margin-top: 5px;
       width: 150px;
       height: auto;

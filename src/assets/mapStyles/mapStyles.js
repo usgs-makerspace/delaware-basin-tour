@@ -45,6 +45,10 @@ export default {
                 clusterMaxZoom: 8,
                 clusterRadius: 50
             },
+            physiographic_provinces: {
+                type: 'geojson',
+                data: 'http://maptiles-prod-website.s3-us-west-2.amazonaws.com/geojson/drb_physiographic_regions.geojson'
+            }
         },
         'sprite': '',
         'glyphs': 'https://orangemug.github.io/font-glyphs/glyphs/{fontstack}/{range}.pbf',
@@ -1399,6 +1403,33 @@ export default {
                 'showButtonStreamToggle': false,
                 'showButtonProjectSpecific': true,
                 'inLegend': false
+            },
+            {
+                'id': 'physiographic_provinces',
+                'type': 'fill',
+                'source': 'physiographic_provinces',
+                'layout': {
+                    'visibility': 'visible'
+                },
+                "paint": {
+                    "fill-color": [
+                        "match",
+                        ["get", "PROVINCE"],
+                        'APPALACHIAN PLATEAUS',"rgba(184, 224, 252, 1)",
+                        'COASTAL PLAIN',"rgba(252, 184, 184, 1)",
+                        'NEW ENGLAND',"rgba(179, 252, 205, 1)",
+                        'PIEDMONT',"rgba(252, 245, 212, 1)",
+                        'VALLEY AND RIDGE', "rgba(239, 179, 252, 1)",
+                        "rgba(239, 179, 252, 1)"
+                      ],
+                      'fill-opacity': 0.8
+                },
+                'minzoom': 0,
+                'maxzoom': 23,
+                'showButtonLayerToggle': false,
+                'showButtonStreamToggle': false,
+                'showButtonProjectSpecific': false,
+                'inLegend': true
             },
         ]
     }

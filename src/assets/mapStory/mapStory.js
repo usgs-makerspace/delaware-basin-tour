@@ -149,6 +149,25 @@ export default {
             "hiddenLayersToShow": []
         },
         {
+            "id": "physiographic_provinces",
+            "class": "",
+            "flyToCommands": {
+                "duration": 9000,
+                "bearing": 0,
+                "center": [-74.9214, 40.4467],
+                "zoom": 6.5,
+                "pitch": 20,
+                "speed": 0.5,
+                "essential": true
+            },
+            "title": "Physiographic Provinces",
+            "content": "The Delaware River Basin is divided up into five physiographic provinces representing distinctive areas having common topography, rock types and structure, and geologic and geomorphic history",
+            "extendedContent": true,
+            "tourType": "physiographic_provinces",
+            "layersToHide": ["monitoring-location-clusters", "monitoring-location-cluster-count",  "monitoring-location-unclustered-point", "cameras", "enhanced_gage", "temperature", "new_gage", "specific_conductance"],
+            "hiddenLayersToShow": []
+        },
+        {
             "id": "summary",
             "class": "",
             "flyToCommands": {
@@ -165,7 +184,7 @@ export default {
                     "management goal. However, sea level rise may require new management measures, operations plans and/or additional water to maintain control of salinity.",
             "extendedContent": true,
             "tourType": "all_locations",
-            "layersToHide": ["monitoring-location-clusters", "monitoring-location-cluster-count", "monitoring-location-unclustered-point", "cameras", "specific_conductance", "enhanced_gage", "temperature", "new_gage"],
+            "layersToHide": ["monitoring-location-clusters", "monitoring-location-cluster-count", "physiographic_provinces"],
             "hiddenLayersToShow": []
         }
     ]

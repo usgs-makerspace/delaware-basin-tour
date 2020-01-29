@@ -229,11 +229,11 @@
 
                 this.map.addLayer({
                     "id": "all_locations",
-                    "source": "delawareBasinNewLocations",
+                    "source": "delawareBasinAllNewEnhancedLocations",
                     "type": "circle",
                     "paint": {
-                        "circle-radius": 1,
-                        "circle-color": "black"
+                        "circle-radius": 7,
+                        "circle-color": "#2f44ad"
                     }
                 })
             }

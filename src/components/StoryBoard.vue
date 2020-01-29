@@ -129,7 +129,8 @@
                 this.removeElements(document.querySelectorAll('.mapboxgl-popup')); // Remove marker before adding a new one.
                 let popup = new mapboxgl.Popup({
                             closeOnClick: false,
-                            closeButton: false
+                            closeButton: false,
+                            offset: [30, -35]
                         }
                 );
                 let icons = "";
@@ -242,13 +243,28 @@
       margin-right: 5px;
     }
   }
-  .mapboxgl-popup-content {
-    text-align: center;
 
-    img {
-      margin-top: 5px;
-      width: 150px;
-      height: auto;
+  .mapboxgl-popup-anchor-bottom{
+    .mapboxgl-popup-tip{
+      width: 25px;
+      height: 20px;
+      border: none;
+      margin-right: 35px;
+      background: linear-gradient(to right bottom, white 50%, transparent 50%)
     }
+  }
+
+  .mapboxgl-popup{
+
+    .mapboxgl-popup-content {
+      text-align: center;
+      border-radius: 10px;
+      img {
+        margin-top: 5px;
+        width: 150px;
+        height: auto;
+      }
+    }
+
   }
 </style>

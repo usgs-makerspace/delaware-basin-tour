@@ -5,7 +5,7 @@
   >
     <div id="loadingMessage">
       <USGSLOGO />
-      <p>National Integrated Water Availability Assessments</p>
+      <p>Delaware River Basin Fly Through</p>
       <div id="spinner" />
     </div>
   </div>

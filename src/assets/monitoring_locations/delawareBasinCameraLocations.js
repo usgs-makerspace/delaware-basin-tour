@@ -5,6 +5,38 @@ export default {
             {
                 "type": "Feature",
                 "properties": {
+                   "site_id": "USGS-01426500",
+                   "enhanced_gage": true,
+                   "new_gage": false,
+                   "camera": true,
+                   "specific_conductance": false,
+                   "temperature": false,
+                   "latitude": 42.00302778,
+                   "longitude": -75.38352778,
+                   "flyToCommands": {
+                      "bearing": 350,
+                      "center": [
+                         -75.38352778,
+                         42.00302778
+                      ],
+                      "zoom": 8,
+                      "pitch": 90,
+                      "speed": 0.2,
+                      "curve": 1,
+                      "essential": true
+                   },
+                },
+                "geometry": {
+                   "type": "Point",
+                   "coordinates": [
+                      -75.38352778,
+                      42.00302778
+                   ]
+                }
+             },
+            {
+                "type": "Feature",
+                "properties": {
                     "site_id": "USGS-01437500",
                     "latitude": 41.4411111,
                     "longitude": -74.6019444,
@@ -210,6 +242,38 @@ export default {
                     "coordinates": [-74.9568342, 40.1739982]
                 }
             },
+            {
+                "type": "Feature",
+                "properties": {
+                   "site_id": "USGS-01467200",
+                   "enhanced_gage": false,
+                   "new_gage": true,
+                   "camera": true,
+                   "specific_conductance": false,
+                   "temperature": false,
+                   "latitude": 39.95400165,
+                   "longitude": -75.1373987,
+                   "flyToCommands": {
+                      "bearing": 350,
+                      "center": [
+                         -75.1373987,
+                         39.95400165
+                      ],
+                      "zoom": 8,
+                      "pitch": 90,
+                      "speed": 0.2,
+                      "curve": 1,
+                      "essential": true
+                   },
+                },
+                "geometry": {
+                   "type": "Point",
+                   "coordinates": [
+                      -75.1373987,
+                      39.95400165
+                   ]
+                }
+             },
             {
                 "type": "Feature",
                 "properties": {

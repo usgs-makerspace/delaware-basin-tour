@@ -48,6 +48,10 @@ export default {
             physiographic_provinces: {
                 type: 'geojson',
                 data: 'http://maptiles-prod-website.s3-us-west-2.amazonaws.com/geojson/drb_physiographic_regions.geojson'
+            },
+            drb_boundary: {
+                type: 'geojson',
+                data: 'http://maptiles-prod-website.s3-us-west-2.amazonaws.com/geojson/drb_bounds_poly.json'
             }
         },
         'sprite': '',
@@ -1268,7 +1272,6 @@ export default {
                 'paint': {
                     'line-color': 'rgb(0,0,0)'
                 }
-
             },
             {
                 'filter': ['all', ['==', '$type', 'Point'],
@@ -1431,6 +1434,24 @@ export default {
                 'showButtonProjectSpecific': false,
                 'inLegend': true
             },
+            {
+                'id': 'drb_boundary',
+                'type': 'fill',
+                'source': 'drb_boundary',
+                'minzoom': 2,
+                'maxzoom': 24,
+                'layout': {
+                    'visibility': 'visible',
+                },
+                'paint': {
+                    'fill-outline-color': 'rgb(0,0,0)',
+                    'fill-opacity': 0.1
+                },
+                'showButtonLayerToggle': false,
+                'showButtonStreamToggle': false,
+                'showButtonProjectSpecific': false,
+                'inLegend': true
+            }
         ]
     }
 };

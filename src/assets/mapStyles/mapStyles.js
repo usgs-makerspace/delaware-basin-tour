@@ -1444,7 +1444,7 @@ export default {
                     'visibility': 'visible',
                 },
                 'paint': {
-                    'fill-outline-color': 'rgb(0,0,0)',
+                    'fill-color': 'rgb(0,0,0)',
                     'fill-opacity': 0.1
                 },
                 'showButtonLayerToggle': false,

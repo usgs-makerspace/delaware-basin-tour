@@ -204,8 +204,8 @@
                           map.flyTo(feature.properties.flyToCommands);
                           self.addCustomMarker(tourType, feature);
                           return new Promise(function (resolve, reject) {
-                              if (self.isTourPauseActive) {
-                                  self.indexOfPausedTour = index; // Save the index so we can restart the tour at the same place
+                              if (self.isTourPauseActive) { // If user has pressed the pause button, reject the promise and break the promise chain
+                                  self.indexOfPausedTour = index; // Save the index so we can resume the tour at the same place
                                   reject('user paused tour');
                               }
 
@@ -222,8 +222,7 @@
                           });
                       });
 
-                      promise.catch(error => {
-                          console.log(error);
+                      promise.catch(function() {   // When the pause button is pressed, reset the tour so it can be resumed or restarted.
                           self.isTourPauseActive = false;
                           self.isTourRunning = false;
                       });

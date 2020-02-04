@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+- Change to allow user to pause a tour
 - Text Bubble Popups
 - Loading Screen Text Change
 - Dynamic Icons for the All Gages Tour

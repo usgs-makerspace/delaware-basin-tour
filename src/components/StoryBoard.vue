@@ -36,8 +36,8 @@
               take a tour
             </button>
             <button
-              v-show="chapter.extendedContent && !isTourRunning && indexOfPausedTour > 0"
-              @click="runTour(chapter.tourType)"
+                v-show="chapter.extendedContent && !isTourRunning && indexOfPausedTour > 0"
+                @click="runTour(chapter.tourType)"
             >
               resume tour
             </button>
@@ -45,8 +45,8 @@
               Tour is Running
             </button>
             <button
-              v-show="chapter.extendedContent && isTourRunning"
-              @click="pauseTour"
+                v-show="chapter.extendedContent && isTourRunning"
+                @click="pauseTour"
             >
               Pause the tour
             </button>
@@ -198,7 +198,7 @@
                           map.flyTo(feature.properties.flyToCommands);
                           self.addCustomMarker(tourType, feature);
                           return new Promise(function (resolve, reject) {
-                              if (self.isTourPauseActive) {
+                              if (self.isTourPauseActive) { // If has pressed the pause button, reject the promise and break the promise chain
                                   self.indexOfPausedTour = index; // Save the index so we can restart the tour at the same place
                                   reject('user paused tour');
                               }
@@ -216,8 +216,7 @@
                           });
                       });
 
-                      promise.catch(error => {
-                          console.log(error);
+                      promise.catch(function() {   // When the pause button is pressed, reset the tour so it can be resumed or restarted.
                           self.isTourPauseActive = false;
                           self.isTourRunning = false;
                       });

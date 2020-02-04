@@ -203,7 +203,7 @@
 
                 // Fly to the locations on the tour list
                 locationsInTour.forEach(function(feature) {
-                      promise = promise.then(function () {
+                      promise = promise.then(function() {
                           remainingLocations = remainingLocations - 1;
                           map.flyTo(feature.properties.flyToCommands);
                           self.addCustomMarker(tourType, feature);

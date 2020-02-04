@@ -36,8 +36,8 @@
               take a tour
             </button>
             <button
-                v-show="chapter.extendedContent && !isTourRunning && indexOfPausedTour > 0"
-                @click="runTour(chapter.tourType)"
+              v-show="chapter.extendedContent && !isTourRunning && indexOfPausedTour > 0"
+              @click="runTour(chapter.tourType)"
             >
               resume tour
             </button>
@@ -45,8 +45,8 @@
               Tour is Running
             </button>
             <button
-                v-show="chapter.extendedContent && isTourRunning"
-                @click="pauseTour"
+              v-show="chapter.extendedContent && isTourRunning"
+              @click="pauseTour"
             >
               Pause the tour
             </button>

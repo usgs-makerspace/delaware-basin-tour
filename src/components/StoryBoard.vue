@@ -12,8 +12,8 @@
         >
           <div
             v-show="!isTourRunning"
-            @click="moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.layersToHide, chapter.hiddenLayersToShow)"
-            @mouseover="moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.layersToHide, chapter.hiddenLayersToShow)"
+            @click="moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.id, chapter.layersToHide, chapter.hiddenLayersToShow)"
+            @mouseover="moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.id, chapter.layersToHide, chapter.hiddenLayersToShow)"
           >
             <h3>{{ chapter.title }}</h3>
             <p>
@@ -30,10 +30,16 @@
           </div>
           <div class="button-container">
             <button
-              v-show="chapter.extendedContent && !isTourRunning"
+              v-show="chapter.extendedContent && !isTourRunning && indexOfPausedTour === 0"
               @click="runTour(chapter.tourType)"
             >
               take a tour
+            </button>
+            <button
+                v-show="chapter.extendedContent && !isTourRunning && indexOfPausedTour > 0"
+                @click="runTour(chapter.tourType)"
+            >
+              resume tour
             </button>
             <button v-show="chapter.extendedContent && isTourRunning">
               Tour is Running
@@ -65,11 +71,12 @@
         data() {
             return {
                 mapStory: mapStory,
+                currentlyActiveChapterId: null,
                 isTourRunning: false,
                 layersToUnhide: [],
                 layersToUnshow: [],
                 isTourPauseActive: false,
-                isFlying: false
+                indexOfPausedTour: 0
             };
         },
         methods: {
@@ -93,10 +100,18 @@
                 };
                 return locationsInTour[tourType] || locationsInTour['default'];
             },
-            toggleLayerVisibility(layersToHide, layersToShow) {
+            toggleLayerVisibility(chapterId, layersToHide, layersToShow) {
                 let self = this;
                 let map = this.$store.map;
                 let layersList = self.$store.map.getStyle().layers;
+
+                // If the user moves to a new chapter, the paused tour resets in preparation for a new tour.
+                if (chapterId !== self.currentlyActiveChapterId) {
+                    self.indexOfPausedTour = 0;
+                    self.removeElements(document.querySelectorAll('.mapboxgl-popup'));
+                    self.removeElements(document.querySelectorAll(".mapboxgl-marker"));
+                };
+
                 // Reset all layer visibility to the way it was when the page was first loaded.
                 layersList.forEach(function(layer) {
                     if (self.layersToUnhide.includes(layer.id)) {
@@ -122,8 +137,9 @@
                 });
 
                 // add the layers we changed to the component data, so that the next time the toggle is run we can reset them
-                this.layersToUnhide = layersToHide;
-                this.layersToUnshow = layersToShow;
+                self.layersToUnhide = layersToHide;
+                self.layersToUnshow = layersToShow;
+                self.currentlyActiveChapterId = chapterId;
             },
             removeElements(ListOfElements) {
                 ListOfElements.forEach(function(element) {
@@ -170,51 +186,22 @@
                 self.isTourRunning = true;
                 self.isTourPauseActive = false;
                 let map = this.$store.map;
-                // let interval = 1000;
                 let promise = Promise.resolve();
                 let locationsInTour = self.getLocationsInTour(tourType);
                 let remainingLocations = locationsInTour.length;
 
-
-                map.on('moveend', function (e) {
-
-                })
-                map.on('flystart', function(){
-                    flying = true;
-                });
-                map.on('flyend', function(){
-                    flying = false;
-                });
-
-                function fly() {
-                    // Fly to a random location by offsetting the point -74.50, 40
-                    // by up to 5 degrees.
-                    map.flyTo(locationsInTour.properties.flyToCommands);
-                    map.fire('flystart');
-                }
-
-
-
-
-
-
-
-
-
                 // Fly to the locations on the tour list
-                locationsInTour.forEach(function(feature) {
+                locationsInTour.forEach(function(feature, index) {
+                    if (index >= self.indexOfPausedTour) {
                       promise = promise.then(function() {
                           remainingLocations = remainingLocations - 1;
                           map.flyTo(feature.properties.flyToCommands);
                           self.addCustomMarker(tourType, feature);
                           return new Promise(function (resolve, reject) {
-                              console.log('i ran and pause is', self.isTourPauseActive)
                               if (self.isTourPauseActive) {
-                                  console.log('in the reject')
+                                  self.indexOfPausedTour = index; // Save the index so we can restart the tour at the same place
                                   reject('user paused tour');
                               }
-
-
 
                               if (remainingLocations === 0) {
                                   self.isTourRunning = false;
@@ -229,16 +216,18 @@
                           });
                       });
 
-                      promise.catch(error => {console.log(error)})
+                      promise.catch(error => {
+                          console.log(error);
+                          self.isTourPauseActive = false;
+                          self.isTourRunning = false;
+                      });
+                    }
                 });
             },
             pauseTour() {
-                console.log('before tourPause is ', this.isTourPauseActive)
                 if(this.isTourPauseActive === false) {
-                    console.log('here it ran ')
-                    this.isTourPauseActive = true
+                    this.isTourPauseActive = true;
                 }
-                console.log('after tourPause is ', this.isTourPauseActive)
             }
         }
     };

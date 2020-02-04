@@ -12,8 +12,8 @@
         >
           <div
             v-show="!isTourRunning"
-            @click="moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.layersToHide, chapter.hiddenLayersToShow)"
-            @mouseover="moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.layersToHide, chapter.hiddenLayersToShow)"
+            @click="moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.id, chapter.layersToHide, chapter.hiddenLayersToShow)"
+            @mouseover="moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.id, chapter.layersToHide, chapter.hiddenLayersToShow)"
           >
             <h3>{{ chapter.title }}</h3>
             <p>
@@ -30,13 +30,25 @@
           </div>
           <div class="button-container">
             <button
-              v-show="chapter.extendedContent && !isTourRunning"
+              v-show="chapter.extendedContent && !isTourRunning && indexOfPausedTour === 0"
               @click="runTour(chapter.tourType)"
             >
               take a tour
             </button>
+            <button
+                v-show="chapter.extendedContent && !isTourRunning && indexOfPausedTour > 0"
+                @click="runTour(chapter.tourType)"
+            >
+              resume tour
+            </button>
             <button v-show="chapter.extendedContent && isTourRunning">
               Tour is Running
+            </button>
+            <button
+                v-show="chapter.extendedContent && isTourRunning"
+                @click="pauseTour"
+            >
+              Pause the tour
             </button>
           </div>
         </section>
@@ -53,17 +65,18 @@
     import delawareBasinNewLocations from "../assets/monitoring_locations/delawareBasinNewLocations";
     import delawareBasinTemperatureLocations from "../assets/monitoring_locations/delawareBasinTemperatureLocations";
     import delawareBasinNextGenerationLocationsSorted from "../assets/monitoring_locations/delawareBasinNextGenerationLocationsSorted";
-    import image from "../images/gages/01581960_gage.jpg";
-
 
     export default {
         name: "StoryBoard",
         data() {
             return {
                 mapStory: mapStory,
+                currentlyActiveChapterId: null,
                 isTourRunning: false,
                 layersToUnhide: [],
-                layersToUnshow: []
+                layersToUnshow: [],
+                isTourPauseActive: false,
+                indexOfPausedTour: 0
             };
         },
         methods: {
@@ -87,10 +100,18 @@
                 };
                 return locationsInTour[tourType] || locationsInTour['default'];
             },
-            toggleLayerVisibility(layersToHide, layersToShow) {
+            toggleLayerVisibility(chapterId, layersToHide, layersToShow) {
                 let self = this;
                 let map = this.$store.map;
                 let layersList = self.$store.map.getStyle().layers;
+
+                // If the user moves to a new chapter, the paused tour resets in preparation for a new tour.
+                if (chapterId !== self.currentlyActiveChapterId) {
+                    self.indexOfPausedTour = 0;
+                    self.removeElements(document.querySelectorAll('.mapboxgl-popup'));
+                    self.removeElements(document.querySelectorAll(".mapboxgl-marker"));
+                };
+
                 // Reset all layer visibility to the way it was when the page was first loaded.
                 layersList.forEach(function(layer) {
                     if (self.layersToUnhide.includes(layer.id)) {
@@ -116,8 +137,9 @@
                 });
 
                 // add the layers we changed to the component data, so that the next time the toggle is run we can reset them
-                this.layersToUnhide = layersToHide;
-                this.layersToUnshow = layersToShow;
+                self.layersToUnhide = layersToHide;
+                self.layersToUnshow = layersToShow;
+                self.currentlyActiveChapterId = chapterId;
             },
             removeElements(ListOfElements) {
                 ListOfElements.forEach(function(element) {
@@ -162,17 +184,25 @@
             runTour(tourType) {
                 let self = this; // create an 'alias' for 'this', so that we can access 'this' inside deeper scopes
                 self.isTourRunning = true;
+                self.isTourPauseActive = false;
                 let map = this.$store.map;
                 let promise = Promise.resolve();
                 let locationsInTour = self.getLocationsInTour(tourType);
                 let remainingLocations = locationsInTour.length;
+
                 // Fly to the locations on the tour list
-                locationsInTour.forEach(function(feature) {
-                      promise = promise.then(function () {
+                locationsInTour.forEach(function(feature, index) {
+                    if (index >= self.indexOfPausedTour) {
+                      promise = promise.then(function() {
                           remainingLocations = remainingLocations - 1;
                           map.flyTo(feature.properties.flyToCommands);
                           self.addCustomMarker(tourType, feature);
-                          return new Promise(function (resolve) {
+                          return new Promise(function (resolve, reject) {
+                              if (self.isTourPauseActive) { // If user has pressed the pause button, reject the promise and break the promise chain
+                                  self.indexOfPausedTour = index; // Save the index so we can resume the tour at the same place
+                                  reject('user paused tour');
+                              }
+
                               if (remainingLocations === 0) {
                                   self.isTourRunning = false;
                                   setTimeout(function () { // Wait a little after the tour, then remove the any markers and popups.
@@ -185,7 +215,18 @@
                               });
                           });
                       });
+
+                      promise.catch(function() {   // When the pause button is pressed, reset the tour so it can be resumed or restarted.
+                          self.isTourPauseActive = false;
+                          self.isTourRunning = false;
+                      });
+                    }
                 });
+            },
+            pauseTour() {
+                if(this.isTourPauseActive === false) {
+                    this.isTourPauseActive = true;
+                }
             }
         }
     };

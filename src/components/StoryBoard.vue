@@ -38,6 +38,12 @@
             <button v-show="chapter.extendedContent && isTourRunning">
               Tour is Running
             </button>
+            <button
+                v-show="chapter.extendedContent && isTourRunning"
+                @click="pauseTour"
+            >
+              Pause the tour
+            </button>
           </div>
         </section>
       </div>
@@ -53,8 +59,6 @@
     import delawareBasinNewLocations from "../assets/monitoring_locations/delawareBasinNewLocations";
     import delawareBasinTemperatureLocations from "../assets/monitoring_locations/delawareBasinTemperatureLocations";
     import delawareBasinNextGenerationLocationsSorted from "../assets/monitoring_locations/delawareBasinNextGenerationLocationsSorted";
-    import image from "../images/gages/01581960_gage.jpg";
-
 
     export default {
         name: "StoryBoard",
@@ -63,7 +67,9 @@
                 mapStory: mapStory,
                 isTourRunning: false,
                 layersToUnhide: [],
-                layersToUnshow: []
+                layersToUnshow: [],
+                isTourPauseActive: false,
+                isFlying: false
             };
         },
         methods: {
@@ -162,18 +168,54 @@
             runTour(tourType) {
                 let self = this; // create an 'alias' for 'this', so that we can access 'this' inside deeper scopes
                 self.isTourRunning = true;
+                self.isTourPauseActive = false;
                 let map = this.$store.map;
-                let interval = 1000;
+                // let interval = 1000;
                 let promise = Promise.resolve();
                 let locationsInTour = self.getLocationsInTour(tourType);
                 let remainingLocations = locationsInTour.length;
+
+
+                map.on('moveend', function (e) {
+
+                })
+                map.on('flystart', function(){
+                    flying = true;
+                });
+                map.on('flyend', function(){
+                    flying = false;
+                });
+
+                function fly() {
+                    // Fly to a random location by offsetting the point -74.50, 40
+                    // by up to 5 degrees.
+                    map.flyTo(locationsInTour.properties.flyToCommands);
+                    map.fire('flystart');
+                }
+
+
+
+
+
+
+
+
+
                 // Fly to the locations on the tour list
                 locationsInTour.forEach(function(feature) {
                       promise = promise.then(function () {
                           remainingLocations = remainingLocations - 1;
                           map.flyTo(feature.properties.flyToCommands);
                           self.addCustomMarker(tourType, feature);
-                          return new Promise(function (resolve) {
+                          return new Promise(function (resolve, reject) {
+                              console.log('i ran and pause is', self.isTourPauseActive)
+                              if (self.isTourPauseActive) {
+                                  console.log('in the reject')
+                                  reject('user paused tour');
+                              }
+
+
+
                               if (remainingLocations === 0) {
                                   self.isTourRunning = false;
                                   setTimeout(function () { // Wait a little after the tour, then remove the any markers and popups.
@@ -181,10 +223,22 @@
                                       self.removeElements(document.querySelectorAll(".mapboxgl-popup"));
                                   }, 3000);
                               }
-                              setTimeout(resolve, interval);
+                              map.on('moveend', function (e) {
+                                  resolve('end of flyTo')
+                              });
                           });
                       });
+
+                      promise.catch(error => {console.log(error)})
                 });
+            },
+            pauseTour() {
+                console.log('before tourPause is ', this.isTourPauseActive)
+                if(this.isTourPauseActive === false) {
+                    console.log('here it ran ')
+                    this.isTourPauseActive = true
+                }
+                console.log('after tourPause is ', this.isTourPauseActive)
             }
         }
     };

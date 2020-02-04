@@ -163,7 +163,6 @@
                 let self = this; // create an 'alias' for 'this', so that we can access 'this' inside deeper scopes
                 self.isTourRunning = true;
                 let map = this.$store.map;
-                let interval = 1000;
                 let promise = Promise.resolve();
                 let locationsInTour = self.getLocationsInTour(tourType);
                 let remainingLocations = locationsInTour.length;
@@ -181,7 +180,9 @@
                                       self.removeElements(document.querySelectorAll(".mapboxgl-popup"));
                                   }, 3000);
                               }
-                              setTimeout(resolve, interval);
+                              map.on('moveend', function (e) {
+                                  resolve('end of flyTo')
+                              });
                           });
                       });
                 });

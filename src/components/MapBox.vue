@@ -8,7 +8,7 @@
     <div class="header-container">
       <div class="usa-prose">
         <h1 class="title-text">
-          {{ title }}{{ titleSuffix }} {{ developmentTier }}
+          {{ title }}{{ titleSuffix }}{{ developmentTier }}
         </h1>
       </div>
     </div>

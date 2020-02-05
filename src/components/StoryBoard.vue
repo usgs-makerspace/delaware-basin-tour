@@ -28,6 +28,18 @@
               {{ chapter.content }}
             </p>
           </div>
+          <h4
+            v-show="chapter.extendedContent && isTourRunning"
+            class="tour-running"
+          >
+            tour is running<br>{{ locationsRemainingInTour }} locations remaining
+          </h4>
+          <h4
+            v-show="chapter.extendedContent && !isTourRunning && indexOfPausedTour > 0"
+            class="tour-paused"
+          >
+            tour is paused<br>{{ locationsRemainingInTour }} locations remaining
+          </h4>
           <div class="button-container">
             <button
               v-show="chapter.extendedContent && !isTourRunning && indexOfPausedTour === 0"
@@ -41,9 +53,7 @@
             >
               resume tour
             </button>
-            <button v-show="chapter.extendedContent && isTourRunning">
-              tour is running
-            </button>
+
             <button
               v-show="chapter.extendedContent && isTourRunning"
               @click="pauseTour"
@@ -76,7 +86,8 @@
                 layersToUnhide: [],
                 layersToUnshow: [],
                 isTourPauseActive: false,
-                indexOfPausedTour: 0
+                indexOfPausedTour: 0,
+                locationsRemainingInTour: null
             };
         },
         methods: {
@@ -205,12 +216,13 @@
 
                         promise = promise.then(function() {
                             remainingLocations = remainingLocations - 1;
+                            self.locationsRemainingInTour = remainingLocations;
                             map.flyTo(feature.properties.flyToCommands);
                             self.addCustomMarker(tourType, feature);
                             return new Promise(function (resolve, reject) {
                                 if (self.isTourPauseActive) { // If user has pressed the pause button, reject the promise and break the promise chain
                                     self.indexOfPausedTour = index; // Save the index so we can resume the tour at the same place
-                                    self.remainingLocationsInTour = remainingLocations;
+                                    self.locationsRemainingInTour = remainingLocations;
                                     reject('user paused tour');
                                 }
 
@@ -275,6 +287,14 @@
     }
     section:last-child {
       border-bottom: none;
+    }
+
+    .tour-running {
+      text-align: center;
+    }
+    .tour-paused {
+      text-align: center;
+      color: darkgrey;
     }
 
     .button-container {

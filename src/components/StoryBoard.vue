@@ -164,11 +164,17 @@
                   }
                 });
                 //Create Dynamic Icons based on the filtered object keys
-                filtered.forEach(function(d){
-                  //Need this for webpack to find the icons
-                  let iconURL = require('../images/icons/PNG/COLORED/' + d + '.png');
-                  //icons stores the multiple img tags to be fed to the popup
-                  icons += "<img src='" + iconURL + "'/> ";
+                filtered.forEach(function(iconName){
+                  try {
+                      let iconURL = require('../images/icons/PNG/COLORED/' + iconName + '.png');
+                      //icons stores the multiple img tags to be fed to the popup
+                      icons += "<img src='" + iconURL + "'/> ";
+                  }
+                  catch (error) {
+                      console.log('Warning: there has been a problem adding the popup icons. Perhaps you have a property ' +
+                              'in the monitoring location JSON that has a value of true, but does not have a matching' +
+                              ' icon available.')
+                  }
                 });
                 
                 layer !== 'all_locations' ? popup.setText(feature.properties.site_id) : popup.setHTML('<div>' + feature.properties.site_id + '</div><div id="iconContainer">' + icons +'</div>');

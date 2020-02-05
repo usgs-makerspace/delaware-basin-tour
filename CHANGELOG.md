@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+- Removed all tour button except for combined tour
 - Added change to prevent error from location type without icon associated
 - Change to allow user to pause a tour
 - Text Bubble Popups

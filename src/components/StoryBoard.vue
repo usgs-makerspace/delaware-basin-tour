@@ -36,19 +36,19 @@
               take a tour
             </button>
             <button
-                v-show="chapter.extendedContent && !isTourRunning && indexOfPausedTour > 0"
-                @click="runTour(chapter.tourType)"
+              v-show="chapter.extendedContent && !isTourRunning && indexOfPausedTour > 0"
+              @click="runTour(chapter.tourType)"
             >
               resume tour
             </button>
             <button v-show="chapter.extendedContent && isTourRunning">
-              Tour is Running
+              tour is running
             </button>
             <button
-                v-show="chapter.extendedContent && isTourRunning"
-                @click="pauseTour"
+              v-show="chapter.extendedContent && isTourRunning"
+              @click="pauseTour"
             >
-              Pause the tour
+              pause the tour
             </button>
           </div>
         </section>
@@ -110,7 +110,7 @@
                     self.indexOfPausedTour = 0;
                     self.removeElements(document.querySelectorAll('.mapboxgl-popup'));
                     self.removeElements(document.querySelectorAll(".mapboxgl-marker"));
-                };
+                }
 
                 // Reset all layer visibility to the way it was when the page was first loaded.
                 layersList.forEach(function(layer) {
@@ -188,38 +188,44 @@
                 let map = this.$store.map;
                 let promise = Promise.resolve();
                 let locationsInTour = self.getLocationsInTour(tourType);
-                let remainingLocations = locationsInTour.length;
+                let remainingLocations = null;
+
+                // If the tour is resumed from a paused state we need to account for the number of stations that are left out
+                remainingLocations = locationsInTour.length - self.indexOfPausedTour;
 
                 // Fly to the locations on the tour list
                 locationsInTour.forEach(function(feature, index) {
                     if (index >= self.indexOfPausedTour) {
-                      promise = promise.then(function() {
-                          remainingLocations = remainingLocations - 1;
-                          map.flyTo(feature.properties.flyToCommands);
-                          self.addCustomMarker(tourType, feature);
-                          return new Promise(function (resolve, reject) {
-                              if (self.isTourPauseActive) { // If user has pressed the pause button, reject the promise and break the promise chain
-                                  self.indexOfPausedTour = index; // Save the index so we can resume the tour at the same place
-                                  reject('user paused tour');
-                              }
 
-                              if (remainingLocations === 0) {
-                                  self.isTourRunning = false;
-                                  setTimeout(function () { // Wait a little after the tour, then remove the any markers and popups.
-                                      self.removeElements(document.querySelectorAll(".mapboxgl-marker"));
-                                      self.removeElements(document.querySelectorAll(".mapboxgl-popup"));
-                                  }, 3000);
-                              }
-                              map.on('moveend', function (e) {
-                                  resolve('end of flyTo')
-                              });
-                          });
-                      });
+                        promise = promise.then(function() {
+                            remainingLocations = remainingLocations - 1;
+                            map.flyTo(feature.properties.flyToCommands);
+                            self.addCustomMarker(tourType, feature);
+                            return new Promise(function (resolve, reject) {
+                                if (self.isTourPauseActive) { // If user has pressed the pause button, reject the promise and break the promise chain
+                                    self.indexOfPausedTour = index; // Save the index so we can resume the tour at the same place
+                                    self.remainingLocationsInTour = remainingLocations;
+                                    reject('user paused tour');
+                                }
 
-                      promise.catch(function() {   // When the pause button is pressed, reset the tour so it can be resumed or restarted.
-                          self.isTourPauseActive = false;
-                          self.isTourRunning = false;
-                      });
+                                if (remainingLocations === 0) {
+                                    self.isTourRunning = false;
+                                    self.indexOfPausedTour = 0;
+                                    setTimeout(function () { // Wait a little after the tour, then remove the any markers and popups.
+                                        self.removeElements(document.querySelectorAll(".mapboxgl-marker"));
+                                        self.removeElements(document.querySelectorAll(".mapboxgl-popup"));
+                                    }, 3000);
+                                }
+                                map.on('moveend', function (e) {
+                                    resolve('end of flyTo')
+                                });
+                            });
+                        });
+
+                        promise.catch(function() {   // When the pause button is pressed, reset the tour so it can be resumed or restarted.
+                            self.isTourPauseActive = false;
+                            self.isTourRunning = false;
+                        });
                     }
                 });
             },

@@ -12,8 +12,8 @@
         >
           <div
             v-show="!isTourRunning"
-            @click="moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.layersToHide, chapter.hiddenLayersToShow)"
-            @mouseover="moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.layersToHide, chapter.hiddenLayersToShow)"
+            @click="moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.id, chapter.layersToHide, chapter.hiddenLayersToShow)"
+            @mouseover="moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.id, chapter.layersToHide, chapter.hiddenLayersToShow)"
           >
             <h3>{{ chapter.title }}</h3>
             <p>
@@ -28,15 +28,37 @@
               {{ chapter.content }}
             </p>
           </div>
+          <h4
+            v-show="chapter.tourType !== 'none' && isTourRunning"
+            class="tour-running"
+          >
+            tour is running<br>{{ locationsRemainingInTour }} locations remaining
+          </h4>
+          <h4
+            v-show="chapter.tourType !== 'none' && !isTourRunning && indexOfPausedTour > 0"
+            class="tour-paused"
+          >
+            tour is paused<br>{{ locationsRemainingInTour }} locations remaining
+          </h4>
           <div class="button-container">
             <button
-              v-show="chapter.extendedContent && !isTourRunning"
+              v-show="chapter.tourType !== 'none' && !isTourRunning && indexOfPausedTour === 0"
               @click="runTour(chapter.tourType)"
             >
               take a tour
             </button>
-            <button v-show="chapter.extendedContent && isTourRunning">
-              Tour is Running
+            <button
+              v-show="chapter.tourType !== 'none' && !isTourRunning && indexOfPausedTour > 0"
+              @click="runTour(chapter.tourType)"
+            >
+              resume tour
+            </button>
+
+            <button
+              v-show="chapter.tourType !== 'none' && isTourRunning"
+              @click="pauseTour"
+            >
+              pause the tour
             </button>
           </div>
         </section>
@@ -53,17 +75,19 @@
     import delawareBasinNewLocations from "../assets/monitoring_locations/delawareBasinNewLocations";
     import delawareBasinTemperatureLocations from "../assets/monitoring_locations/delawareBasinTemperatureLocations";
     import delawareBasinNextGenerationLocationsSorted from "../assets/monitoring_locations/delawareBasinNextGenerationLocationsSorted";
-    import image from "../images/gages/01581960_gage.jpg";
-
 
     export default {
         name: "StoryBoard",
         data() {
             return {
                 mapStory: mapStory,
+                currentlyActiveChapterId: null,
                 isTourRunning: false,
                 layersToUnhide: [],
-                layersToUnshow: []
+                layersToUnshow: [],
+                isTourPauseActive: false,
+                indexOfPausedTour: 0,
+                locationsRemainingInTour: null
             };
         },
         methods: {
@@ -87,10 +111,18 @@
                 };
                 return locationsInTour[tourType] || locationsInTour['default'];
             },
-            toggleLayerVisibility(layersToHide, layersToShow) {
+            toggleLayerVisibility(chapterId, layersToHide, layersToShow) {
                 let self = this;
                 let map = this.$store.map;
                 let layersList = self.$store.map.getStyle().layers;
+
+                // If the user moves to a new chapter, the paused tour resets in preparation for a new tour.
+                if (chapterId !== self.currentlyActiveChapterId) {
+                    self.indexOfPausedTour = 0;
+                    self.removeElements(document.querySelectorAll('.mapboxgl-popup'));
+                    self.removeElements(document.querySelectorAll(".mapboxgl-marker"));
+                }
+
                 // Reset all layer visibility to the way it was when the page was first loaded.
                 layersList.forEach(function(layer) {
                     if (self.layersToUnhide.includes(layer.id)) {
@@ -116,8 +148,9 @@
                 });
 
                 // add the layers we changed to the component data, so that the next time the toggle is run we can reset them
-                this.layersToUnhide = layersToHide;
-                this.layersToUnshow = layersToShow;
+                self.layersToUnhide = layersToHide;
+                self.layersToUnshow = layersToShow;
+                self.currentlyActiveChapterId = chapterId;
             },
             removeElements(ListOfElements) {
                 ListOfElements.forEach(function(element) {
@@ -142,11 +175,17 @@
                   }
                 });
                 //Create Dynamic Icons based on the filtered object keys
-                filtered.forEach(function(d){
-                  //Need this for webpack to find the icons
-                  let iconURL = require('../images/icons/PNG/COLORED/' + d + '.png');
-                  //icons stores the multiple img tags to be fed to the popup
-                  icons += "<img src='" + iconURL + "'/> ";
+                filtered.forEach(function(iconName){
+                  try {
+                      let iconURL = require('../images/icons/PNG/COLORED/' + iconName + '.png');
+                      //icons stores the multiple img tags to be fed to the popup
+                      icons += "<img src='" + iconURL + "'/> ";
+                  }
+                  catch (error) {
+                      console.log('Warning: there has been a problem adding the popup icons. Perhaps you have a property ' +
+                              'in the monitoring location JSON that has a value of true, but does not have a matching' +
+                              ' icon available.')
+                  }
                 });
                 
                 layer !== 'all_locations' ? popup.setText(feature.properties.site_id) : popup.setHTML('<div>' + feature.properties.site_id + '</div><div id="iconContainer">' + icons +'</div>');
@@ -162,29 +201,56 @@
             runTour(tourType) {
                 let self = this; // create an 'alias' for 'this', so that we can access 'this' inside deeper scopes
                 self.isTourRunning = true;
+                self.isTourPauseActive = false;
                 let map = this.$store.map;
-                let interval = 1000;
                 let promise = Promise.resolve();
                 let locationsInTour = self.getLocationsInTour(tourType);
-                let remainingLocations = locationsInTour.length;
+                let remainingLocations = null;
+
+                // If the tour is resumed from a paused state we need to account for the number of stations that are left out
+                remainingLocations = locationsInTour.length - self.indexOfPausedTour;
+
                 // Fly to the locations on the tour list
-                locationsInTour.forEach(function(feature) {
-                      promise = promise.then(function () {
-                          remainingLocations = remainingLocations - 1;
-                          map.flyTo(feature.properties.flyToCommands);
-                          self.addCustomMarker(tourType, feature);
-                          return new Promise(function (resolve) {
-                              if (remainingLocations === 0) {
-                                  self.isTourRunning = false;
-                                  setTimeout(function () { // Wait a little after the tour, then remove the any markers and popups.
-                                      self.removeElements(document.querySelectorAll(".mapboxgl-marker"));
-                                      self.removeElements(document.querySelectorAll(".mapboxgl-popup"));
-                                  }, 3000);
-                              }
-                              setTimeout(resolve, interval);
-                          });
-                      });
+                locationsInTour.forEach(function(feature, index) {
+                    if (index >= self.indexOfPausedTour) {
+
+                        promise = promise.then(function() {
+                            remainingLocations = remainingLocations - 1;
+                            self.locationsRemainingInTour = remainingLocations;
+                            map.flyTo(feature.properties.flyToCommands);
+                            self.addCustomMarker(tourType, feature);
+                            return new Promise(function (resolve, reject) {
+                                if (self.isTourPauseActive) { // If user has pressed the pause button, reject the promise and break the promise chain
+                                    self.indexOfPausedTour = index; // Save the index so we can resume the tour at the same place
+                                    self.locationsRemainingInTour = remainingLocations;
+                                    reject('user paused tour');
+                                }
+
+                                if (remainingLocations === 0) {
+                                    self.isTourRunning = false;
+                                    self.indexOfPausedTour = 0;
+                                    setTimeout(function () { // Wait a little after the tour, then remove the any markers and popups.
+                                        self.removeElements(document.querySelectorAll(".mapboxgl-marker"));
+                                        self.removeElements(document.querySelectorAll(".mapboxgl-popup"));
+                                    }, 3000);
+                                }
+                                map.on('moveend', function (e) {
+                                    resolve('end of flyTo')
+                                });
+                            });
+                        });
+
+                        promise.catch(function() {   // When the pause button is pressed, reset the tour so it can be resumed or restarted.
+                            self.isTourPauseActive = false;
+                            self.isTourRunning = false;
+                        });
+                    }
                 });
+            },
+            pauseTour() {
+                if(this.isTourPauseActive === false) {
+                    this.isTourPauseActive = true;
+                }
             }
         }
     };
@@ -221,6 +287,14 @@
     }
     section:last-child {
       border-bottom: none;
+    }
+
+    .tour-running {
+      text-align: center;
+    }
+    .tour-paused {
+      text-align: center;
+      color: darkgrey;
     }
 
     .button-container {

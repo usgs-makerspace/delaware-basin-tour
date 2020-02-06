@@ -5,7 +5,7 @@
   >
     <div id="loadingMessage">
       <USGSLOGO />
-      <p>Delaware River Basin Fly Through</p>
+      <p>{{ title }}{{ titleSuffix }}{{ developmentTier }}</p>
       <div id="spinner" />
     </div>
   </div>
@@ -18,6 +18,13 @@ export default {
     USGSLOGO
   },
   props: {isLoading: Boolean},
+  data() {
+      return {
+          title: process.env.VUE_APP_TITLE,
+          titleSuffix: process.env.VUE_APP_TITLE_SUFFIX,
+          developmentTier: process.env.VUE_APP_TIER
+      };
+  },
   mounted() {
     //prevent user from scrolling this div on mobile
     let fixed = document.getElementById("splashloader");

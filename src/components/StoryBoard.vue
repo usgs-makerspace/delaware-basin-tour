@@ -29,33 +29,33 @@
             </p>
           </div>
           <h4
-            v-show="chapter.extendedContent && isTourRunning"
+            v-show="chapter.tourType !== 'none' && isTourRunning"
             class="tour-running"
           >
             tour is running<br>{{ locationsRemainingInTour }} locations remaining
           </h4>
           <h4
-            v-show="chapter.extendedContent && !isTourRunning && indexOfPausedTour > 0"
+            v-show="chapter.tourType !== 'none' && !isTourRunning && indexOfPausedTour > 0"
             class="tour-paused"
           >
             tour is paused<br>{{ locationsRemainingInTour }} locations remaining
           </h4>
           <div class="button-container">
             <button
-              v-show="chapter.extendedContent && !isTourRunning && indexOfPausedTour === 0"
+              v-show="chapter.tourType !== 'none' && !isTourRunning && indexOfPausedTour === 0"
               @click="runTour(chapter.tourType)"
             >
               take a tour
             </button>
             <button
-              v-show="chapter.extendedContent && !isTourRunning && indexOfPausedTour > 0"
+              v-show="chapter.tourType !== 'none' && !isTourRunning && indexOfPausedTour > 0"
               @click="runTour(chapter.tourType)"
             >
               resume tour
             </button>
 
             <button
-              v-show="chapter.extendedContent && isTourRunning"
+              v-show="chapter.tourType !== 'none' && isTourRunning"
               @click="pauseTour"
             >
               pause the tour

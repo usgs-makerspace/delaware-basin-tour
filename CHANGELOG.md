@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+- Add demo text chapter
 - Add text-only chapter functionality
 - Removed all tour button except for combined tour
 - Added change to prevent error from location type without icon associated

@@ -12,8 +12,8 @@
         >
           <div
             v-show="!isTourRunning"
-            @click="moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.id, chapter.layersToHide, chapter.hiddenLayersToShow)"
-            @mouseover="moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.id, chapter.layersToHide, chapter.hiddenLayersToShow)"
+            @click="chapter.isText ? toggleTextOverlay(state='on', chapter.html) : (moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.id, chapter.layersToHide, chapter.hiddenLayersToShow), toggleTextOverlay(state='off', null))"
+            @mouseover="chapter.isText ? toggleTextOverlay(state='on', chapter.html) : (moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.id, chapter.layersToHide, chapter.hiddenLayersToShow), toggleTextOverlay(state='off', null))"
           >
             <h3>{{ chapter.title }}</h3>
             <p>
@@ -251,6 +251,32 @@
                 if(this.isTourPauseActive === false) {
                     this.isTourPauseActive = true;
                 }
+            },
+            toggleTextOverlay(state, html) {
+                // Get map canvas and container elements,  assign ID for overlay div
+                let mapCanvas = this.$store.map.getCanvas()
+                let mapCanvasContainer = this.$store.map.getCanvasContainer()
+                let overlayID = 'mapOverlay'
+
+                // See if we have a text overlay div; create a hidden one if we don't
+                let mapOverlay = document.getElementById(overlayID)
+                if (typeof(mapOverlay) == 'undefined' || mapOverlay == null) {
+                    mapOverlay = document.createElement('div')
+                    mapOverlay.id = overlayID
+                    mapOverlay.style.display = 'none'
+                    mapCanvasContainer.appendChild(mapOverlay)
+                }
+
+                // Load/unload text overlay content, toggle map opacity, show/hide text overlay div
+                if (state == 'on') {
+                    mapOverlay.innerHTML = html
+                    mapCanvas.style.opacity = "0.2"
+                    mapOverlay.style.display = 'block'
+                } else {
+                    mapOverlay.style.display = 'none'
+                    mapCanvas.style.opacity="1"
+                    mapOverlay.innerHTML = ''
+                }
             }
         }
     };
@@ -340,5 +366,21 @@
       }
     }
 
+
+  }
+  /* Needs to be unscoped or it won't apply to the dynamically-generated div */
+  #mapOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 90%;
+    margin: 5em 5%;
+    padding: 2em;
+    border: 1px solid #444;
+    box-shadow: 8px 8px 5px rgba(110, 110, 110, 0.6);
+    overflow: scroll;
+    z-index: 5;
+    color: #000;
+    background-color: rgba(255, 255, 255, 0.8);
   }
 </style>

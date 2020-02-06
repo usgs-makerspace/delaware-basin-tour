@@ -176,6 +176,16 @@ export default {
             "tourType": "all_locations",
             "layersToHide": ["monitoring-location-clusters", "monitoring-location-cluster-count", "physiographic_provinces"],
             "hiddenLayersToShow": ["drb_boundary"]
-        }
+        },
+	    {
+            "id": "future",
+            "class": "",
+            "title": "Future Plans",
+            "content": "This is just the beginning for the Delaware Basin Next Generation Water Observing System.  Read the details in the map window.",
+            "isText": true,
+            "html": "<h2>Future Plans</h2><p>In the future we plan to:</p><ul><li>Expand to other basins</li><li>Add more enhanced gages</li><li>Add more capabilities to existing gages</li></ul>",
+            "extendedContent": false,
+            "tourType": "none",
+	    }
     ]
 };

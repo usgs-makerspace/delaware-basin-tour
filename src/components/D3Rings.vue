@@ -128,10 +128,4 @@ export default {
   width: 100%;
   height: 100%;
 }
-
-.enhanced_gage{ fill: #278DD8} 
-.new_gage{ fill: #00CDA6}      
-.specific_conductance{ fill: #D99A03}
-.temperature{fill: #D82B47}
-.camera{ fill: #D878B5}
 </style>

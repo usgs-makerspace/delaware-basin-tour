@@ -1,5 +1,6 @@
 <template>
   <div id="story-chapters-container">
+    <D3Rings />
     <div id="chapters">
       <div
         v-for="chapter in mapStory.chapters"
@@ -12,8 +13,8 @@
         >
           <div
             v-show="!isTourRunning"
-            @click="chapter.isText ? toggleTextOverlay(state='on', chapter.html) : (moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.id, chapter.layersToHide, chapter.hiddenLayersToShow), toggleTextOverlay(state='off', null))"
-            @mouseover="chapter.isText ? toggleTextOverlay(state='on', chapter.html) : (moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.id, chapter.layersToHide, chapter.hiddenLayersToShow), toggleTextOverlay(state='off', null))"
+            @click="chapter.isText ? toggleTextOverlay(state='on', chapter.html) : (moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.id, chapter.layersToHide, chapter.hiddenLayersToShow), toggleTextOverlay(state='off', null), gageRings(chapter.D3Rings))"
+            @mouseover="chapter.isText ? toggleTextOverlay(state='on', chapter.html) : (moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.id, chapter.layersToHide, chapter.hiddenLayersToShow), toggleTextOverlay(state='off', null), gageRings(chapter.D3Rings))"
           >
             <h3>{{ chapter.title }}</h3>
             <p>
@@ -75,9 +76,13 @@
     import delawareBasinNewLocations from "../assets/monitoring_locations/delawareBasinNewLocations";
     import delawareBasinTemperatureLocations from "../assets/monitoring_locations/delawareBasinTemperatureLocations";
     import delawareBasinNextGenerationLocationsSorted from "../assets/monitoring_locations/delawareBasinNextGenerationLocationsSorted";
+    import D3Rings from './D3Rings';
 
     export default {
         name: "StoryBoard",
+        components:{
+          D3Rings
+        },
         data() {
             return {
                 mapStory: mapStory,
@@ -277,6 +282,14 @@
                     mapCanvas.style.opacity="1"
                     mapOverlay.innerHTML = ''
                 }
+            },
+            gageRings(D3Rings){
+              if(D3Rings === true){
+                console.log(D3Rings);
+                this.$root.$emit('CreateRings');
+              }else{
+                this.$root.$emit('RemoveRings');
+              }
             }
         }
     };

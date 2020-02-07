@@ -70,6 +70,7 @@
     import InternetExplorerPage from "./InternetExplorerPage";
     import QuestionControl from "./QuestionControl";
     import StoryBoard from "./StoryBoard";
+    import D3Rings from './D3Rings';
 
     import {
         MglMap,
@@ -85,8 +86,7 @@
     import delawareBasinEnhancedLocations from "../assets/monitoring_locations/delawareBasinEnhancedLocations";
     import delawareBasinNewLocations from "../assets/monitoring_locations/delawareBasinNewLocations";
     import delawareBasinTemperatureLocations from "../assets/monitoring_locations/delawareBasinTemperatureLocations";
-    import delawareBasinNextGenerationLocationsSorted
-        from "../assets/monitoring_locations/delawareBasinNextGenerationLocationsSorted";
+    import delawareBasinNextGenerationLocationsSorted from "../assets/monitoring_locations/delawareBasinNextGenerationLocationsSorted";
 
     export default {
         name: "MapBox",

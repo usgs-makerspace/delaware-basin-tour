@@ -17,9 +17,8 @@
       <div
         v-if="!isInternetExplorer"
         id="mapContainer"
-      >
+        >
         <div id="map-section">
-          <D3Rings />
           <MglMap
             id="mapgl"
             :container="container"
@@ -101,8 +100,7 @@
             MglScaleControl,
             MglAttributionControl,
             QuestionControl,
-            StoryBoard, 
-            D3Rings
+            StoryBoard
         },
         props: {
             isInternetExplorer: {
@@ -144,7 +142,6 @@
                 this.$store.map = event.map; // Add the map to the Vuex store so that we can use it in other components.
                 // Pause the code here to make sure the fitbounds has time to finish before fade away of loading screen.
                 setTimeout(() => { this.isLoading = false; }, 200);
-                this.$root.$emit('MapLoaded');
                 // Next line adds the current zoom level display. The zoom level should only show in 'development' versions of the application.
                 process.env.VUE_APP_ADD_ZOOM_LEVEL_DISPLAY === 'true' ? this.map.on("zoomend", this.addZoomLevelIndicator) : null;
 

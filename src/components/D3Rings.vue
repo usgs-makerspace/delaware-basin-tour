@@ -8,8 +8,11 @@ import tour from "../assets/monitoring_locations/delawareBasinNextGenerationLoca
 export default {
   name: "D3Rings",
   mounted() {
-    this.$root.$on("MapLoaded", () => {
+    this.$root.$on("CreateRings", () => {
       this.CreateRings();
+    });
+    this.$root.$on("RemoveRings", () => {
+      this.RemoveRings();
     });
   },
   methods: {
@@ -68,14 +71,14 @@ export default {
           let dataReady = pieSegments(d3.entries(pieData));
           return dataReady;
       };
-
+    //Group that has the geojson data for map placement
       const gage = svg
         .selectAll("g")
         .data(gages)
         .enter()
         .append("g")
-        .classed("gage", true);
-
+        .classed("D3Ring", true);
+    //Groups that hold the path and hold the data created via createPieData
       let pies = gage
         .selectAll(".gage")
         .data(function(d) {
@@ -92,7 +95,6 @@ export default {
         .attr("stroke", "#50575D")
         .attr("stroke-width", 1)
         .attr("fill", function(d){
-            console.log(d)
             if(d.data.value.active === true){
                 return(pieSegmentColors(d.data.value.gageType));
             }else{
@@ -100,7 +102,7 @@ export default {
             }
             
         });
-
+    //Updates the placement of the rings based on map movement
       const update = function() {
         gage.attr("transform", function(d) {
           return "translate(" + [projectPoint(d).x, projectPoint(d).y] + ")";
@@ -113,6 +115,9 @@ export default {
       map.on("moveend", update);
 
       update();
+    },
+    RemoveRings(){
+        d3.selectAll(".D3Ring").remove();
     }
   }
 };

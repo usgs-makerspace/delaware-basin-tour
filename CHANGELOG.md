@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+- D3 Rings
 - Add demo text chapter
 - Add text-only chapter functionality
 - Removed all tour button except for combined tour

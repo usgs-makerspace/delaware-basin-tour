@@ -17,7 +17,7 @@
       <div
         v-if="!isInternetExplorer"
         id="mapContainer"
-        >
+      >
         <div id="map-section">
           <MglMap
             id="mapgl"

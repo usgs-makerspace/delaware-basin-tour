@@ -183,19 +183,23 @@ export default {
             "content": "The Basin has experienced periods when flows persist above or below the long-term average, such as the dry period of the 1960s and the wet periods of the 1970s and mid-2000s. Freshwater inflows impact salinity in the estuary, which affects the availability of estuary water for drinking water and industrial uses. The bjective at Trenton appears to be keeping the salt front below river mile (RM) 98, the salinity\n" +
                     "management goal. However, sea level rise may require new management measures, operations plans and/or additional water to maintain control of salinity.",
             "tourType": "all_locations",
-            "layersToHide": ["monitoring-location-clusters", "monitoring-location-cluster-count", "physiographic_provinces"],
+            "layersToHide": ["monitoring-location-clusters", "monitoring-location-cluster-count", "cameras", "enhanced_gage", "temperature", "new_gage", "specific_conductance","drb_boundary","physiographic_provinces"],
             "hiddenLayersToShow": ["drb_boundary"],
             "D3Rings": true
         },
 	    {
             "id": "future",
             "class": "",
+            "flyToCommands": {
+            },
             "title": "Future Plans",
             "content": "This is just the beginning for the Delaware Basin Next Generation Water Observing System.  Read the details in the map window.",
             "isText": true,
             "html": "<h2>Future Plans</h2><p>In the future we plan to:</p><ul><li>Expand to other basins</li><li>Add more enhanced gages</li><li>Add more capabilities to existing gages</li></ul>",
             "extendedContent": false,
             "tourType": "none",
+            "layersToHide": ["monitoring-location-clusters", "monitoring-location-cluster-count", "physiographic_provinces"],
+            "hiddenLayersToShow": ["drb_boundary"],
             "D3Rings": false
 	    }
     ]

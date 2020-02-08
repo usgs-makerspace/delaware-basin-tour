@@ -75,7 +75,8 @@
     import delawareBasinEnhancedLocations from "../assets/monitoring_locations/delawareBasinEnhancedLocations";
     import delawareBasinNewLocations from "../assets/monitoring_locations/delawareBasinNewLocations";
     import delawareBasinTemperatureLocations from "../assets/monitoring_locations/delawareBasinTemperatureLocations";
-    import delawareBasinNextGenerationLocationsSorted from "../assets/monitoring_locations/delawareBasinNextGenerationLocationsSorted";
+    import delawareBasinNextGenerationMonitoringLocations
+        from "../assets/monitoring_locations/delawareBasinNextGenerationMonitoringLocations";
     import D3Rings from './D3Rings';
 
     export default {
@@ -111,7 +112,7 @@
                     'enhanced_gage': delawareBasinEnhancedLocations.delawareBasinEnhancedLocations.features,
                     'new_gage': delawareBasinNewLocations.delawareBasinNewLocations.features,
                     'temperature': delawareBasinTemperatureLocations.delawareBasinTemperatureLocations.features,
-                    'all_locations': delawareBasinNextGenerationLocationsSorted.delawareBasinNewGenerationsLocations.features,
+                    'all_locations': delawareBasinNextGenerationMonitoringLocations.delawareBasinNextGenerationsMonitoringLocations.features,
                     'default': []
                 };
                 return locationsInTour[tourType] || locationsInTour['default'];
@@ -121,7 +122,7 @@
                 let map = this.$store.map;
                 let layersList = self.$store.map.getStyle().layers;
 
-                // If the user moves to a new chapter, the paused tour resets in preparation for a new tour.
+                // If the user moves to a new chapter, the paused nextGenerationMonitoringLocations resets in preparation for a new nextGenerationMonitoringLocations.
                 if (chapterId !== self.currentlyActiveChapterId) {
                     self.indexOfPausedTour = 0;
                     self.removeElements(document.querySelectorAll('.mapboxgl-popup'));
@@ -172,11 +173,11 @@
                         }
                 );
                 let icons = "";
-                const gageTypes = feature.properties;
-                const keys = Object.keys(gageTypes);
+                const monitoringLocationFeatureTypes = feature.properties.locationFeatures;
+                const keys = Object.keys(monitoringLocationFeatureTypes);
                 const filtered = keys.filter((key) => {
-                  if(gageTypes[key] === true){
-                    return gageTypes[key];
+                  if(monitoringLocationFeatureTypes[key] === true){
+                    return monitoringLocationFeatureTypes[key];
                   }
                 });
                 //Create Dynamic Icons based on the filtered object keys
@@ -184,7 +185,7 @@
                   try {
                       let iconURL = require('../images/icons/PNG/COLORED/' + iconName + '.png');
                       //icons stores the multiple img tags to be fed to the popup
-                      icons += "<img src='" + iconURL + "'/> ";
+                      icons += "<img alt='features icons' src='" + iconURL + "'/> ";
                   }
                   catch (error) {
                       console.log('Warning: there has been a problem adding the popup icons. Perhaps you have a property ' +
@@ -212,10 +213,10 @@
                 let locationsInTour = self.getLocationsInTour(tourType);
                 let remainingLocations = null;
 
-                // If the tour is resumed from a paused state we need to account for the number of stations that are left out
+                // If the nextGenerationMonitoringLocations is resumed from a paused state we need to account for the number of stations that are left out
                 remainingLocations = locationsInTour.length - self.indexOfPausedTour;
 
-                // Fly to the locations on the tour list
+                // Fly to the locations on the nextGenerationMonitoringLocations list
                 locationsInTour.forEach(function(feature, index) {
                     if (index >= self.indexOfPausedTour) {
 
@@ -226,15 +227,15 @@
                             self.addCustomMarker(tourType, feature);
                             return new Promise(function (resolve, reject) {
                                 if (self.isTourPauseActive) { // If user has pressed the pause button, reject the promise and break the promise chain
-                                    self.indexOfPausedTour = index; // Save the index so we can resume the tour at the same place
+                                    self.indexOfPausedTour = index; // Save the index so we can resume the nextGenerationMonitoringLocations at the same place
                                     self.locationsRemainingInTour = remainingLocations;
-                                    reject('user paused tour');
+                                    reject('user paused nextGenerationMonitoringLocations');
                                 }
 
                                 if (remainingLocations === 0) {
                                     self.isTourRunning = false;
                                     self.indexOfPausedTour = 0;
-                                    setTimeout(function () { // Wait a little after the tour, then remove the any markers and popups.
+                                    setTimeout(function () { // Wait a little after the nextGenerationMonitoringLocations, then remove the any markers and popups.
                                         self.removeElements(document.querySelectorAll(".mapboxgl-marker"));
                                         self.removeElements(document.querySelectorAll(".mapboxgl-popup"));
                                     }, 3000);
@@ -245,7 +246,7 @@
                             });
                         });
 
-                        promise.catch(function() {   // When the pause button is pressed, reset the tour so it can be resumed or restarted.
+                        promise.catch(function() {   // When the pause button is pressed, reset the nextGenerationMonitoringLocations so it can be resumed or restarted.
                             self.isTourPauseActive = false;
                             self.isTourRunning = false;
                         });
@@ -259,33 +260,32 @@
             },
             toggleTextOverlay(state, html) {
                 // Get map canvas and container elements,  assign ID for overlay div
-                let mapCanvas = this.$store.map.getCanvas()
-                let mapCanvasContainer = this.$store.map.getCanvasContainer()
-                let overlayID = 'mapOverlay'
+                let mapCanvas = this.$store.map.getCanvas();
+                let mapCanvasContainer = this.$store.map.getCanvasContainer();
+                let overlayID = 'mapOverlay';
 
                 // See if we have a text overlay div; create a hidden one if we don't
-                let mapOverlay = document.getElementById(overlayID)
+                let mapOverlay = document.getElementById(overlayID);
                 if (typeof(mapOverlay) == 'undefined' || mapOverlay == null) {
-                    mapOverlay = document.createElement('div')
-                    mapOverlay.id = overlayID
-                    mapOverlay.style.display = 'none'
-                    mapCanvasContainer.appendChild(mapOverlay)
+                    mapOverlay = document.createElement('div');
+                    mapOverlay.id = overlayID;
+                    mapOverlay.style.display = 'none';
+                    mapCanvasContainer.appendChild(mapOverlay);
                 }
 
                 // Load/unload text overlay content, toggle map opacity, show/hide text overlay div
-                if (state == 'on') {
-                    mapOverlay.innerHTML = html
-                    mapCanvas.style.opacity = "0.2"
+                if (state === 'on') {
+                    mapOverlay.innerHTML = html;
+                    mapCanvas.style.opacity = "0.2";
                     mapOverlay.style.display = 'block'
                 } else {
-                    mapOverlay.style.display = 'none'
-                    mapCanvas.style.opacity="1"
-                    mapOverlay.innerHTML = ''
+                    mapOverlay.style.display = 'none';
+                    mapCanvas.style.opacity="1";
+                    mapOverlay.innerHTML = '';
                 }
             },
             gageRings(D3Rings){
               if(D3Rings === true){
-                console.log(D3Rings);
                 this.$root.$emit('CreateRings');
               }else{
                 this.$root.$emit('RemoveRings');

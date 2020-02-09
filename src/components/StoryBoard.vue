@@ -13,8 +13,8 @@
         >
           <div
             v-show="!isTourRunning"
-            @click="chapter.isText ? toggleTextOverlay(state='on', chapter.html) : (moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.id, chapter.layersToHide, chapter.hiddenLayersToShow), toggleTextOverlay(state='off', null), gageRings(chapter.D3Rings))"
-            @mouseover="chapter.isText ? toggleTextOverlay(state='on', chapter.html) : (moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.id, chapter.layersToHide, chapter.hiddenLayersToShow), toggleTextOverlay(state='off', null), gageRings(chapter.D3Rings))"
+            @click="chapter.isText ? toggleTextOverlay(state='on', chapter.html) : (moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.id, chapter.layersToHide, chapter.hiddenLayersToShow), toggleTextOverlay(state='off', null), addMonitoringLocationRings(chapter.D3Rings))"
+            @mouseover="chapter.isText ? toggleTextOverlay(state='on', chapter.html) : (moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.id, chapter.layersToHide, chapter.hiddenLayersToShow), toggleTextOverlay(state='off', null), addMonitoringLocationRings(chapter.D3Rings))"
           >
             <h3>{{ chapter.title }}</h3>
             <p>
@@ -180,20 +180,19 @@
                     return monitoringLocationFeatureTypes[key];
                   }
                 });
-                //Create Dynamic Icons based on the filtered object keys
+                // Create Dynamic Icons based on the filtered object keys
                 filtered.forEach(function(iconName){
                   try {
                       let iconURL = require('../images/icons/PNG/COLORED/' + iconName + '.png');
-                      //icons stores the multiple img tags to be fed to the popup
+                      // icons stores the multiple img tags to be fed to the popup
                       icons += "<img alt='features icons' src='" + iconURL + "'/> ";
-                  }
-                  catch (error) {
+                  } catch {
                       console.log('Warning: there has been a problem adding the popup icons. Perhaps you have a property ' +
                               'in the monitoring location JSON that has a value of true, but does not have a matching' +
-                              ' icon available.')
+                              ' icon available.');
                   }
                 });
-                
+
                 layer !== 'all_locations' ? popup.setText(feature.properties.site_id) : popup.setHTML('<div>' + feature.properties.site_id + '</div><div id="iconContainer">' + icons +'</div>');
 
                 new mapboxgl.Marker({
@@ -284,7 +283,7 @@
                     mapOverlay.innerHTML = '';
                 }
             },
-            gageRings(D3Rings){
+            addMonitoringLocationRings(D3Rings){
               if(D3Rings === true){
                 this.$root.$emit('CreateRings');
               }else{

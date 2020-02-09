@@ -5,7 +5,6 @@ export default {
             {
                 "type": "Feature",
                 "properties": {
-                    "site_id": "USGS-01423000",
                     "locationFeatures": {
                         "enhanced_gage": true,
                         "new_gage": false,
@@ -118,8 +117,8 @@ export default {
                 "properties": {
                     "site_id": "USGS-01413500",
                     "locationFeatures": {
-                        "enhanced_gage": true,
-                        "new_gage": false,
+                        "enhanced_gage": false,
+                        "new_gage": true,
                         "camera": false,
                         "specific_conductance": true,
                         "temperature": false,

@@ -19,6 +19,8 @@ export default {
             "mapDotSize": 2
         },
         d3PieStyles: {
+            "outerRadius": 15,
+            "innerRadius": 10,
             "stroke": "#50575D",
             "default": "#CFD1D0"
         }

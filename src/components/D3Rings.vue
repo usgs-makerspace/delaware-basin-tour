@@ -19,9 +19,15 @@ export default {
     });
   },
   methods: {
+    d3svg: function(SVGContainer) {
+      return d3
+              .select(SVGContainer)
+              .append("svg")
+              .attr("id", "monitoringLocationsSVG");
+    },
     CreateRings() {
       let map = this.$store.map;
-      let radius = 15;
+      let self = this;
       //monitoringLocation array entries match up to the index of the color array
       let monitoringLocationFeatureTypes = Object.keys(generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors);
       let colors = Object.values(generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors);
@@ -31,12 +37,9 @@ export default {
         
       //Setup SVG layer that we can manipulate with D3
       const SVGContainer = map.getCanvasContainer();
-      const svg = d3
-        .select(SVGContainer)
-        .append("svg")
-        .attr("id", "monitoringLocationsSVG");
+      const svg = self.d3svg(SVGContainer);
 
-      function projectPoint(data, coordinate) {
+      function projectPoint(data) {
           return map.project(
           new mapboxgl.LngLat(
             data.geometry.coordinates[0],
@@ -47,8 +50,8 @@ export default {
 
       const arc = d3
         .arc()
-        .innerRadius(10)
-        .outerRadius(radius);
+        .innerRadius(generalColorAndStyle.generalColorsAndStyles.d3PieStyles.innerRadius)
+        .outerRadius(generalColorAndStyle.generalColorsAndStyles.d3PieStyles.outerRadius);
       const pieSegments = d3.pie()
         .value(function(d) {
             return d.value.segment;
@@ -58,14 +61,13 @@ export default {
           let pieData = [];
           let properties = feature.properties.locationFeatures;
           let keys = Object.keys(properties);
-          let filtered = keys.filter(function(key){
-              if(monitoringLocationFeatureTypes.includes(key)){
-                  let obj = {};
-                  obj["featureType"] = key;
-                  obj["segment"] = 1;
-                  obj["active"] = properties[key];
-                  pieData.push(obj);
-              }
+          Object.keys(feature.properties.locationFeatures).forEach(function(key) {
+            let ringSegment = {
+                "featureType": key,
+                "segment": 1,
+                "active": properties[key]
+            };
+            pieData.push(ringSegment);
           });
           
           return pieSegments(d3.entries(pieData));

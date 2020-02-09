@@ -239,7 +239,20 @@
                     }
                 });
 
-                delawareBasinNextGenerationMonitoringLocations.delawareBasinNextGenerationsMonitoringLocations.features
+                let map = this.map;
+
+                // Get all the information for all the monitoring locations
+                let allMonitoringLocations = delawareBasinNextGenerationMonitoringLocations.delawareBasinNextGenerationsMonitoringLocations.features;
+
+                allMonitoringLocations.forEach(function(location) {
+                    // Get the features that are available at the current location
+                    let locationFeatures = Object.keys(location.properties.locationFeatures);
+                    // Go through each location feature and check what region it is associated with and make a layer on the map for it
+                    locationFeatures.forEach(function (feature) {
+
+                    });
+
+                });
             }
         }
     };

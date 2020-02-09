@@ -7,6 +7,17 @@ export default {
             "specific_conductance": "#FE324D",
             "temperature": "#FF562F"
         },
+        locationFeaturesMapDotSize: {
+            "enhanced_gage": 12,
+            "new_gage": 11,
+            "camera": 10,
+            "specific_conductance": 9,
+            "temperature": 8
+        },
+        monitoringLocationAll: {
+            "mapDotColor": "#382c2b",
+            "mapDotSize": 2
+        },
         d3PieStyles: {
             "stroke": "#50575D",
             "default": "#CFD1D0"

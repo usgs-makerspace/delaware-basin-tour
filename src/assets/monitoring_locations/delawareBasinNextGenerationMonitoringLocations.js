@@ -13,6 +13,9 @@ export default {
                         "specific_conductance": false,
                         "temperature": true
                     },
+                    "associatedRegions" : [
+                            "Delaware River Basin", "Physiographic 1", "Test Bed"
+                    ],
                     "latitude": 42.1661111,
                     "longitude": -75.14002778,
                     "flyToCommands": {
@@ -47,6 +50,9 @@ export default {
                         "specific_conductance": false,
                         "temperature": true,
                     },
+                    "associatedRegions" : [
+                        "Delaware River Basin", "Physiographic 3"
+                    ],
                     "latitude": 42.1471111,
                     "longitude": -74.9052222,
                     "flyToCommands": {
@@ -81,6 +87,9 @@ export default {
                         "specific_conductance": false,
                         "temperature": true,
                     },
+                    "associatedRegions" : [
+                        "Delaware River Basin", "Physiographic 5", "Test Bed"
+                    ],
                     "latitude": 42.1447222,
                     "longitude": -74.6536111,
                     "flyToCommands": {
@@ -115,6 +124,9 @@ export default {
                         "specific_conductance": true,
                         "temperature": false,
                     },
+                    "associatedRegions" : [
+                        "Delaware River Basin", "Physiographic 2",
+                    ],
 
                     "latitude": 42.1447222,
                     "longitude": -74.6536111,
@@ -150,7 +162,9 @@ export default {
                         "specific_conductance": false,
                         "temperature": false,
                     },
-
+                    "associatedRegions" : [
+                        "Delaware River Basin", "Physiographic 3", "Test Bed"
+                    ],
                     "latitude": 42.13306,
                     "longitude": -74.69556,
                     "flyToCommands": {

@@ -88,6 +88,7 @@
     import delawareBasinTemperatureLocations from "../assets/monitoring_locations/delawareBasinTemperatureLocations";
     import delawareBasinNextGenerationMonitoringLocations
         from "../assets/monitoring_locations/delawareBasinNextGenerationMonitoringLocations";
+    import generalColorAndStyle from "../assets/mapStyleConstants/generalColorAndStyle";
 
     export default {
         name: "MapBox",
@@ -183,8 +184,8 @@
                     "source": "delawareBasinCameraLocations",
                     "type": "circle",
                     "paint": {
-                        "circle-radius": 11,
-                        "circle-color": "green"
+                        "circle-radius": generalColorAndStyle.generalColorsAndStyles.locationFeaturesMapDotSize.camera,
+                        "circle-color": generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors.camera
                     }
                 });
 
@@ -193,8 +194,8 @@
                     "source": "delawareBasinConductanceLocations",
                     "type": "circle",
                     "paint": {
-                        "circle-radius": 10,
-                        "circle-color": "red"
+                        "circle-radius": generalColorAndStyle.generalColorsAndStyles.locationFeaturesMapDotSize.specific_conductance,
+                        "circle-color": generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors.specific_conductance
                     }
                 });
 
@@ -203,8 +204,8 @@
                     "source": "delawareBasinEnhancedLocations",
                     "type": "circle",
                     "paint": {
-                        "circle-radius": 8,
-                        "circle-color": "blue"
+                        "circle-radius": generalColorAndStyle.generalColorsAndStyles.locationFeaturesMapDotSize.enhanced_gage,
+                        "circle-color": generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors.enhanced_gage
                     }
                 });
 
@@ -213,8 +214,8 @@
                     "source": "delawareBasinTemperatureLocations",
                     "type": "circle",
                     "paint": {
-                        "circle-radius": 5,
-                        "circle-color": "yellow"
+                        "circle-radius": generalColorAndStyle.generalColorsAndStyles.locationFeaturesMapDotSize.temperature,
+                        "circle-color": generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors.temperature
                     }
                 });
 
@@ -223,8 +224,8 @@
                     "source": "delawareBasinNewLocations",
                     "type": "circle",
                     "paint": {
-                        "circle-radius": 3,
-                        "circle-color": "black"
+                        "circle-radius": generalColorAndStyle.generalColorsAndStyles.locationFeaturesMapDotSize.new_gage,
+                        "circle-color": generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors.new_gage
                     }
                 });
 
@@ -233,10 +234,12 @@
                     "source": "delawareBasinAllNewEnhancedLocations",
                     "type": "circle",
                     "paint": {
-                        "circle-radius": 2,
-                        "circle-color": "black"
+                        "circle-radius": generalColorAndStyle.generalColorsAndStyles.monitoringLocationAll.mapDotSize,
+                        "circle-color": generalColorAndStyle.generalColorsAndStyles.monitoringLocationAll.mapDotColor
                     }
-                })
+                });
+
+                delawareBasinNextGenerationMonitoringLocations.delawareBasinNextGenerationsMonitoringLocations.features
             }
         }
     };

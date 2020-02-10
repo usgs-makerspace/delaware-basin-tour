@@ -70,7 +70,7 @@
     import InternetExplorerPage from "./InternetExplorerPage";
     import QuestionControl from "./QuestionControl";
     import StoryBoard from "./StoryBoard";
-    import D3Rings from './D3Rings';
+
 
     import {
         MglMap,
@@ -81,11 +81,6 @@
         MglAttributionControl
     } from "vue-mapbox";
     import mapStyles from "../assets/mapStyles/mapStyles";
-    import delawareBasinCameraLocations from "../assets/monitoring_locations/delawareBasinCameraLocations";
-    import delawareBasinConductanceLocations from "../assets/monitoring_locations/delawareBasinConductanceLocations";
-    import delawareBasinEnhancedLocations from "../assets/monitoring_locations/delawareBasinEnhancedLocations";
-    import delawareBasinNewLocations from "../assets/monitoring_locations/delawareBasinNewLocations";
-    import delawareBasinTemperatureLocations from "../assets/monitoring_locations/delawareBasinTemperatureLocations";
     import delawareBasinNextGenerationMonitoringLocations
         from "../assets/monitoring_locations/delawareBasinNextGenerationMonitoringLocations";
     import generalColorAndStyle from "../assets/mapStyleConstants/generalColorAndStyle";
@@ -147,86 +142,10 @@
                 // Next line adds the current zoom level display. The zoom level should only show in 'development' versions of the application.
                 process.env.VUE_APP_ADD_ZOOM_LEVEL_DISPLAY === 'true' ? this.map.on("zoomend", this.addZoomLevelIndicator) : null;
 
-                this.map.addSource('delawareBasinCameraLocations', {
-                    type: 'geojson',
-                    data: delawareBasinCameraLocations.delawareBasinCameraLocations
-                });
-
-                this.map.addSource('delawareBasinConductanceLocations', {
-                    type: 'geojson',
-                    data: delawareBasinConductanceLocations.delawareBasinConductanceLocations
-                });
-
-                this.map.addSource('delawareBasinEnhancedLocations', {
-                    type: 'geojson',
-                    data: delawareBasinEnhancedLocations.delawareBasinEnhancedLocations
-                });
-
-                this.map.addSource('delawareBasinTemperatureLocations', {
-                    type: 'geojson',
-                    data: delawareBasinTemperatureLocations.delawareBasinTemperatureLocations
-                });
-
-                this.map.addSource('delawareBasinNewLocations', {
-                    type: 'geojson',
-                    data: delawareBasinNewLocations.delawareBasinNewLocations
-                });
 
                 this.map.addSource('delawareBasinAllNewEnhancedLocations', {
                     type: 'geojson',
                     data: delawareBasinNextGenerationMonitoringLocations.delawareBasinNextGenerationsMonitoringLocations
-                });
-
-
-
-                this.map.addLayer({
-                    "id": "cameras",
-                    "source": "delawareBasinCameraLocations",
-                    "type": "circle",
-                    "paint": {
-                        "circle-radius": generalColorAndStyle.generalColorsAndStyles.locationFeaturesMapDotSize.camera,
-                        "circle-color": generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors.camera
-                    }
-                });
-
-                this.map.addLayer({
-                    "id": "specific_conductance",
-                    "source": "delawareBasinConductanceLocations",
-                    "type": "circle",
-                    "paint": {
-                        "circle-radius": generalColorAndStyle.generalColorsAndStyles.locationFeaturesMapDotSize.specific_conductance,
-                        "circle-color": generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors.specific_conductance
-                    }
-                });
-
-                this.map.addLayer({
-                    "id": "enhanced_gage",
-                    "source": "delawareBasinEnhancedLocations",
-                    "type": "circle",
-                    "paint": {
-                        "circle-radius": generalColorAndStyle.generalColorsAndStyles.locationFeaturesMapDotSize.enhanced_gage,
-                        "circle-color": generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors.enhanced_gage
-                    }
-                });
-
-                this.map.addLayer({
-                    "id": "temperature",
-                    "source": "delawareBasinTemperatureLocations",
-                    "type": "circle",
-                    "paint": {
-                        "circle-radius": generalColorAndStyle.generalColorsAndStyles.locationFeaturesMapDotSize.temperature,
-                        "circle-color": generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors.temperature
-                    }
-                });
-
-                this.map.addLayer({
-                    "id": "new_gage",
-                    "source": "delawareBasinNewLocations",
-                    "type": "circle",
-                    "paint": {
-                        "circle-radius": generalColorAndStyle.generalColorsAndStyles.locationFeaturesMapDotSize.new_gage,
-                        "circle-color": generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors.new_gage
-                    }
                 });
 
                 this.map.addLayer({

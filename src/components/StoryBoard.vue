@@ -70,11 +70,6 @@
 <script>
     import mapStory from "../assets/mapStory/mapStory";
     import mapboxgl from "mapbox-gl";
-    import delawareBasinCameraLocations from "../assets/monitoring_locations/delawareBasinCameraLocations";
-    import delawareBasinConductanceLocations from "../assets/monitoring_locations/delawareBasinConductanceLocations";
-    import delawareBasinEnhancedLocations from "../assets/monitoring_locations/delawareBasinEnhancedLocations";
-    import delawareBasinNewLocations from "../assets/monitoring_locations/delawareBasinNewLocations";
-    import delawareBasinTemperatureLocations from "../assets/monitoring_locations/delawareBasinTemperatureLocations";
     import delawareBasinNextGenerationMonitoringLocations
         from "../assets/monitoring_locations/delawareBasinNextGenerationMonitoringLocations";
     import D3Rings from './D3Rings';
@@ -107,11 +102,6 @@
             },
             getLocationsInTour(tourType) {
                 const locationsInTour = {
-                    'cameras': delawareBasinCameraLocations.delawareBasinCameraLocations.features,
-                    'specific_conductance': delawareBasinConductanceLocations.delawareBasinConductanceLocations.features,
-                    'enhanced_gage': delawareBasinEnhancedLocations.delawareBasinEnhancedLocations.features,
-                    'new_gage': delawareBasinNewLocations.delawareBasinNewLocations.features,
-                    'temperature': delawareBasinTemperatureLocations.delawareBasinTemperatureLocations.features,
                     'all_locations': delawareBasinNextGenerationMonitoringLocations.delawareBasinNextGenerationsMonitoringLocations.features,
                     'default': []
                 };

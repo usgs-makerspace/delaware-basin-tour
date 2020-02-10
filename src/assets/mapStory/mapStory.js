@@ -9,8 +9,8 @@ export default {
             "title": "Next Generation Observing Systems",
             "content": "Emergency managers and water resource managers rely on the USGS stream gage network and the associated water delivery to provide data to address complex challenges involving water. This network is functioning but was designed many years ago and needs major upgrades to meet increasingly complex water challenges facing the Nation.",
             "tourType": "none",
-            "layersToHide": ["all_locations", "monitoring-location-clusters", "monitoring-location-cluster-count",  "monitoring-location-unclustered-point", "physiographic_provinces"],
-            "hiddenLayersToShow": [],
+            "layersToHide": ["monitoring-location-clusters", "monitoring-location-cluster-count",  "monitoring-location-unclustered-point", "physiographic_provinces"],
+            "hiddenLayersToShow": ["new_gage_delaware_basin", "enhanced_gag_delaware_basin", "camera_delaware_basin", "specific_conductance_delaware_basin", "temperature_delaware_basin"],
             "D3Rings": false
         },
         {
@@ -30,7 +30,7 @@ export default {
             "content": "The Delaware Basin area is a pilot to test out the Next Generation Water Observing System (NGWOS) that will support innovative modern water prediction and decision support systems in a nationally important, complex interstate river system. Lying in the densely populated corridor of the northeastern US, the 13,600 square mile Delaware River Basin stretches approximately 330 miles from headwaters in New York State to its confluence with the Atlantic Ocean. The basin includes approximately 12,800 square miles of land area, nearly 800 square miles of Bay and over 2,000 tributaries, including manythat are rivers in their own right. The northernmost tributaries to the Delaware River originate in the forested western slopes of the Catskill Mountains, which reach elevations of up to 4,000 feet. The East and West Branches meet at Hancock, NY where the Delaware River officially begins. The River descends about 800 feet on its journey to the Atlantic Ocean.",
             "tourType": "none",
             "layersToHide": ["all_locations", "monitoring-location-clusters", "monitoring-location-cluster-count",  "monitoring-location-unclustered-point", "physiographic_provinces"],
-            "hiddenLayersToShow": [],
+            "hiddenLayersToShow": ["new_gage_delaware_basin", "enhanced_gag_delaware_basin", "camera_delaware_basin", "specific_conductance_delaware_basin", "temperature_delaware_basin"],
             "D3Rings": false
         },
         {
@@ -50,7 +50,7 @@ export default {
             "content": "The USGS collects water related data from more than 10,000 gages in the basin.",
             "tourType": "none",
             "layersToHide": ["all_locations","physiographic_provinces"],
-            "hiddenLayersToShow": [],
+            "hiddenLayersToShow": ["new_gage_delaware_basin", "enhanced_gag_delaware_basin", "camera_delaware_basin", "specific_conductance_delaware_basin", "temperature_delaware_basin"],
             "D3Rings": false
         },
         {
@@ -69,7 +69,7 @@ export default {
             "content": "In 2018, seventeen new monitoring systems were added to the Delaware River Basin region to address monitoring gaps to improve the quantification of the amount of water in the headwater and tributary streams and to track the salt front in the mainstem",
             "tourType": "none",
             "layersToHide": ["all_locations", "monitoring-location-clusters", "monitoring-location-cluster-count",  "monitoring-location-unclustered-point", "cameras", "specific_conductance", "enhanced_gage", "temperature", "physiographic_provinces"],
-            "hiddenLayersToShow": [],
+            "hiddenLayersToShow": ["new_gage_delaware_basin", "enhanced_gag_delaware_basin", "camera_delaware_basin", "specific_conductance_delaware_basin", "temperature_delaware_basin"],
             "D3Rings": false
         },
         {
@@ -88,7 +88,7 @@ export default {
             "content": "At twenty-eight existing monitoring locations, enhancements were made to improve two-way communication enabling remote operation and troubleshooting of equipment as well as allow for redundant communication capability to ensure data are delivered during critical periods.",
             "tourType": "none",
             "layersToHide": ["all_locations", "monitoring-location-clusters", "monitoring-location-cluster-count",  "monitoring-location-unclustered-point", "cameras", "specific_conductance", "temperature", "new_gage", "physiographic_provinces"],
-            "hiddenLayersToShow": [],
+            "hiddenLayersToShow": ["enhanced_gage_delaware_basin"],
             "D3Rings": false
         },
         {
@@ -107,7 +107,7 @@ export default {
             "content": "Cameras can be used as non-contact sensors monitoring stream flow, water level, ice cover, suspended-sediment concentration, turbidity, harmful algal blooms, channel erosion, and other conditions at monitoring locations.",
             "tourType": "none",
             "layersToHide": ["all_locations", "monitoring-location-clusters", "monitoring-location-cluster-count",  "monitoring-location-unclustered-point", "specific_conductance", "enhanced_gage", "temperature", "new_gage", "physiographic_provinces"],
-            "hiddenLayersToShow": [],
+            "hiddenLayersToShow": ["camera_delaware_basin"],
             "D3Rings": false
         },
         {
@@ -126,7 +126,7 @@ export default {
             "content": "Water temperature influences water chemistry, aquatic metabolism and the health of fisheries. Specific conductance data can be used to improve models and predictions and understanding of surface water and groundwater connections. Real-time temperature will be added to about thirty-six sites and specific conductance at about ten sites. ",
             "tourType": "none",
             "layersToHide": ["all_locations", "monitoring-location-clusters", "monitoring-location-cluster-count",  "monitoring-location-unclustered-point", "cameras", "specific_conductance", "enhanced_gage", "new_gage", "physiographic_provinces"],
-            "hiddenLayersToShow": [],
+            "hiddenLayersToShow": ["temperature_delaware_basin"],
             "D3Rings": false
         },
         {
@@ -145,7 +145,7 @@ export default {
             "content": "Water temperature influences water chemistry, aquatic metabolism and the health of fisheries. Specific conductance data can be used to improve models and predictions and understanding of surface water and groundwater connections. Real-time temperature will be added to about thirty-six sites and specific conductance at about ten sites. ",
             "tourType": "none",
             "layersToHide": ["all_locations", "monitoring-location-clusters", "monitoring-location-cluster-count",  "monitoring-location-unclustered-point", "cameras", "enhanced_gage", "temperature", "new_gage", "physiographic_provinces"],
-            "hiddenLayersToShow": [],
+            "hiddenLayersToShow": ["specific_conductance_delaware_basin"],
             "D3Rings": false
         },
         {
@@ -164,7 +164,11 @@ export default {
             "content": "The Delaware River Basin is divided up into five physiographic provinces representing distinctive areas having common topography, rock types and structure, and geologic and geomorphic history",
             "tourType": "none",
             "layersToHide": ["monitoring-location-clusters", "monitoring-location-cluster-count",  "monitoring-location-unclustered-point", "cameras", "enhanced_gage", "temperature", "new_gage", "specific_conductance","drb_boundary"],
-            "hiddenLayersToShow": ["physiographic_provinces"],
+            "hiddenLayersToShow": ["physiographic_provinces",
+                "new_gage_physiographic_region_1", "enhanced_gag_physiographic_region_1", "camera_physiographic_region_1", "specific_conductance_physiographic_region_1", "temperature_physiographic_region_1",
+                "new_gage_physiographic_region_2", "enhanced_gag_physiographic_region_2", "camera_physiographic_region_2", "specific_conductance_physiographic_region_2", "temperature_physiographic_region_2",
+                "new_gage_physiographic_region_3", "enhanced_gag_physiographic_region_3", "camera_physiographic_region_3", "specific_conductance_physiographic_region_3", "temperature_physiographic_region_3"
+            ],
             "D3Rings": false
         },
         {
@@ -184,45 +188,26 @@ export default {
                     "management goal. However, sea level rise may require new management measures, operations plans and/or additional water to maintain control of salinity.",
             "tourType": "all_locations",
             "layersToHide": ["monitoring-location-clusters", "monitoring-location-cluster-count", "cameras", "enhanced_gage", "temperature", "new_gage", "specific_conductance","drb_boundary","physiographic_provinces"],
-            "hiddenLayersToShow": ["drb_boundary"],
+            "hiddenLayersToShow": ["drb_boundary", "new_gage_delaware_basin", "enhanced_gag_delaware_basin", "camera_delaware_basin", "specific_conductance_delaware_basin", "temperature_delaware_basin"],
             "D3Rings": true
         },
         {
-            "id": "test-chapter",
+            "id": "test-bed",
             "class": "",
             "flyToCommands": {
-                "duration": 9500,
+                "duration": 9000,
                 "bearing": 0,
-                "center": [-74.3867, 40.6134],
-                "zoom": 5,
+                "center": [-74.9214, 40.4467],
+                "zoom": 6.5,
                 "pitch": 20,
-                "speed": 0.2,
+                "speed": 0.5,
                 "essential": true
             },
-            "title": "test physiographic-3",
-            "content": "just a test of physiographic-3 layer display",
+            "title": "Sample Test Bed (not real locations)",
+            "content": "This is a place holder to serve as an example of functionality",
             "tourType": "none",
-            "layersToHide": ["monitoring-location-clusters", "monitoring-location-cluster-count", "cameras", "enhanced_gage", "temperature", "new_gage", "specific_conductance","drb_boundary","physiographic_provinces"],
-            "hiddenLayersToShow": ["drb_boundary", "camera_physiographic_3"],
-            "D3Rings": false
-        },
-        {
-            "id": "test-chapter2",
-            "class": "",
-            "flyToCommands": {
-                "duration": 9500,
-                "bearing": 0,
-                "center": [-74.3867, 40.6134],
-                "zoom": 5,
-                "pitch": 20,
-                "speed": 0.2,
-                "essential": true
-            },
-            "title": "test delware",
-            "content": "just a test of physiographic-3 layer display",
-            "tourType": "none",
-            "layersToHide": ["monitoring-location-clusters", "monitoring-location-cluster-count", "cameras", "enhanced_gage", "temperature", "new_gage", "specific_conductance","drb_boundary","physiographic_provinces"],
-            "hiddenLayersToShow": ["drb_boundary", "specific_conductance_test_bed"],
+            "layersToHide": ["monitoring-location-clusters", "monitoring-location-cluster-count",  "monitoring-location-unclustered-point", "cameras", "enhanced_gage", "temperature", "new_gage", "specific_conductance","drb_boundary"],
+            "hiddenLayersToShow": ["new_gage_test_bed", "enhanced_gag_test_bed", "camera_test_bed", "specific_conductance_test_bed", "temperature_test_bed"],
             "D3Rings": false
         },
 	    {

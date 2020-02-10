@@ -13,8 +13,8 @@
         >
           <div
             v-show="!isTourRunning"
-            @click="chapter.isText ? toggleTextOverlay(state='on', chapter.html) : (moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.id, chapter.layersToHide, chapter.hiddenLayersToShow), toggleTextOverlay(state='off', null), addMonitoringLocationRings(chapter.D3Rings))"
-            @mouseover="chapter.isText ? toggleTextOverlay(state='on', chapter.html) : (moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.id, chapter.layersToHide, chapter.hiddenLayersToShow), toggleTextOverlay(state='off', null), addMonitoringLocationRings(chapter.D3Rings))"
+            @click="moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.id, chapter.layersToHide, chapter.hiddenLayersToShow), addMonitoringLocationRings(chapter.D3Rings), chapter.isText ? toggleTextOverlay(state='on', chapter.html) : toggleTextOverlay(state='off', null)"
+            @mouseover="moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.id, chapter.layersToHide, chapter.hiddenLayersToShow), addMonitoringLocationRings(chapter.D3Rings), chapter.isText ? toggleTextOverlay(state='on', chapter.html) : toggleTextOverlay(state='off', null)"
           >
             <h3>{{ chapter.title }}</h3>
             <p>

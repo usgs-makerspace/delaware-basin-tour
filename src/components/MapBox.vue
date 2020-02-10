@@ -260,9 +260,8 @@
                                     'layout': {
                                       'visibility': 'none'
                                     },
-                                    // 'filter': ["all", ['in', 'locationFeatures', 'camera'], ['in', 'associatedRegions', 'test_bed']],
-                                    // 'filter': ['in', 'camera', ['get', 'locationFeatures']],
-                                    'filter': ['in', 'locationFeatures', 'camera'],
+                                    // WORKS!!!!!! 'filter': ["all", ['in', 'camera', ['get', 'locationFeatures']], ['in', 'test_bed', ['get', 'associatedRegions']]],
+                                    'filter': ["all", ['in', feature, ['get', 'locationFeatures']], ['in', region, ['get', 'associatedRegions']]],
                                     'paint': {
                                     'circle-color':  generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors[feature],
                                             'circle-opacity': 0.1,

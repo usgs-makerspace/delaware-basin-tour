@@ -203,7 +203,7 @@ export default {
             "content": "just a test of physiographic-3 layer display",
             "tourType": "none",
             "layersToHide": ["monitoring-location-clusters", "monitoring-location-cluster-count", "cameras", "enhanced_gage", "temperature", "new_gage", "specific_conductance","drb_boundary","physiographic_provinces"],
-            "hiddenLayersToShow": ["drb_boundary", "camera_physiographic-3"],
+            "hiddenLayersToShow": ["drb_boundary", "camera_physiographic_3"],
             "D3Rings": false
         },
         {
@@ -222,7 +222,7 @@ export default {
             "content": "just a test of physiographic-3 layer display",
             "tourType": "none",
             "layersToHide": ["monitoring-location-clusters", "monitoring-location-cluster-count", "cameras", "enhanced_gage", "temperature", "new_gage", "specific_conductance","drb_boundary","physiographic_provinces"],
-            "hiddenLayersToShow": ["drb_boundary", "specific_conductance_delaware-basin"],
+            "hiddenLayersToShow": ["drb_boundary", "specific_conductance_test_bed"],
             "D3Rings": false
         },
 	    {

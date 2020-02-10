@@ -5,30 +5,15 @@ export default {
             {
                 "type": "Feature",
                 "properties": {
-                    "testlocationFeatures" : {
-                        "new": false,
-                        "enhanced_gage": true,
-                        "camera": true,
-                        "specific_conductance": true,
-                        "temperature": true
-                    },
                     "locationFeatures": [
                         "enhanced_gage",
                         "camera",
                         "specific_conductance",
                         "temperature"
                     ],
-                    "testassociatedRegions": {
-                        "delaware_basin": true,
-                        "physiographic_1": true,
-                        "physiographic_2": false,
-                        "physiographic_3": false,
-                        "physiographic_4": false,
-                        "physiographic_5": false,
-                        "test_bed": true
-                    },
                     "associatedRegions" : [
-                            "delaware_basin", "physiographic_1", "test_bed"
+                        "delaware_basin",
+                        "physiographic_1"
                     ],
                     "latitude": 42.1661111,
                     "longitude": -75.14002778,
@@ -56,29 +41,14 @@ export default {
             {
                 "type": "Feature",
                 "properties": {
-                    "testlocationFeatures" : {
-                        "new": false,
-                        "enhanced_gage": true,
-                        "camera": true,
-                        "specific_conductance": true,
-                        "temperature": true
-                    },
                     "site_id": "USGS-01415460",
                     "locationFeatures": [
                         "enhanced_gage",
                         "camera"
                     ],
-                    "testassociatedRegions": {
-                        "delaware_basin": true,
-                        "physiographic_1": true,
-                        "physiographic_2": false,
-                        "physiographic_3": false,
-                        "physiographic_4": false,
-                        "physiographic_5": false,
-                        "test_bed": true
-                    },
                     "associatedRegions" : [
-                        "delaware_basin", "physiographic_3"
+                        "delaware_basin",
+                        "physiographic_3"
                     ],
                     "latitude": 42.1471111,
                     "longitude": -74.9052222,
@@ -106,30 +76,16 @@ export default {
             {
                 "type": "Feature",
                 "properties": {
-                    "testlocationFeatures" : {
-                        "new": false,
-                        "enhanced_gage": true,
-                        "camera": true,
-                        "specific_conductance": true,
-                        "temperature": true
-                    },
                     "site_id": "USGS-01413500",
                     "locationFeatures": [
                         "new_gage",
                         "specific_conductance",
                         "temperature"
                     ],
-                    "testassociatedRegions": {
-                        "delaware_basin": true,
-                        "physiographic_1": false,
-                        "physiographic_2": true,
-                        "physiographic_3": false,
-                        "physiographic_4": false,
-                        "physiographic_5": false,
-                        "test_bed": false
-                    },
                     "associatedRegions" : [
-                        "delaware_basin", "physiographic_5", "test_bed"
+                        "delaware_basin",
+                        "physiographic_5",
+                        "test_bed"
                     ],
                     "latitude": 42.1447222,
                     "longitude": -74.6536111,
@@ -157,32 +113,15 @@ export default {
             {
                 "type": "Feature",
                 "properties": {
-                    "testlocationFeatures" : {
-                        "new": false,
-                        "enhanced_gage": true,
-                        "camera": true,
-                        "specific_conductance": true,
-                        "temperature": true
-                    },
                     "site_id": "USGS-01413500",
                     "locationFeatures": [
                         "enhanced_gage",
                         "specific_conductance",
                         "temperature"
                     ],
-                    "testassociatedRegions": {
-                        "delaware_basin": true,
-                        "physiographic_1": false,
-                        "physiographic_2": true,
-                        "physiographic_3": false,
-                        "physiographic_4": false,
-                        "physiographic_5": false,
-                        "test_bed": true
-                    },
                     "associatedRegions" : [
                         "delaware_basin", "physiographic_2",
                     ],
-
                     "latitude": 42.1447222,
                     "longitude": -74.6536111,
                     "flyToCommands": {
@@ -209,29 +148,15 @@ export default {
             {
                 "type": "Feature",
                 "properties": {
-                    "testlocationFeatures" : {
-                        "new": false,
-                        "enhanced_gage": true,
-                        "camera": true,
-                        "specific_conductance": true,
-                        "temperature": true
-                    },
                     "site_id": "USGS-01414000",
                     "locationFeatures": [
                         "camera",
                         "specific_conductance"
                     ],
-                    "testassociatedRegions": {
-                        "delaware_basin": true,
-                        "physiographic_1": true,
-                        "physiographic_2": true,
-                        "physiographic_3": false,
-                        "physiographic_4": false,
-                        "physiographic_5": true,
-                        "test_bed": false
-                    },
                     "associatedRegions" : [
-                        "delaware_basin", "physiographic_3", "test_bed"
+                        "delaware_basin",
+                        "physiographic_3",
+                        "test_bed"
                     ],
                     "latitude": 42.13306,
                     "longitude": -74.69556,

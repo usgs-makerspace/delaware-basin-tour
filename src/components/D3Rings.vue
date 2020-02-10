@@ -4,7 +4,10 @@
 <script>
 import mapboxgl from "mapbox-gl";
 import * as d3 from "d3";
-import tour from "../assets/monitoring_locations/delawareBasinNextGenerationLocationsSorted";
+import delawareBasinNextGenerationMonitoringLocations
+    from "../assets/monitoring_locations/delawareBasinNextGenerationMonitoringLocations";
+import generalColorAndStyle from "../assets/mapStyleConstants/generalColorAndStyle";
+
 export default {
   name: "D3Rings",
   mounted() {
@@ -16,72 +19,74 @@ export default {
     });
   },
   methods: {
+    d3svg: function(SVGContainer) {
+      return d3
+              .select(SVGContainer)
+              .append("svg")
+              .attr("id", "monitoringLocationsSVG");
+    },
     CreateRings() {
       let map = this.$store.map;
-      let $this = this;
-      let radius = 15;
-      //Gage array entries match up to the index of the color array
-      let gageArray = ["enhanced_gage", "new_gage", "specific_conductance", "temperature", "camera"];
-      let colors = ["#00F4CE", "#2B9BFD", "#FEBD03", "#FE324D", "#FF562F"];
+      let self = this;
+      //monitoringLocation array entries match up to the index of the color array
+      let monitoringLocationFeatureTypes = Object.keys(generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors);
+      let colors = Object.values(generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors);
       let pieSegmentColors = d3.scaleOrdinal()
-        .domain(gageArray)
+        .domain(monitoringLocationFeatureTypes)
         .range(colors);
         
       //Setup SVG layer that we can manipulate with D3
       const SVGContainer = map.getCanvasContainer();
-      const svg = d3
-        .select(SVGContainer)
-        .append("svg")
-        .attr("id", "gagesSVG");
+      const svg = self.d3svg(SVGContainer);
 
-      function projectPoint(data, coordinate) {
-        let point = map.project(
+      function projectPoint(data) {
+          return map.project(
           new mapboxgl.LngLat(
             data.geometry.coordinates[0],
             data.geometry.coordinates[1]
           )
         );
-        return point;
       }
 
       const arc = d3
         .arc()
-        .innerRadius(10)
-        .outerRadius(radius);
+        .innerRadius(generalColorAndStyle.generalColorsAndStyles.d3PieStyles.innerRadius)
+        .outerRadius(generalColorAndStyle.generalColorsAndStyles.d3PieStyles.outerRadius);
       const pieSegments = d3.pie()
         .value(function(d) {
             return d.value.segment;
         });
 
-      let gages = tour.delawareBasinNewGenerationsLocations.features;
+        function createPieData(feature) {
+          let pieData = [];
+          let allPosibleMonitoringLocationFeatures = Object.keys(generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors);
 
-      function createPieData(feature){
-            let pieData = []
-          let properties = feature.properties;
-          let keys = Object.keys(properties);
-          let filtered = keys.filter(function(key){
-              if(gageArray.includes(key)){
-                  let obj = {};
-                  obj["gageType"] = key;
-                  obj["segment"] = 1;
-                  obj["active"] = properties[key];
-                  pieData.push(obj);
-              }
-          })
-          let dataReady = pieSegments(d3.entries(pieData));
-          return dataReady;
-      };
-    //Group that has the geojson data for map placement
-      const gage = svg
+          // Go through the list of all possible monitoring location features and make a segment of the pie for that
+          // If that feature is one of the features at the current monitoring location, mark it as active
+          allPosibleMonitoringLocationFeatures.forEach(function(oneOfAllPossibleFeatures) {
+            let ringSegment = {
+                "featureType": oneOfAllPossibleFeatures,
+                "segment": 1,
+                "active": !!feature.properties.locationFeatures.includes(oneOfAllPossibleFeatures)
+            };
+            pieData.push(ringSegment);
+          });
+
+          return pieSegments(d3.entries(pieData));
+        }
+
+      //Group that has the geojson data for map placement
+      const monitoringLocation = svg
         .selectAll("g")
-        .data(gages)
+        .data(delawareBasinNextGenerationMonitoringLocations.delawareBasinNextGenerationsMonitoringLocations.features)
         .enter()
         .append("g")
         .classed("D3Ring", true);
-    //Groups that hold the path and hold the data created via createPieData
-      let pies = gage
-        .selectAll(".gage")
+      //Groups that hold the path and hold the data created via createPieData
+      let pies = monitoringLocation
+        .selectAll(".monitoringLocation")
         .data(function(d) {
+
           return createPieData(d);
         })
         .enter()
@@ -92,19 +97,19 @@ export default {
         .append("path")
         .attr("d", arc)
         .attr("class", "pieSegment")
-        .attr("stroke", "#50575D")
+        .attr("stroke", generalColorAndStyle.generalColorsAndStyles.d3PieStyles.stroke)
         .attr("stroke-width", 1)
         .attr("fill", function(d){
-            if(d.data.value.active === true){
-                return(pieSegmentColors(d.data.value.gageType));
-            }else{
-                return "#CFD1D0";
+            if(d.data.value.active === true) {
+                return(pieSegmentColors(d.data.value.featureType));
+            } else {
+                return generalColorAndStyle.generalColorsAndStyles.d3PieStyles.default;
             }
-            
         });
-    //Updates the placement of the rings based on map movement
+
+      //Updates the placement of the rings based on map movement
       const update = function() {
-        gage.attr("transform", function(d) {
+        monitoringLocation.attr("transform", function(d) {
           return "translate(" + [projectPoint(d).x, projectPoint(d).y] + ")";
         });
       };
@@ -123,7 +128,7 @@ export default {
 };
 </script>
 <style lang="scss">
-#gagesSVG {
+#monitoringLocationsSVG {
   position: absolute;
   width: 100%;
   height: 100%;

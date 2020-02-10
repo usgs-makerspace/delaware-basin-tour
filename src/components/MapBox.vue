@@ -70,7 +70,7 @@
     import InternetExplorerPage from "./InternetExplorerPage";
     import QuestionControl from "./QuestionControl";
     import StoryBoard from "./StoryBoard";
-    import D3Rings from './D3Rings';
+
 
     import {
         MglMap,
@@ -81,12 +81,9 @@
         MglAttributionControl
     } from "vue-mapbox";
     import mapStyles from "../assets/mapStyles/mapStyles";
-    import delawareBasinCameraLocations from "../assets/monitoring_locations/delawareBasinCameraLocations";
-    import delawareBasinConductanceLocations from "../assets/monitoring_locations/delawareBasinConductanceLocations";
-    import delawareBasinEnhancedLocations from "../assets/monitoring_locations/delawareBasinEnhancedLocations";
-    import delawareBasinNewLocations from "../assets/monitoring_locations/delawareBasinNewLocations";
-    import delawareBasinTemperatureLocations from "../assets/monitoring_locations/delawareBasinTemperatureLocations";
-    import delawareBasinNextGenerationLocationsSorted from "../assets/monitoring_locations/delawareBasinNextGenerationLocationsSorted";
+    import delawareBasinNextGenerationMonitoringLocations
+        from "../assets/monitoring_locations/delawareBasinNextGenerationMonitoringLocations";
+    import generalColorAndStyle from "../assets/mapStyleConstants/generalColorAndStyle";
 
     export default {
         name: "MapBox",
@@ -145,86 +142,10 @@
                 // Next line adds the current zoom level display. The zoom level should only show in 'development' versions of the application.
                 process.env.VUE_APP_ADD_ZOOM_LEVEL_DISPLAY === 'true' ? this.map.on("zoomend", this.addZoomLevelIndicator) : null;
 
-                this.map.addSource('delawareBasinCameraLocations', {
-                    type: 'geojson',
-                    data: delawareBasinCameraLocations.delawareBasinCameraLocations
-                });
-
-                this.map.addSource('delawareBasinConductanceLocations', {
-                    type: 'geojson',
-                    data: delawareBasinConductanceLocations.delawareBasinConductanceLocations
-                });
-
-                this.map.addSource('delawareBasinEnhancedLocations', {
-                    type: 'geojson',
-                    data: delawareBasinEnhancedLocations.delawareBasinEnhancedLocations
-                });
-
-                this.map.addSource('delawareBasinTemperatureLocations', {
-                    type: 'geojson',
-                    data: delawareBasinTemperatureLocations.delawareBasinTemperatureLocations
-                });
-
-                this.map.addSource('delawareBasinNewLocations', {
-                    type: 'geojson',
-                    data: delawareBasinNewLocations.delawareBasinNewLocations
-                });
 
                 this.map.addSource('delawareBasinAllNewEnhancedLocations', {
                     type: 'geojson',
-                    data: delawareBasinNextGenerationLocationsSorted.delawareBasinNewGenerationsLocations
-                });
-
-
-
-                this.map.addLayer({
-                    "id": "cameras",
-                    "source": "delawareBasinCameraLocations",
-                    "type": "circle",
-                    "paint": {
-                        "circle-radius": 11,
-                        "circle-color": "green"
-                    }
-                });
-
-                this.map.addLayer({
-                    "id": "specific_conductance",
-                    "source": "delawareBasinConductanceLocations",
-                    "type": "circle",
-                    "paint": {
-                        "circle-radius": 10,
-                        "circle-color": "red"
-                    }
-                });
-
-                this.map.addLayer({
-                    "id": "enhanced_gage",
-                    "source": "delawareBasinEnhancedLocations",
-                    "type": "circle",
-                    "paint": {
-                        "circle-radius": 8,
-                        "circle-color": "blue"
-                    }
-                });
-
-                this.map.addLayer({
-                    "id": "temperature",
-                    "source": "delawareBasinTemperatureLocations",
-                    "type": "circle",
-                    "paint": {
-                        "circle-radius": 5,
-                        "circle-color": "yellow"
-                    }
-                });
-
-                this.map.addLayer({
-                    "id": "new_gage",
-                    "source": "delawareBasinNewLocations",
-                    "type": "circle",
-                    "paint": {
-                        "circle-radius": 3,
-                        "circle-color": "black"
-                    }
+                    data: delawareBasinNextGenerationMonitoringLocations.delawareBasinNextGenerationsMonitoringLocations
                 });
 
                 this.map.addLayer({
@@ -232,10 +153,52 @@
                     "source": "delawareBasinAllNewEnhancedLocations",
                     "type": "circle",
                     "paint": {
-                        "circle-radius": 7,
-                        "circle-color": "#2f44ad"
+                        "circle-radius": generalColorAndStyle.generalColorsAndStyles.monitoringLocationAll.mapDotSize,
+                        "circle-color": generalColorAndStyle.generalColorsAndStyles.monitoringLocationAll.mapDotColor
                     }
-                })
+                });
+
+                let map = this.map;
+
+                // Get all the information for all the monitoring locations
+                let allMonitoringLocations = delawareBasinNextGenerationMonitoringLocations.delawareBasinNextGenerationsMonitoringLocations.features;
+
+                allMonitoringLocations.forEach(function(location) {
+                    // Get the monitoring location features that are available at the current location
+                    let locationFeatures = (location.properties.locationFeatures);
+                    // Go through each location feature and check what region it is associated with and make a layer on the map for it
+                    locationFeatures.forEach(function (feature) {
+                        location.properties.associatedRegions.forEach(function(region) {
+                            let layerID = feature + '_' + region;
+                            // Check and see if there is an layer with the same ID, if not make one
+                            if (!map.getLayer(layerID)) {
+                                let mapLayerStyle = {
+                                    'id': layerID,
+                                    'type': 'circle',
+                                    'source': 'delawareBasinAllNewEnhancedLocations',
+                                    'layout': {
+                                      'visibility': 'none'
+                                    },
+                                    'filter': ["all", ['in', feature, ['get', 'locationFeatures']], ['in', region, ['get', 'associatedRegions']]],
+                                    'paint': {
+                                    'circle-color':  generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors[feature],
+                                            'circle-opacity': generalColorAndStyle.generalColorsAndStyles.locationFeaturesCircleOpacity[feature],
+                                            'circle-radius': generalColorAndStyle.generalColorsAndStyles.locationFeaturesCircleRadius[feature],
+                                            'circle-stroke-width': generalColorAndStyle.generalColorsAndStyles.locationFeaturesStrokeWidth[feature],
+                                            'circle-stroke-color': generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors[feature],
+                                },
+                                    'minzoom': 3,
+                                    'maxzoom': 23,
+                                };
+
+                                // Add the layer to the map
+                                map.addLayer(mapLayerStyle);
+                                // add the layer to the style sheet in memory
+                                mapStyles.style.layers.push(mapLayerStyle);
+                            }
+                        });
+                    });
+                });
             }
         }
     };

@@ -13,8 +13,8 @@
         >
           <div
             v-show="!isTourRunning"
-            @click="chapter.isText ? toggleTextOverlay(state='on', chapter.html) : (moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.id, chapter.layersToHide, chapter.hiddenLayersToShow), toggleTextOverlay(state='off', null), gageRings(chapter.D3Rings))"
-            @mouseover="chapter.isText ? toggleTextOverlay(state='on', chapter.html) : (moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.id, chapter.layersToHide, chapter.hiddenLayersToShow), toggleTextOverlay(state='off', null), gageRings(chapter.D3Rings))"
+            @click="chapter.isText ? toggleTextOverlay(state='on', chapter.html) : (moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.id, chapter.layersToHide, chapter.hiddenLayersToShow), toggleTextOverlay(state='off', null), addMonitoringLocationRings(chapter.D3Rings))"
+            @mouseover="chapter.isText ? toggleTextOverlay(state='on', chapter.html) : (moveToLocation(chapter.flyToCommands, chapter.id), toggleLayerVisibility(chapter.id, chapter.layersToHide, chapter.hiddenLayersToShow), toggleTextOverlay(state='off', null), addMonitoringLocationRings(chapter.D3Rings))"
           >
             <h3>{{ chapter.title }}</h3>
             <p>
@@ -70,13 +70,10 @@
 <script>
     import mapStory from "../assets/mapStory/mapStory";
     import mapboxgl from "mapbox-gl";
-    import delawareBasinCameraLocations from "../assets/monitoring_locations/delawareBasinCameraLocations";
-    import delawareBasinConductanceLocations from "../assets/monitoring_locations/delawareBasinConductanceLocations";
-    import delawareBasinEnhancedLocations from "../assets/monitoring_locations/delawareBasinEnhancedLocations";
-    import delawareBasinNewLocations from "../assets/monitoring_locations/delawareBasinNewLocations";
-    import delawareBasinTemperatureLocations from "../assets/monitoring_locations/delawareBasinTemperatureLocations";
-    import delawareBasinNextGenerationLocationsSorted from "../assets/monitoring_locations/delawareBasinNextGenerationLocationsSorted";
+    import delawareBasinNextGenerationMonitoringLocations
+        from "../assets/monitoring_locations/delawareBasinNextGenerationMonitoringLocations";
     import D3Rings from './D3Rings';
+    import generalColorAndStyle from "../assets/mapStyleConstants/generalColorAndStyle";
 
     export default {
         name: "StoryBoard",
@@ -104,16 +101,27 @@
                 document.getElementById(elementId).setAttribute('class', 'active');
                 this.$store.map.flyTo(flyToCommands);
             },
+            getLocationsForSpecificTours(tourType) {
+                let locationsInTour = [];
+                delawareBasinNextGenerationMonitoringLocations.delawareBasinNextGenerationsMonitoringLocations.features.forEach(function(feature) {
+                    if (feature.properties.locationFeatures.includes(tourType)) {
+                        locationsInTour.push(feature);
+                    }
+                });
+
+                return locationsInTour;
+            },
             getLocationsInTour(tourType) {
                 const locationsInTour = {
-                    'cameras': delawareBasinCameraLocations.delawareBasinCameraLocations.features,
-                    'specific_conductance': delawareBasinConductanceLocations.delawareBasinConductanceLocations.features,
-                    'enhanced_gage': delawareBasinEnhancedLocations.delawareBasinEnhancedLocations.features,
-                    'new_gage': delawareBasinNewLocations.delawareBasinNewLocations.features,
-                    'temperature': delawareBasinTemperatureLocations.delawareBasinTemperatureLocations.features,
-                    'all_locations': delawareBasinNextGenerationLocationsSorted.delawareBasinNewGenerationsLocations.features,
+                    'all_locations': delawareBasinNextGenerationMonitoringLocations.delawareBasinNextGenerationsMonitoringLocations.features,
+                    'camera': this.getLocationsForSpecificTours('camera'),
+                    'specific_conductance': this.getLocationsForSpecificTours('specific_conductance'),
+                    'enhanced_gage': this.getLocationsForSpecificTours('enhanced_gage'),
+                    'new_gage': this.getLocationsForSpecificTours('new_gage'),
+                    'temperature': this.getLocationsForSpecificTours('temperature'),
                     'default': []
                 };
+
                 return locationsInTour[tourType] || locationsInTour['default'];
             },
             toggleLayerVisibility(chapterId, layersToHide, layersToShow) {
@@ -121,7 +129,7 @@
                 let map = this.$store.map;
                 let layersList = self.$store.map.getStyle().layers;
 
-                // If the user moves to a new chapter, the paused tour resets in preparation for a new tour.
+                // If the user moves to a new chapter, the paused nextGenerationMonitoringLocations resets in preparation for a new nextGenerationMonitoringLocations.
                 if (chapterId !== self.currentlyActiveChapterId) {
                     self.indexOfPausedTour = 0;
                     self.removeElements(document.querySelectorAll('.mapboxgl-popup'));
@@ -172,31 +180,23 @@
                         }
                 );
                 let icons = "";
-                const gageTypes = feature.properties;
-                const keys = Object.keys(gageTypes);
-                const filtered = keys.filter((key) => {
-                  if(gageTypes[key] === true){
-                    return gageTypes[key];
-                  }
-                });
-                //Create Dynamic Icons based on the filtered object keys
-                filtered.forEach(function(iconName){
+                feature.properties.locationFeatures.forEach(function(iconName){
                   try {
                       let iconURL = require('../images/icons/PNG/COLORED/' + iconName + '.png');
-                      //icons stores the multiple img tags to be fed to the popup
-                      icons += "<img src='" + iconURL + "'/> ";
-                  }
-                  catch (error) {
+                      // icons stores the multiple img tags to be fed to the popup
+                      icons += "<img alt='features icons' src='" + iconURL + "'/> ";
+                  } catch {
                       console.log('Warning: there has been a problem adding the popup icons. Perhaps you have a property ' +
-                              'in the monitoring location JSON that has a value of true, but does not have a matching' +
-                              ' icon available.')
+                              'in the monitoring location JSON that does not have a matching icon available.');
                   }
                 });
-                
+
                 layer !== 'all_locations' ? popup.setText(feature.properties.site_id) : popup.setHTML('<div>' + feature.properties.site_id + '</div><div id="iconContainer">' + icons +'</div>');
 
                 new mapboxgl.Marker({
-                    "color": map.getPaintProperty(layer, 'circle-color') // Make the custom marker color the same as the 'dot/circle' color from the layer
+                    "color": layer === 'all_locations'? // Make the custom marker color the same as the 'dot/circle' color from the master style sheet
+                            generalColorAndStyle.generalColorsAndStyles.monitoringLocationAll.mapDotColor :
+                            generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors[layer]
                 })
                         .setLngLat(feature.geometry.coordinates)
                         .setPopup(popup)
@@ -218,7 +218,6 @@
                 // Fly to the locations on the tour list
                 locationsInTour.forEach(function(feature, index) {
                     if (index >= self.indexOfPausedTour) {
-
                         promise = promise.then(function() {
                             remainingLocations = remainingLocations - 1;
                             self.locationsRemainingInTour = remainingLocations;
@@ -228,7 +227,7 @@
                                 if (self.isTourPauseActive) { // If user has pressed the pause button, reject the promise and break the promise chain
                                     self.indexOfPausedTour = index; // Save the index so we can resume the tour at the same place
                                     self.locationsRemainingInTour = remainingLocations;
-                                    reject('user paused tour');
+                                    reject('user paused nextGenerationMonitoringLocations');
                                 }
 
                                 if (remainingLocations === 0) {
@@ -259,33 +258,32 @@
             },
             toggleTextOverlay(state, html) {
                 // Get map canvas and container elements,  assign ID for overlay div
-                let mapCanvas = this.$store.map.getCanvas()
-                let mapCanvasContainer = this.$store.map.getCanvasContainer()
-                let overlayID = 'mapOverlay'
+                let mapCanvas = this.$store.map.getCanvas();
+                let mapCanvasContainer = this.$store.map.getCanvasContainer();
+                let overlayID = 'mapOverlay';
 
                 // See if we have a text overlay div; create a hidden one if we don't
-                let mapOverlay = document.getElementById(overlayID)
+                let mapOverlay = document.getElementById(overlayID);
                 if (typeof(mapOverlay) == 'undefined' || mapOverlay == null) {
-                    mapOverlay = document.createElement('div')
-                    mapOverlay.id = overlayID
-                    mapOverlay.style.display = 'none'
-                    mapCanvasContainer.appendChild(mapOverlay)
+                    mapOverlay = document.createElement('div');
+                    mapOverlay.id = overlayID;
+                    mapOverlay.style.display = 'none';
+                    mapCanvasContainer.appendChild(mapOverlay);
                 }
 
                 // Load/unload text overlay content, toggle map opacity, show/hide text overlay div
-                if (state == 'on') {
-                    mapOverlay.innerHTML = html
-                    mapCanvas.style.opacity = "0.2"
+                if (state === 'on') {
+                    mapOverlay.innerHTML = html;
+                    mapCanvas.style.opacity = "0.2";
                     mapOverlay.style.display = 'block'
                 } else {
-                    mapOverlay.style.display = 'none'
-                    mapCanvas.style.opacity="1"
-                    mapOverlay.innerHTML = ''
+                    mapOverlay.style.display = 'none';
+                    mapCanvas.style.opacity="1";
+                    mapOverlay.innerHTML = '';
                 }
             },
-            gageRings(D3Rings){
+            addMonitoringLocationRings(D3Rings){
               if(D3Rings === true){
-                console.log(D3Rings);
                 this.$root.$emit('CreateRings');
               }else{
                 this.$root.$emit('RemoveRings');

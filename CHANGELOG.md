@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+- Switched to using a 'master' monitoring location file.
 - D3 Rings
 - Add demo text chapter
 - Add text-only chapter functionality

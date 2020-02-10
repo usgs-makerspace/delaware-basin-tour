@@ -194,7 +194,7 @@
                 layer !== 'all_locations' ? popup.setText(feature.properties.site_id) : popup.setHTML('<div>' + feature.properties.site_id + '</div><div id="iconContainer">' + icons +'</div>');
 
                 new mapboxgl.Marker({
-                    "color": layer === 'all_locations'? // Make the custom marker color the same as the 'dot/circle' color from the layer
+                    "color": layer === 'all_locations'? // Make the custom marker color the same as the 'dot/circle' color from the master style sheet
                             generalColorAndStyle.generalColorsAndStyles.monitoringLocationAll.mapDotColor :
                             generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors[layer]
                 })
@@ -212,10 +212,10 @@
                 let locationsInTour = self.getLocationsInTour(tourType);
                 let remainingLocations = null;
 
-                // If the nextGenerationMonitoringLocations is resumed from a paused state we need to account for the number of stations that are left out
+                // If the tour is resumed from a paused state we need to account for the number of stations that are left out
                 remainingLocations = locationsInTour.length - self.indexOfPausedTour;
 
-                // Fly to the locations on the nextGenerationMonitoringLocations list
+                // Fly to the locations on the tour list
                 locationsInTour.forEach(function(feature, index) {
                     if (index >= self.indexOfPausedTour) {
                         promise = promise.then(function() {
@@ -225,7 +225,7 @@
                             self.addCustomMarker(tourType, feature);
                             return new Promise(function (resolve, reject) {
                                 if (self.isTourPauseActive) { // If user has pressed the pause button, reject the promise and break the promise chain
-                                    self.indexOfPausedTour = index; // Save the index so we can resume the nextGenerationMonitoringLocations at the same place
+                                    self.indexOfPausedTour = index; // Save the index so we can resume the tour at the same place
                                     self.locationsRemainingInTour = remainingLocations;
                                     reject('user paused nextGenerationMonitoringLocations');
                                 }
@@ -233,7 +233,7 @@
                                 if (remainingLocations === 0) {
                                     self.isTourRunning = false;
                                     self.indexOfPausedTour = 0;
-                                    setTimeout(function () { // Wait a little after the nextGenerationMonitoringLocations, then remove the any markers and popups.
+                                    setTimeout(function () { // Wait a little after the tour, then remove the any markers and popups.
                                         self.removeElements(document.querySelectorAll(".mapboxgl-marker"));
                                         self.removeElements(document.querySelectorAll(".mapboxgl-popup"));
                                     }, 3000);
@@ -244,7 +244,7 @@
                             });
                         });
 
-                        promise.catch(function() {   // When the pause button is pressed, reset the nextGenerationMonitoringLocations so it can be resumed or restarted.
+                        promise.catch(function() {   // When the pause button is pressed, reset the tour so it can be resumed or restarted.
                             self.isTourPauseActive = false;
                             self.isTourRunning = false;
                         });

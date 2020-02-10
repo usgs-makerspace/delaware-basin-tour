@@ -173,23 +173,14 @@
                         }
                 );
                 let icons = "";
-                const monitoringLocationFeatureTypes = feature.properties.locationFeatures;
-                const keys = Object.keys(monitoringLocationFeatureTypes);
-                const filtered = keys.filter((key) => {
-                  if(monitoringLocationFeatureTypes[key] === true){
-                    return monitoringLocationFeatureTypes[key];
-                  }
-                });
-                // Create Dynamic Icons based on the filtered object keys
-                filtered.forEach(function(iconName){
+                feature.properties.locationFeatures.forEach(function(iconName){
                   try {
                       let iconURL = require('../images/icons/PNG/COLORED/' + iconName + '.png');
                       // icons stores the multiple img tags to be fed to the popup
                       icons += "<img alt='features icons' src='" + iconURL + "'/> ";
                   } catch {
                       console.log('Warning: there has been a problem adding the popup icons. Perhaps you have a property ' +
-                              'in the monitoring location JSON that has a value of true, but does not have a matching' +
-                              ' icon available.');
+                              'in the monitoring location JSON that does not have a matching icon available.');
                   }
                 });
 

@@ -187,6 +187,44 @@ export default {
             "hiddenLayersToShow": ["drb_boundary"],
             "D3Rings": true
         },
+        {
+            "id": "test-chapter",
+            "class": "",
+            "flyToCommands": {
+                "duration": 9500,
+                "bearing": 0,
+                "center": [-74.3867, 40.6134],
+                "zoom": 5,
+                "pitch": 20,
+                "speed": 0.2,
+                "essential": true
+            },
+            "title": "test physiographic-3",
+            "content": "just a test of physiographic-3 layer display",
+            "tourType": "none",
+            "layersToHide": ["monitoring-location-clusters", "monitoring-location-cluster-count", "cameras", "enhanced_gage", "temperature", "new_gage", "specific_conductance","drb_boundary","physiographic_provinces"],
+            "hiddenLayersToShow": ["drb_boundary", "camera_physiographic-3"],
+            "D3Rings": false
+        },
+        {
+            "id": "test-chapter2",
+            "class": "",
+            "flyToCommands": {
+                "duration": 9500,
+                "bearing": 0,
+                "center": [-74.3867, 40.6134],
+                "zoom": 5,
+                "pitch": 20,
+                "speed": 0.2,
+                "essential": true
+            },
+            "title": "test delware",
+            "content": "just a test of physiographic-3 layer display",
+            "tourType": "none",
+            "layersToHide": ["monitoring-location-clusters", "monitoring-location-cluster-count", "cameras", "enhanced_gage", "temperature", "new_gage", "specific_conductance","drb_boundary","physiographic_provinces"],
+            "hiddenLayersToShow": ["drb_boundary", "specific_conductance_delaware-basin"],
+            "D3Rings": false
+        },
 	    {
             "id": "future",
             "class": "",

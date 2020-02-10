@@ -57,21 +57,23 @@ export default {
             return d.value.segment;
         });
 
-      function createPieData(feature) {
+        function createPieData(feature) {
           let pieData = [];
-          let properties = feature.properties.locationFeatures;
-          let keys = Object.keys(properties);
-          Object.keys(feature.properties.locationFeatures).forEach(function(key) {
+          let allPosibleMonitoringLocationFeatures = Object.keys(generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors);
+
+          // Go through the list of all possible monitoring location features and make a segment of the pie for that
+          // If that feature is one of the features at the current monitoring location, mark it as active
+          allPosibleMonitoringLocationFeatures.forEach(function(oneOfAllPossibleFeatures) {
             let ringSegment = {
-                "featureType": key,
+                "featureType": oneOfAllPossibleFeatures,
                 "segment": 1,
-                "active": properties[key]
+                "active": feature.properties.locationFeatures.includes(oneOfAllPossibleFeatures) ? true : false
             };
             pieData.push(ringSegment);
           });
-          
+
           return pieSegments(d3.entries(pieData));
-      }
+        }
 
       //Group that has the geojson data for map placement
       const monitoringLocation = svg

@@ -245,13 +245,42 @@
                 let allMonitoringLocations = delawareBasinNextGenerationMonitoringLocations.delawareBasinNextGenerationsMonitoringLocations.features;
 
                 allMonitoringLocations.forEach(function(location) {
-                    // Get the features that are available at the current location
-                    let locationFeatures = Object.keys(location.properties.locationFeatures);
+                    // Get the monitoring location features that are available at the current location
+                    let locationFeatures = (location.properties.locationFeatures);
                     // Go through each location feature and check what region it is associated with and make a layer on the map for it
                     locationFeatures.forEach(function (feature) {
+                        location.properties.associatedRegions.forEach(function(region) {
+                            let layerID = feature + '_' + region;
+                            // Check and see if there is an layer with the same ID, if not make one
+                            if (!map.getLayer(layerID)) {
+                                let mapLayerStyle = {
+                                    'id': layerID,
+                                    'type': 'circle',
+                                    'source': 'delawareBasinAllNewEnhancedLocations',
+                                    'layout': {
+                                      'visibility': 'none'
+                                    },
+                                    // 'filter': ["all", ['in', 'locationFeatures', 'camera'], ['in', 'associatedRegions', 'test_bed']],
+                                    // 'filter': ['in', 'camera', ['get', 'locationFeatures']],
+                                    'filter': ['in', 'locationFeatures', 'camera'],
+                                    'paint': {
+                                    'circle-color':  generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors[feature],
+                                            'circle-opacity': 0.1,
+                                            'circle-radius': 15,
+                                            'circle-stroke-width': 2,
+                                            'circle-stroke-color': generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors[feature],
+                                },
+                                    'minzoom': 3,
+                                    'maxzoom': 23,
+                                };
 
+                                // Add the layer to the map
+                                map.addLayer(mapLayerStyle);
+                                // add the layer to the style sheet in memory
+                                mapStyles.style.layers.push(mapLayerStyle);
+                            }
+                        });
                     });
-
                 });
             }
         }

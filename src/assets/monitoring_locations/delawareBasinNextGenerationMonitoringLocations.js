@@ -5,15 +5,30 @@ export default {
             {
                 "type": "Feature",
                 "properties": {
-                    "locationFeatures": {
+                    "testlocationFeatures" : {
+                        "new": false,
                         "enhanced_gage": true,
-                        "new_gage": false,
-                        "camera": false,
-                        "specific_conductance": false,
+                        "camera": true,
+                        "specific_conductance": true,
                         "temperature": true
                     },
+                    "locationFeatures": [
+                        "enhanced_gage",
+                        "camera",
+                        "specific_conductance",
+                        "temperature"
+                    ],
+                    "testassociatedRegions": {
+                        "delaware_basin": true,
+                        "physiographic_1": true,
+                        "physiographic_2": false,
+                        "physiographic_3": false,
+                        "physiographic_4": false,
+                        "physiographic_5": false,
+                        "test_bed": true
+                    },
                     "associatedRegions" : [
-                            "Delaware River Basin", "Physiographic 1", "Test Bed"
+                            "delaware_basin", "physiographic_1", "test_bed"
                     ],
                     "latitude": 42.1661111,
                     "longitude": -75.14002778,
@@ -41,16 +56,29 @@ export default {
             {
                 "type": "Feature",
                 "properties": {
-                    "site_id": "USGS-01415460",
-                    "locationFeatures": {
+                    "testlocationFeatures" : {
+                        "new": false,
                         "enhanced_gage": true,
-                        "new_gage": false,
-                        "camera": false,
-                        "specific_conductance": false,
-                        "temperature": true,
+                        "camera": true,
+                        "specific_conductance": true,
+                        "temperature": true
+                    },
+                    "site_id": "USGS-01415460",
+                    "locationFeatures": [
+                        "enhanced_gage",
+                        "camera"
+                    ],
+                    "testassociatedRegions": {
+                        "delaware_basin": true,
+                        "physiographic_1": true,
+                        "physiographic_2": false,
+                        "physiographic_3": false,
+                        "physiographic_4": false,
+                        "physiographic_5": false,
+                        "test_bed": true
                     },
                     "associatedRegions" : [
-                        "Delaware River Basin", "Physiographic 3"
+                        "delaware_basin", "physiographic_3"
                     ],
                     "latitude": 42.1471111,
                     "longitude": -74.9052222,
@@ -78,16 +106,30 @@ export default {
             {
                 "type": "Feature",
                 "properties": {
-                    "site_id": "USGS-01413500",
-                    "locationFeatures": {
+                    "testlocationFeatures" : {
+                        "new": false,
                         "enhanced_gage": true,
-                        "new_gage": false,
-                        "camera": false,
-                        "specific_conductance": false,
-                        "temperature": true,
+                        "camera": true,
+                        "specific_conductance": true,
+                        "temperature": true
+                    },
+                    "site_id": "USGS-01413500",
+                    "locationFeatures": [
+                        "new_gage",
+                        "specific_conductance",
+                        "temperature"
+                    ],
+                    "testassociatedRegions": {
+                        "delaware_basin": true,
+                        "physiographic_1": false,
+                        "physiographic_2": true,
+                        "physiographic_3": false,
+                        "physiographic_4": false,
+                        "physiographic_5": false,
+                        "test_bed": false
                     },
                     "associatedRegions" : [
-                        "Delaware River Basin", "Physiographic 5", "Test Bed"
+                        "delaware_basin", "physiographic_5", "test_bed"
                     ],
                     "latitude": 42.1447222,
                     "longitude": -74.6536111,
@@ -115,16 +157,30 @@ export default {
             {
                 "type": "Feature",
                 "properties": {
-                    "site_id": "USGS-01413500",
-                    "locationFeatures": {
-                        "enhanced_gage": false,
-                        "new_gage": true,
-                        "camera": false,
+                    "testlocationFeatures" : {
+                        "new": false,
+                        "enhanced_gage": true,
+                        "camera": true,
                         "specific_conductance": true,
-                        "temperature": false,
+                        "temperature": true
+                    },
+                    "site_id": "USGS-01413500",
+                    "locationFeatures": [
+                        "enhanced_gage",
+                        "specific_conductance",
+                        "temperature"
+                    ],
+                    "testassociatedRegions": {
+                        "delaware_basin": true,
+                        "physiographic_1": false,
+                        "physiographic_2": true,
+                        "physiographic_3": false,
+                        "physiographic_4": false,
+                        "physiographic_5": false,
+                        "test_bed": true
                     },
                     "associatedRegions" : [
-                        "Delaware River Basin", "Physiographic 2",
+                        "delaware_basin", "physiographic_2",
                     ],
 
                     "latitude": 42.1447222,
@@ -153,16 +209,29 @@ export default {
             {
                 "type": "Feature",
                 "properties": {
-                    "site_id": "USGS-01414000",
-                    "locationFeatures": {
+                    "testlocationFeatures" : {
+                        "new": false,
                         "enhanced_gage": true,
-                        "new_gage": false,
-                        "camera": false,
-                        "specific_conductance": false,
-                        "temperature": false,
+                        "camera": true,
+                        "specific_conductance": true,
+                        "temperature": true
+                    },
+                    "site_id": "USGS-01414000",
+                    "locationFeatures": [
+                        "camera",
+                        "specific_conductance"
+                    ],
+                    "testassociatedRegions": {
+                        "delaware_basin": true,
+                        "physiographic_1": true,
+                        "physiographic_2": true,
+                        "physiographic_3": false,
+                        "physiographic_4": false,
+                        "physiographic_5": true,
+                        "test_bed": false
                     },
                     "associatedRegions" : [
-                        "Delaware River Basin", "Physiographic 3", "Test Bed"
+                        "delaware_basin", "physiographic_3", "test_bed"
                     ],
                     "latitude": 42.13306,
                     "longitude": -74.69556,

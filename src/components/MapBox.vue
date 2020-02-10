@@ -179,7 +179,6 @@
                                     'layout': {
                                       'visibility': 'none'
                                     },
-                                    // WORKS!!!!!! 'filter': ["all", ['in', 'camera', ['get', 'locationFeatures']], ['in', 'test_bed', ['get', 'associatedRegions']]],
                                     'filter': ["all", ['in', feature, ['get', 'locationFeatures']], ['in', region, ['get', 'associatedRegions']]],
                                     'paint': {
                                     'circle-color':  generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors[feature],

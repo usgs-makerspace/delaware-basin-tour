@@ -73,6 +73,7 @@
     import delawareBasinNextGenerationMonitoringLocations
         from "../assets/monitoring_locations/delawareBasinNextGenerationMonitoringLocations";
     import D3Rings from './D3Rings';
+    import generalColorAndStyle from "../assets/mapStyleConstants/generalColorAndStyle";
 
     export default {
         name: "StoryBoard",
@@ -100,11 +101,27 @@
                 document.getElementById(elementId).setAttribute('class', 'active');
                 this.$store.map.flyTo(flyToCommands);
             },
+            getLocationsForSpecificTours(tourType) {
+                let locationsInTour = [];
+                delawareBasinNextGenerationMonitoringLocations.delawareBasinNextGenerationsMonitoringLocations.features.forEach(function(feature) {
+                    if (feature.properties.locationFeatures.includes(tourType)) {
+                        locationsInTour.push(feature);
+                    }
+                });
+
+                return locationsInTour;
+            },
             getLocationsInTour(tourType) {
                 const locationsInTour = {
                     'all_locations': delawareBasinNextGenerationMonitoringLocations.delawareBasinNextGenerationsMonitoringLocations.features,
+                    'camera': this.getLocationsForSpecificTours('camera'),
+                    'specific_conductance': this.getLocationsForSpecificTours('specific_conductance'),
+                    'enhanced_gage': this.getLocationsForSpecificTours('enhanced_gage'),
+                    'new_gage': this.getLocationsForSpecificTours('new_gage'),
+                    'temperature': this.getLocationsForSpecificTours('temperature'),
                     'default': []
                 };
+
                 return locationsInTour[tourType] || locationsInTour['default'];
             },
             toggleLayerVisibility(chapterId, layersToHide, layersToShow) {
@@ -177,7 +194,9 @@
                 layer !== 'all_locations' ? popup.setText(feature.properties.site_id) : popup.setHTML('<div>' + feature.properties.site_id + '</div><div id="iconContainer">' + icons +'</div>');
 
                 new mapboxgl.Marker({
-                    "color": map.getPaintProperty(layer, 'circle-color') // Make the custom marker color the same as the 'dot/circle' color from the layer
+                    "color": layer === 'all_locations'? // Make the custom marker color the same as the 'dot/circle' color from the layer
+                            generalColorAndStyle.generalColorsAndStyles.monitoringLocationAll.mapDotColor :
+                            generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors[layer]
                 })
                         .setLngLat(feature.geometry.coordinates)
                         .setPopup(popup)
@@ -199,7 +218,6 @@
                 // Fly to the locations on the nextGenerationMonitoringLocations list
                 locationsInTour.forEach(function(feature, index) {
                     if (index >= self.indexOfPausedTour) {
-
                         promise = promise.then(function() {
                             remainingLocations = remainingLocations - 1;
                             self.locationsRemainingInTour = remainingLocations;

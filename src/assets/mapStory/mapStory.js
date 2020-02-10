@@ -92,7 +92,7 @@ export default {
             "D3Rings": false
         },
         {
-            "id": "cameras",
+            "id": "camera",
             "class": "",
             "flyToCommands": {
                 "duration": 9000,
@@ -105,7 +105,7 @@ export default {
             },
             "title": "Monitoring Location Cameras",
             "content": "Cameras can be used as non-contact sensors monitoring stream flow, water level, ice cover, suspended-sediment concentration, turbidity, harmful algal blooms, channel erosion, and other conditions at monitoring locations.",
-            "tourType": "none",
+            "tourType": "camera",
             "layersToHide": ["all_locations", "monitoring-location-clusters", "monitoring-location-cluster-count",  "monitoring-location-unclustered-point", "specific_conductance", "enhanced_gage", "temperature", "new_gage", "physiographic_provinces"],
             "hiddenLayersToShow": ["camera_delaware_basin"],
             "D3Rings": false

@@ -182,9 +182,9 @@
                                     'filter': ["all", ['in', feature, ['get', 'locationFeatures']], ['in', region, ['get', 'associatedRegions']]],
                                     'paint': {
                                     'circle-color':  generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors[feature],
-                                            'circle-opacity': 0.1,
-                                            'circle-radius': 15,
-                                            'circle-stroke-width': 2,
+                                            'circle-opacity': generalColorAndStyle.generalColorsAndStyles.locationFeaturesCircleOpacity[feature],
+                                            'circle-radius': generalColorAndStyle.generalColorsAndStyles.locationFeaturesCircleRadius[feature],
+                                            'circle-stroke-width': generalColorAndStyle.generalColorsAndStyles.locationFeaturesStrokeWidth[feature],
                                             'circle-stroke-color': generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors[feature],
                                 },
                                     'minzoom': 3,

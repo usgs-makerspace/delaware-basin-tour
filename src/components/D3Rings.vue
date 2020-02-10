@@ -67,7 +67,7 @@ export default {
             let ringSegment = {
                 "featureType": oneOfAllPossibleFeatures,
                 "segment": 1,
-                "active": feature.properties.locationFeatures.includes(oneOfAllPossibleFeatures) ? true : false
+                "active": !!feature.properties.locationFeatures.includes(oneOfAllPossibleFeatures)
             };
             pieData.push(ringSegment);
           });
@@ -100,9 +100,9 @@ export default {
         .attr("stroke", generalColorAndStyle.generalColorsAndStyles.d3PieStyles.stroke)
         .attr("stroke-width", 1)
         .attr("fill", function(d){
-            if(d.data.value.active === true){
+            if(d.data.value.active === true) {
                 return(pieSegmentColors(d.data.value.featureType));
-            }else{
+            } else {
                 return generalColorAndStyle.generalColorsAndStyles.d3PieStyles.default;
             }
         });

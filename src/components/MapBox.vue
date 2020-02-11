@@ -18,7 +18,7 @@
         v-if="!isInternetExplorer"
         id="mapContainer"
       >
-        <div id="map-section">
+        <div id="map-section" data-intro="...and the map will update here." data-position="right" data-step="2">
           <MglMap
             id="mapgl"
             :container="container"
@@ -55,7 +55,7 @@
           </MglMap>
         </div>
       </div>
-      <div id="story-section">
+      <div id="story-section" data-intro="Scroll through the chapters here..." data-position="left" data-step="1">
         <StoryBoard />
       </div>
     </div>
@@ -70,6 +70,7 @@
     import InternetExplorerPage from "./InternetExplorerPage";
     import QuestionControl from "./QuestionControl";
     import StoryBoard from "./StoryBoard";
+    import "intro.js/minified/introjs.min.css";
 
 
     import {
@@ -139,6 +140,8 @@
                 this.$store.map = event.map; // Add the map to the Vuex store so that we can use it in other components.
                 // Pause the code here to make sure the fitbounds has time to finish before fade away of loading screen.
                 setTimeout(() => { this.isLoading = false; }, 200);
+                // intro.js needs a slightly longer pause before kicking off, or it will appear as the loading screen is fading out
+                setTimeout(() => { let introJS = require("intro.js"); introJS.introJs().start(); }, 400);
                 // Next line adds the current zoom level display. The zoom level should only show in 'development' versions of the application.
                 process.env.VUE_APP_ADD_ZOOM_LEVEL_DISPLAY === 'true' ? this.map.on("zoomend", this.addZoomLevelIndicator) : null;
 

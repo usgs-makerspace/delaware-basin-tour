@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+- Add intro.js tour
 - Fixed bug in text-overlay chapter that prevented chapter highlighting and map operations
 - Switched to using a 'master' monitoring location file.
 - D3 Rings

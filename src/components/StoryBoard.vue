@@ -62,16 +62,22 @@
               pause the tour
             </button>
             <button
-                v-show="chapter.DarkButton"
-                @click="activateDarkExperience"
+              v-show="chapter.DarkButton && !isDarkStyle"
+              @click="activateDarkStyle"
             >
-              dark experience
+              dark style
             </button>
             <button
-                v-show="chapter.DarkButton"
-                @click="switchToBlackBackground"
+              v-show="chapter.DarkButton && isDarkStyle"
+              @click="activateDarkStyle"
             >
-              fancy
+              regular style
+            </button>
+            <button
+              v-show="chapter.DarkButton"
+              @click="zoomToggle"
+            >
+              zoom a bit
             </button>
           </div>
         </section>
@@ -89,17 +95,10 @@
     import mapStylesDark from "../assets/mapStyles/mapStylesDark";
     import mapStyles from "../assets/mapStyles/mapStyles";
 
-
     export default {
         name: "StoryBoard",
         components:{
           D3Rings
-        },
-        props: {
-            darkLayerIds: {
-                type: Array,
-                required: true
-            }
         },
         data() {
             return {
@@ -111,7 +110,8 @@
                 isTourPauseActive: false,
                 indexOfPausedTour: 0,
                 locationsRemainingInTour: null,
-                isZoomedIn: false
+                isZoomedIn: false,
+                isDarkStyle: false
             };
         },
         methods: {
@@ -133,19 +133,14 @@
                 );
                 self.isZoomedIn = !self.isZoomedIn;
             },
-            switchToBlackBackground() {
+            activateDarkStyle() {
                 const self = this;
                 const map = this.$store.map;
-                self.isZoomedIn === false ?
-                        map.setLayoutProperty('dark_background', 'visibility', 'none') :
-                        map.setLayoutProperty('dark_background','visibility', 'visible');
-                self.zoomToggle();
-            },
-            activateDarkExperience() {
-                const self = this;
-                const map = this.$store.map;
-                self.isZoomedIn === false ? map.setStyle(mapStylesDark.style) : map.setStyle(mapStyles.style);
-                self.zoomToggle();
+                self.isDarkStyle === false ? map.setStyle(mapStylesDark.style) : map.setStyle(mapStyles.style); // If the map is not dark, make it dark and vice versa
+                self.isDarkStyle = !self.isDarkStyle;
+                map.on('style.load', function () {
+                    self.$emit('addDynamicLayers');
+                });
             },
             moveToLocation(flyToCommands, elementId) {
                 let allActiveSectionElements = document.querySelectorAll("section.active");

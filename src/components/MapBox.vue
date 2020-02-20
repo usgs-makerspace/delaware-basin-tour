@@ -18,8 +18,8 @@
         v-if="!isInternetExplorer"
         id="mapContainer"
       >
-<!--        <div id="map-section" data-intro="...and the map will update here." data-position="right" data-step="2">-->
-        <div id="map-section" >
+        <!--        <div id="map-section" data-intro="...and the map will update here." data-position="right" data-step="2">-->
+        <div id="map-section">
           <MglMap
             id="mapgl"
             :container="container"
@@ -54,12 +54,11 @@
             <MglFullscreenControl position="bottom-right" />
             <MglGeolocateControl position="bottom-right" />
           </MglMap>
-          <canvas id="deck-canvas"></canvas>
         </div>
       </div>
-<!--      <div id="story-section" data-intro="Scroll through the chapters here..." data-position="left" data-step="1">-->
-        <div id="story-section" >
-        <StoryBoard :dark-layer-ids="darkLayerIds" />
+      <!--      <div id="story-section" data-intro="Scroll through the chapters here..." data-position="left" data-step="1">-->
+      <div id="story-section">
+        <StoryBoard @addDynamicLayers="addDynamicLayers()" />
       </div>
     </div>
     
@@ -124,8 +123,7 @@
                 pitch: 0, // tips the map from 0 to 60 degrees
                 bearing: 0, // starting rotation of the map from 0 to 360
                 maxBounds: [[-168.534393,-4.371744], [-19.832382,71.687625]], // The coordinates needed to make a bounding box for the continental United States.
-                isLoading: true,
-                darkLayerIds: []
+                isLoading: true
             };
         },
         created() {
@@ -134,6 +132,65 @@
         methods: {
             addZoomLevelIndicator() {
                 document.getElementById("zoom-level-div").innerHTML = 'Current Zoom Level (listed for development purposes): ' + this.map.getZoom() ;
+            },
+            addDynamicLayers() {
+                const map = this.$store.map;
+                if(!map.getStyle().sources.hasOwnProperty('delawareBasinAllNewEnhancedLocations')) {
+                    map.addSource('delawareBasinAllNewEnhancedLocations', {
+                        type: 'geojson',
+                        data: delawareBasinNextGenerationMonitoringLocations.delawareBasinNextGenerationsMonitoringLocations
+                    });
+                }
+
+                if(!map.getLayer('all_locations')) {
+                    map.addLayer({
+                        'id': 'all_locations',
+                        'source': 'delawareBasinAllNewEnhancedLocations',
+                        'type': 'circle',
+                        'paint': {
+                            'circle-radius': generalColorAndStyle.generalColorsAndStyles.monitoringLocationAll.mapDotSize,
+                            'circle-color': generalColorAndStyle.generalColorsAndStyles.monitoringLocationAll.mapDotColor
+                        }
+                    });
+                }
+
+                // Get all the information for all the monitoring locations
+                let allMonitoringLocations = delawareBasinNextGenerationMonitoringLocations.delawareBasinNextGenerationsMonitoringLocations.features;
+                // Sort through all the locations and add the ones we want monitoring locations features (temperature etc.) and the 'associated region'
+                // as indicated in the monitoring locations JSON file.
+                allMonitoringLocations.forEach(function(location) {
+                    // Get the monitoring location features that are available at the current location
+                    let locationFeatures = (location.properties.locationFeatures);
+                    // Go through each location feature and check what region it is associated with and make a layer on the map for it
+                    locationFeatures.forEach(function (feature) {
+                        location.properties.associatedRegions.forEach(function(region) {
+                            let layerID = feature + '_' + region;
+                            // Check and see if there is an layer with the same ID, if not make one
+                            if (!map.getLayer(layerID)) {
+                                let mapLayerStyle = {
+                                    'id': layerID,
+                                    'type': 'circle',
+                                    'source': 'delawareBasinAllNewEnhancedLocations',
+                                    'layout': {
+                                        'visibility': 'none'
+                                    },
+                                    'filter': ["all", ['in', feature, ['get', 'locationFeatures']], ['in', region, ['get', 'associatedRegions']]],
+                                    'paint': {
+                                        'circle-color':  generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors[feature],
+                                        'circle-opacity': generalColorAndStyle.generalColorsAndStyles.locationFeaturesCircleOpacity[feature],
+                                        'circle-radius': generalColorAndStyle.generalColorsAndStyles.locationFeaturesCircleRadius[feature],
+                                        'circle-stroke-width': generalColorAndStyle.generalColorsAndStyles.locationFeaturesStrokeWidth[feature],
+                                        'circle-stroke-color': generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors[feature],
+                                    },
+                                    'minzoom': 3,
+                                    'maxzoom': 23,
+                                };
+
+                                map.addLayer(mapLayerStyle); // Add the layer to the map
+                            }
+                        });
+                    });
+                });
             },
             onMapLoaded(event) {
                 this.map = event.map; // This gives us access to the map as an object but only after the map has loaded.
@@ -150,59 +207,7 @@
                 setTimeout(() => { let introJS = require("intro.js"); introJS.introJs().start(); }, 400);
                 // Next line adds the current zoom level display. The zoom level should only show in 'development' versions of the application.
                 process.env.VUE_APP_ADD_ZOOM_LEVEL_DISPLAY === 'true' ? this.map.on("zoomend", this.addZoomLevelIndicator) : null;
-
-
-                map.addSource('delawareBasinAllNewEnhancedLocations', {
-                    type: 'geojson',
-                    data: delawareBasinNextGenerationMonitoringLocations.delawareBasinNextGenerationsMonitoringLocations
-                });
-
-                map.addLayer({
-                    "id": "all_locations",
-                    "source": "delawareBasinAllNewEnhancedLocations",
-                    "type": "circle",
-                    "paint": {
-                        "circle-radius": generalColorAndStyle.generalColorsAndStyles.monitoringLocationAll.mapDotSize,
-                        "circle-color": generalColorAndStyle.generalColorsAndStyles.monitoringLocationAll.mapDotColor
-                    }
-                });
-
-                // Get all the information for all the monitoring locations
-                let allMonitoringLocations = delawareBasinNextGenerationMonitoringLocations.delawareBasinNextGenerationsMonitoringLocations.features;
-
-                allMonitoringLocations.forEach(function(location) {
-                    // Get the monitoring location features that are available at the current location
-                    let locationFeatures = (location.properties.locationFeatures);
-                    // Go through each location feature and check what region it is associated with and make a layer on the map for it
-                    locationFeatures.forEach(function (feature) {
-                        location.properties.associatedRegions.forEach(function(region) {
-                            let layerID = feature + '_' + region;
-                            // Check and see if there is an layer with the same ID, if not make one
-                            if (!map.getLayer(layerID)) {
-                                let mapLayerStyle = {
-                                    'id': layerID,
-                                    'type': 'circle',
-                                    'source': 'delawareBasinAllNewEnhancedLocations',
-                                    'layout': {
-                                      'visibility': 'none'
-                                    },
-                                    'filter': ["all", ['in', feature, ['get', 'locationFeatures']], ['in', region, ['get', 'associatedRegions']]],
-                                    'paint': {
-                                    'circle-color':  generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors[feature],
-                                            'circle-opacity': generalColorAndStyle.generalColorsAndStyles.locationFeaturesCircleOpacity[feature],
-                                            'circle-radius': generalColorAndStyle.generalColorsAndStyles.locationFeaturesCircleRadius[feature],
-                                            'circle-stroke-width': generalColorAndStyle.generalColorsAndStyles.locationFeaturesStrokeWidth[feature],
-                                            'circle-stroke-color': generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors[feature],
-                                },
-                                    'minzoom': 3,
-                                    'maxzoom': 23,
-                                };
-
-                                map.addLayer(mapLayerStyle); // Add the layer to the map
-                            }
-                        });
-                    });
-                });
+                this.addDynamicLayers(); // Add all the layers that are not part of the standard layer set
             }
         }
     };

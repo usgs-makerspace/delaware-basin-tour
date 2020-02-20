@@ -40,7 +40,7 @@ export default {
                 "duration": 9000,
                 "bearing": 0,
                 "center": [-75.600766, 40.4467],
-                "zoom": 4,
+                "zoom": 5,
                 "pitch": 0,
                 "speed": 0.2,
                 "essential": true

@@ -278,11 +278,7 @@ export default {
                 'maxzoom': 23,
                 'source': 'openmaptiles',
                 'source-layer': 'transportation',
-                'type': 'line',
-
-
-
-
+                'type': 'line'
             },
             {
                 'id': 'building',
@@ -307,11 +303,7 @@ export default {
                 'maxzoom': 23,
                 'source': 'openmaptiles',
                 'source-layer': 'building',
-                'type': 'fill',
-
-
-
-
+                'type': 'fill'
             },
             {
                 'filter': ['==', '$type', 'Point'],
@@ -328,11 +320,7 @@ export default {
                 },
                 'source': 'openmaptiles',
                 'source-layer': 'housenumber',
-                'type': 'symbol',
-
-
-
-
+                'type': 'symbol'
             },
             {
                 'id': 'road_area_pier',
@@ -351,11 +339,7 @@ export default {
                     'fill-antialias': true
                 },
                 'minzoom': 3,
-                'maxzoom': 23,
-
-
-
-
+                'maxzoom': 23
             },
             {
                 'id': 'road_pier',
@@ -381,11 +365,7 @@ export default {
                     }
                 },
                 'minzoom': 3,
-                'maxzoom': 23,
-
-
-
-
+                'maxzoom': 23
             },
             {
                 'filter': ['all', ['==', '$type', 'Polygon'],
@@ -401,11 +381,7 @@ export default {
                 'maxzoom': 23,
                 'source': 'openmaptiles',
                 'source-layer': 'transportation',
-                'type': 'fill',
-
-
-
-
+                'type': 'fill'
             },
             {
                 'filter': ['all', ['==', '$type', 'LineString'],
@@ -431,11 +407,7 @@ export default {
                 'maxzoom': 23,
                 'source': 'openmaptiles',
                 'source-layer': 'transportation',
-                'type': 'line',
-
-
-
-
+                'type': 'line'
             },
             {
                 'filter': ['all', ['==', '$type', 'LineString'],
@@ -460,11 +432,7 @@ export default {
                 'maxzoom': 23,
                 'source': 'openmaptiles',
                 'source-layer': 'transportation',
-                'type': 'line',
-
-
-
-
+                'type': 'line'
             },
             {
                 'filter': ['all', ['==', '$type', 'LineString'],
@@ -491,11 +459,7 @@ export default {
                 'maxzoom': 23,
                 'source': 'openmaptiles',
                 'source-layer': 'transportation',
-                'type': 'line',
-
-
-
-
+                'type': 'line'
             },
             {
                 'filter': ['all', ['==', '$type', 'LineString'],
@@ -522,11 +486,7 @@ export default {
                 'maxzoom': 23,
                 'source': 'openmaptiles',
                 'source-layer': 'transportation',
-                'type': 'line',
-
-
-
-
+                'type': 'line'
             },
             {
                 'filter': ['all', ['==', '$type', 'Polygon'],
@@ -553,11 +513,7 @@ export default {
                 'maxzoom': 23,
                 'source': 'openmaptiles',
                 'source-layer': 'aeroway',
-                'type': 'fill',
-
-
-
-
+                'type': 'fill'
             },
             {
                 'filter': ['all', ['in', 'class', 'taxiway'],
@@ -587,11 +543,7 @@ export default {
                 },
                 'source': 'openmaptiles',
                 'source-layer': 'aeroway',
-                'type': 'line',
-
-
-
-
+                'type': 'line'
             },
             {
                 'filter': ['all', ['in', 'class', 'runway'],
@@ -621,11 +573,7 @@ export default {
                 },
                 'source': 'openmaptiles',
                 'source-layer': 'aeroway',
-                'type': 'line',
-
-
-
-
+                'type': 'line'
             },
             {
                 'filter': ['all', ['==', '$type', 'LineString'],
@@ -650,11 +598,7 @@ export default {
                 'maxzoom': 23,
                 'source': 'openmaptiles',
                 'source-layer': 'transportation',
-                'type': 'line',
-
-
-
-
+                'type': 'line'
             },
             {
                 'filter': ['all', ['==', '$type', 'LineString'],
@@ -679,11 +623,7 @@ export default {
                 'maxzoom': 23,
                 'source': 'openmaptiles',
                 'source-layer': 'transportation',
-                'type': 'line',
-
-
-
-
+                'type': 'line'
             },
             {
                 'filter': ['all', ['==', '$type', 'LineString'],
@@ -709,11 +649,7 @@ export default {
                 'maxzoom': 23,
                 'source': 'openmaptiles',
                 'source-layer': 'transportation',
-                'type': 'line',
-
-
-
-
+                'type': 'line'
             },
             {
                 'filter': ['all', ['==', 'class', 'transit'],
@@ -737,11 +673,7 @@ export default {
                 'maxzoom': 23,
                 'source': 'openmaptiles',
                 'source-layer': 'transportation',
-                'type': 'line',
-
-
-
-
+                'type': 'line'
             },
             {
                 'filter': ['==', 'class', 'rail'],
@@ -763,11 +695,7 @@ export default {
                 'maxzoom': 23,
                 'source': 'openmaptiles',
                 'source-layer': 'transportation',
-                'type': 'line',
-
-
-
-
+                'type': 'line'
             },
             {
                 'filter': ['all', ['==', '$type', 'LineString'],
@@ -799,11 +727,7 @@ export default {
                 'maxzoom': 23,
                 'source': 'openmaptiles',
                 'source-layer': 'waterway',
-                'type': 'line',
-
-
-
-
+                'type': 'line'
             },
             {
                 'filter': ['all', ['==', '$type', 'LineString'],
@@ -828,11 +752,7 @@ export default {
                 'maxzoom': 23,
                 'source': 'openmaptiles',
                 'source-layer': 'waterway',
-                'type': 'line',
-
-
-
-
+                'type': 'line'
             },
             {
                 'filter': ['all', ['==', '$type', 'LineString'],
@@ -865,11 +785,7 @@ export default {
                 'maxzoom': 23,
                 'source': 'openmaptiles',
                 'source-layer': 'transportation',
-                'type': 'line',
-
-
-
-
+                'type': 'line'
             },
             {
                 'filter': ['all', ['==', '$type', 'LineString'],
@@ -902,11 +818,7 @@ export default {
                 'maxzoom': 23,
                 'source': 'openmaptiles',
                 'source-layer': 'transportation',
-                'type': 'line',
-
-
-
-
+                'type': 'line'
             },
             {
                 'filter': ['all', ['==', '$type', 'LineString'],
@@ -932,11 +844,7 @@ export default {
                 'maxzoom': 23,
                 'source': 'openmaptiles',
                 'source-layer': 'transportation',
-                'type': 'line',
-
-
-
-
+                'type': 'line'
             },
             {
                 'filter': ['all', ['==', '$type', 'LineString'],
@@ -962,13 +870,8 @@ export default {
                 'maxzoom': 23,
                 'source': 'openmaptiles',
                 'source-layer': 'transportation',
-                'type': 'line',
-
-
-
-
+                'type': 'line'
             },
-
             {
                 'filter': ['all', ['==', '$type', 'Point'],
                     ['==', 'rank', 1]
@@ -994,11 +897,7 @@ export default {
                 },
                 'source': 'openmaptiles',
                 'source-layer': 'poi',
-                'type': 'symbol',
-
-
-
-
+                'type': 'symbol'
             },
             {
                 'filter': ['==', '$type', 'LineString'],
@@ -1027,17 +926,13 @@ export default {
                 'maxzoom': 23,
                 'source': 'openmaptiles',
                 'source-layer': 'transportation_name',
-                'type': 'symbol',
-
-
-
-
+                'type': 'symbol'
             },
             {
                 'filter': ['all', ['==', '$type', 'Polygon'],
                     ['!=', 'intermittent', 1]
                 ],
-                'id': 'water - base layer',
+                'id': 'water-baselayer',
                 'paint': {
                     'fill-color': 'hsl(205, 56%, 73%)'
                 },
@@ -1048,13 +943,8 @@ export default {
                 'type': 'fill',
                 'layout': {
                     'visibility': 'visible'
-                },
-
-
-
-
+                }
             },
-
             {
                 'filter': ['all', ['==', '$type', 'Polygon'],
                     ['==', 'intermittent', 1]
@@ -1071,11 +961,7 @@ export default {
                 'type': 'fill',
                 'layout': {
                     'visibility': 'visible'
-                },
-
-
-
-
+                }
             },
             {
                 'id': 'NHD water bodies',
@@ -1089,11 +975,7 @@ export default {
                     'fill-color': 'hsl(205, 92%, 49%)'
                 },
                 'minzoom': 3,
-                'maxzoom': 23,
-
-
-                'showButtonProjectSpecific': true,
-
+                'maxzoom': 23
             },
             {
                 'filter': ['==', 'FType', 466],
@@ -1108,11 +990,7 @@ export default {
                     'fill-color': 'hsla(120, 31%, 54%, 1)'
                 },
                 'minzoom': 3,
-                'maxzoom': 23,
-
-
-                'showButtonProjectSpecific': true,
-
+                'maxzoom': 23
             },
             {
                 'id': 'Least Detail',
@@ -1127,9 +1005,7 @@ export default {
                 },
                 'paint': {
                     'line-color': 'rgba(148, 193, 225, 1)'
-                },
-
-                'showButtonStreamToggle': true
+                }
             },
             {
                 'id': 'Medium Detail',
@@ -1144,9 +1020,7 @@ export default {
                 },
                 'paint': {
                     'line-color': 'rgba(148, 193, 225, 1)'
-                },
-
-                'showButtonStreamToggle': true
+                }
             },
             {
                 'id': 'Most Detail',
@@ -1161,10 +1035,7 @@ export default {
                 },
                 'paint': {
                     'line-color': 'rgba(148, 193, 225, 1)'
-                },
-
-
-                'showButtonStreamToggle': true,
+                }
             },
             {
                 'id': 'Neighboring Countries',
@@ -1193,17 +1064,6 @@ export default {
                 'type': 'fill',
                 'layout': {
                     'visibility': 'visible'
-                }
-            },
-            {
-                "id": "dark_background",
-                "type": "background",
-                "layout": {
-
-                    "visibility": "none"
-                },
-                "paint": {
-                    "background-color": "rgb(12,12,12)"
                 }
             },
             {
@@ -1256,8 +1116,7 @@ export default {
                 'paint': {
                     'line-color': 'rgb(0,0,0)',
                     'line-dasharray': [4, 3]
-                },
-                'showButtonLayerToggle': true
+                }
             },
             {
                 'id': 'states',

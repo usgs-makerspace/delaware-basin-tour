@@ -30,8 +30,28 @@ export default {
             "content": "The Delaware Basin area is a pilot to test out the Next Generation Water Observing System (NGWOS) that will support innovative modern water prediction and decision support systems in a nationally important, complex interstate river system. Lying in the densely populated corridor of the northeastern US, the 13,600 square mile Delaware River Basin stretches approximately 330 miles from headwaters in New York State to its confluence with the Atlantic Ocean. The basin includes approximately 12,800 square miles of land area, nearly 800 square miles of Bay and over 2,000 tributaries, including manythat are rivers in their own right. The northernmost tributaries to the Delaware River originate in the forested western slopes of the Catskill Mountains, which reach elevations of up to 4,000 feet. The East and West Branches meet at Hancock, NY where the Delaware River officially begins. The River descends about 800 feet on its journey to the Atlantic Ocean.",
             "tourType": "none",
             "layersToHide": ["all_locations", "monitoring-location-clusters", "monitoring-location-cluster-count",  "monitoring-location-unclustered-point", "physiographic_provinces"],
-            "hiddenLayersToShow": ["new_gage_delaware_basin", "enhanced_gage_delaware_basin", "camera_delaware_basin", "specific_conductance_delaware_basin", "temperature_delaware_basin"],
+            "hiddenLayersToShow": [ "camera_delaware_basin", "specific_conductance_delaware_basin", "temperature_delaware_basin"],
             "D3Rings": false
+        },
+        {
+            "id": "dark-colors",
+            "class": "",
+            "flyToCommands": {
+                "duration": 9000,
+                "bearing": 0,
+                "center": [-75.600766, 40.4467],
+                "zoom": 4,
+                "pitch": 0,
+                "speed": 0.2,
+                "essential": true
+            },
+            "title": "Dark Color Test",
+            "content": "Test of dark color implementation",
+            "tourType": "none",
+            "layersToHide": ["all_locations", "physiographic_provinces"],
+            "hiddenLayersToShow": ["new_gage_delaware_basin", "enhanced_gage_delaware_basin", "camera_delaware_basin", "specific_conductance_delaware_basin", "temperature_delaware_basin"],
+            "D3Rings": false,
+            "DarkButton": true
         },
         {
             "id": "monitoring-location-intro",

@@ -1,8 +1,3 @@
-// Since the Mapbox gl wants the tile request to have an array containing the URL for the tiles, we need to
-// grab the URL for the correct tier from the environment variables and prepackage the result as an array
-const hruTileUrl = [];
-hruTileUrl.push(process.env.VUE_APP_HRU_TILE_URL);
-
 export default {
     style: {
         version: 8,
@@ -17,13 +12,13 @@ export default {
                 type: 'vector',
                 'tiles': ['https://maptiles-prod-website.s3-us-west-2.amazonaws.com/misctilesets/usstatecounties/{z}/{x}/{y}.pbf'],
                 'minzoom': 2, // setting this to equal the minzoom of main map, real tile extent is 2
-                'maxzoom': 6  // setting this to equal the maxzoom of main map, real tile extent is 10
+                'maxzoom': 10  // setting this to equal the maxzoom of main map, real tile extent is 10
             },
             nhd_streams_grouped: {
                 type: 'vector',
                 'tiles':['https://maptiles-prod-website.s3-us-west-2.amazonaws.com/nhdstreams_grouped/{z}/{x}/{y}.pbf'],
-                'minzoom': 2, // setting this to equal the minzoom of main map, real tile extent is 0
-                'maxzoom': 6  // setting this to equal the maxzoom of main map, real tile extent is 10
+                'minzoom': 0, // setting this to equal the minzoom of main map, real tile extent is 0
+                'maxzoom': 10  // setting this to equal the maxzoom of main map, real tile extent is 10
             },
             openmaptiles: {
                 type: 'vector',
@@ -62,8 +57,7 @@ export default {
                 'paint': {
                     'background-color': 'hsl(47, 26%, 88%)'
                 },
-                'type': 'background',
-                'showButtonLayerToggle': false
+                'type': 'background'
             },
             {
                 'filter': ['all', ['==', '$type', 'Polygon'],
@@ -81,11 +75,7 @@ export default {
                 'maxzoom': 23,
                 'source': 'openmaptiles',
                 'source-layer': 'landuse',
-                'type': 'fill',
-                'showButtonLayerToggle': false,
-                'showButtonLayerToggleStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': true
+                'type': 'fill'
             },
             {
                 'filter': ['==', 'class', 'grass'],
@@ -98,11 +88,7 @@ export default {
                 'maxzoom': 23,
                 'source': 'openmaptiles',
                 'source-layer': 'landcover',
-                'type': 'fill',
-                'showButtonLayerToggle': false,
-                'showButtonLayerToggleStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': true
+                'type': 'fill'
             },
             {
                 'filter': ['==', 'class', 'wood'],
@@ -121,11 +107,7 @@ export default {
                 'maxzoom': 23,
                 'source': 'openmaptiles',
                 'source-layer': 'landcover',
-                'type': 'fill',
-                'showButtonLayerToggle': false,
-                'showButtonLayerToggleStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': true
+                'type': 'fill'
             },
             {
                 'filter': ['all', ['in', 'class', 'sand']],
@@ -140,11 +122,7 @@ export default {
                 'maxzoom': 23,
                 'source': 'openmaptiles',
                 'source-layer': 'landcover',
-                'type': 'fill',
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': true
+                'type': 'fill'
             },
             {
                 'filter': ['==', 'class', 'agriculture'],
@@ -159,11 +137,7 @@ export default {
                 'maxzoom': 23,
                 'source': 'openmaptiles',
                 'source-layer': 'landuse',
-                'type': 'fill',
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': false
+                'type': 'fill'
             },
             {
                 'filter': ['==', 'class', 'national_park'],
@@ -182,11 +156,7 @@ export default {
                 'maxzoom': 23,
                 'source': 'openmaptiles',
                 'source-layer': 'landcover',
-                'type': 'fill',
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': true
+                'type': 'fill'
             },
             {
                 'id': 'hill shade',
@@ -196,11 +166,7 @@ export default {
                 'source': 'hillshade',
                 'layout': {
                     'visibility': 'visible'
-                },
-                'showButtonLayerToggle': true,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': false
+                }
             },
             {
                 'filter': ['all', ['==', '$type', 'LineString'],
@@ -232,11 +198,7 @@ export default {
                 'type': 'line',
                 'layout': {
                     'visibility': 'visible'
-                },
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': false
+                }
             },
             {
                 'filter': ['all', ['==', '$type', 'LineString'],
@@ -262,11 +224,7 @@ export default {
                 'type': 'line',
                 'layout': {
                     'visibility': 'visible'
-                },
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': false
+                }
             },
             {
                 'filter': ['all', ['==', '$type', 'LineString'],
@@ -293,11 +251,7 @@ export default {
                 'type': 'line',
                 'layout': {
                     'visibility': 'visible'
-                },
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': false
+                }
             },
             {
                 'filter': ['all', ['==', '$type', 'LineString'],
@@ -325,10 +279,10 @@ export default {
                 'source': 'openmaptiles',
                 'source-layer': 'transportation',
                 'type': 'line',
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': false
+
+
+
+
             },
             {
                 'id': 'building',
@@ -354,10 +308,10 @@ export default {
                 'source': 'openmaptiles',
                 'source-layer': 'building',
                 'type': 'fill',
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': false
+
+
+
+
             },
             {
                 'filter': ['==', '$type', 'Point'],
@@ -375,10 +329,10 @@ export default {
                 'source': 'openmaptiles',
                 'source-layer': 'housenumber',
                 'type': 'symbol',
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': false
+
+
+
+
             },
             {
                 'id': 'road_area_pier',
@@ -398,10 +352,10 @@ export default {
                 },
                 'minzoom': 3,
                 'maxzoom': 23,
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': false
+
+
+
+
             },
             {
                 'id': 'road_pier',
@@ -428,10 +382,10 @@ export default {
                 },
                 'minzoom': 3,
                 'maxzoom': 23,
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': false
+
+
+
+
             },
             {
                 'filter': ['all', ['==', '$type', 'Polygon'],
@@ -448,10 +402,10 @@ export default {
                 'source': 'openmaptiles',
                 'source-layer': 'transportation',
                 'type': 'fill',
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': false
+
+
+
+
             },
             {
                 'filter': ['all', ['==', '$type', 'LineString'],
@@ -478,10 +432,10 @@ export default {
                 'source': 'openmaptiles',
                 'source-layer': 'transportation',
                 'type': 'line',
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': false
+
+
+
+
             },
             {
                 'filter': ['all', ['==', '$type', 'LineString'],
@@ -507,10 +461,10 @@ export default {
                 'source': 'openmaptiles',
                 'source-layer': 'transportation',
                 'type': 'line',
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': false
+
+
+
+
             },
             {
                 'filter': ['all', ['==', '$type', 'LineString'],
@@ -538,10 +492,10 @@ export default {
                 'source': 'openmaptiles',
                 'source-layer': 'transportation',
                 'type': 'line',
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': false
+
+
+
+
             },
             {
                 'filter': ['all', ['==', '$type', 'LineString'],
@@ -569,10 +523,10 @@ export default {
                 'source': 'openmaptiles',
                 'source-layer': 'transportation',
                 'type': 'line',
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': false
+
+
+
+
             },
             {
                 'filter': ['all', ['==', '$type', 'Polygon'],
@@ -600,10 +554,10 @@ export default {
                 'source': 'openmaptiles',
                 'source-layer': 'aeroway',
                 'type': 'fill',
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': false
+
+
+
+
             },
             {
                 'filter': ['all', ['in', 'class', 'taxiway'],
@@ -634,10 +588,10 @@ export default {
                 'source': 'openmaptiles',
                 'source-layer': 'aeroway',
                 'type': 'line',
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': false
+
+
+
+
             },
             {
                 'filter': ['all', ['in', 'class', 'runway'],
@@ -668,10 +622,10 @@ export default {
                 'source': 'openmaptiles',
                 'source-layer': 'aeroway',
                 'type': 'line',
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': false
+
+
+
+
             },
             {
                 'filter': ['all', ['==', '$type', 'LineString'],
@@ -697,10 +651,10 @@ export default {
                 'source': 'openmaptiles',
                 'source-layer': 'transportation',
                 'type': 'line',
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': false
+
+
+
+
             },
             {
                 'filter': ['all', ['==', '$type', 'LineString'],
@@ -726,10 +680,10 @@ export default {
                 'source': 'openmaptiles',
                 'source-layer': 'transportation',
                 'type': 'line',
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': false
+
+
+
+
             },
             {
                 'filter': ['all', ['==', '$type', 'LineString'],
@@ -756,10 +710,10 @@ export default {
                 'source': 'openmaptiles',
                 'source-layer': 'transportation',
                 'type': 'line',
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': true
+
+
+
+
             },
             {
                 'filter': ['all', ['==', 'class', 'transit'],
@@ -784,10 +738,10 @@ export default {
                 'source': 'openmaptiles',
                 'source-layer': 'transportation',
                 'type': 'line',
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': false
+
+
+
+
             },
             {
                 'filter': ['==', 'class', 'rail'],
@@ -810,10 +764,10 @@ export default {
                 'source': 'openmaptiles',
                 'source-layer': 'transportation',
                 'type': 'line',
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': false
+
+
+
+
             },
             {
                 'filter': ['all', ['==', '$type', 'LineString'],
@@ -846,10 +800,10 @@ export default {
                 'source': 'openmaptiles',
                 'source-layer': 'waterway',
                 'type': 'line',
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': false
+
+
+
+
             },
             {
                 'filter': ['all', ['==', '$type', 'LineString'],
@@ -875,10 +829,10 @@ export default {
                 'source': 'openmaptiles',
                 'source-layer': 'waterway',
                 'type': 'line',
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': false
+
+
+
+
             },
             {
                 'filter': ['all', ['==', '$type', 'LineString'],
@@ -912,10 +866,10 @@ export default {
                 'source': 'openmaptiles',
                 'source-layer': 'transportation',
                 'type': 'line',
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': false
+
+
+
+
             },
             {
                 'filter': ['all', ['==', '$type', 'LineString'],
@@ -949,10 +903,10 @@ export default {
                 'source': 'openmaptiles',
                 'source-layer': 'transportation',
                 'type': 'line',
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': false
+
+
+
+
             },
             {
                 'filter': ['all', ['==', '$type', 'LineString'],
@@ -979,10 +933,10 @@ export default {
                 'source': 'openmaptiles',
                 'source-layer': 'transportation',
                 'type': 'line',
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': false
+
+
+
+
             },
             {
                 'filter': ['all', ['==', '$type', 'LineString'],
@@ -1009,10 +963,10 @@ export default {
                 'source': 'openmaptiles',
                 'source-layer': 'transportation',
                 'type': 'line',
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': false
+
+
+
+
             },
 
             {
@@ -1041,10 +995,10 @@ export default {
                 'source': 'openmaptiles',
                 'source-layer': 'poi',
                 'type': 'symbol',
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': false
+
+
+
+
             },
             {
                 'filter': ['==', '$type', 'LineString'],
@@ -1074,10 +1028,10 @@ export default {
                 'source': 'openmaptiles',
                 'source-layer': 'transportation_name',
                 'type': 'symbol',
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': false
+
+
+
+
             },
             {
                 'filter': ['all', ['==', '$type', 'Polygon'],
@@ -1095,10 +1049,10 @@ export default {
                 'layout': {
                     'visibility': 'visible'
                 },
-                'showButtonLayerToggle': true,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': true
+
+
+
+
             },
 
             {
@@ -1118,10 +1072,10 @@ export default {
                 'layout': {
                     'visibility': 'visible'
                 },
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': false
+
+
+
+
             },
             {
                 'id': 'NHD water bodies',
@@ -1136,10 +1090,10 @@ export default {
                 },
                 'minzoom': 3,
                 'maxzoom': 23,
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
+
+
                 'showButtonProjectSpecific': true,
-                'inLegend': true
+
             },
             {
                 'filter': ['==', 'FType', 466],
@@ -1155,10 +1109,10 @@ export default {
                 },
                 'minzoom': 3,
                 'maxzoom': 23,
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
+
+
                 'showButtonProjectSpecific': true,
-                'inLegend': true
+
             },
             {
                 'id': 'Least Detail',
@@ -1174,7 +1128,7 @@ export default {
                 'paint': {
                     'line-color': 'rgba(148, 193, 225, 1)'
                 },
-                'showButtonLayerToggle': false,
+
                 'showButtonStreamToggle': true
             },
             {
@@ -1191,7 +1145,7 @@ export default {
                 'paint': {
                     'line-color': 'rgba(148, 193, 225, 1)'
                 },
-                'showButtonLayerToggle': false,
+
                 'showButtonStreamToggle': true
             },
             {
@@ -1209,7 +1163,7 @@ export default {
                     'line-color': 'rgba(148, 193, 225, 1)'
                 },
 
-                'showButtonLayerToggle': false,
+
                 'showButtonStreamToggle': true,
             },
             {
@@ -1224,8 +1178,7 @@ export default {
                 },
                 'paint': {
                     'fill-color': 'hsl(47, 26%, 88%)'
-                },
-                'showButtonLayerToggle': false
+                }
             },
             {
                 'filter': ['all', ['==', '$type', 'Polygon'],
@@ -1240,8 +1193,55 @@ export default {
                 'type': 'fill',
                 'layout': {
                     'visibility': 'visible'
+                }
+            },
+            {
+                "id": "dark_background",
+                "type": "background",
+                "layout": {
+
+                    "visibility": "none"
                 },
-                'showButtonLayerToggle': false
+                "paint": {
+                    "background-color": "rgb(12,12,12)"
+                }
+            },
+            {
+                'id': 'physiographic_provinces',
+                'type': 'fill',
+                'source': 'physiographic_provinces',
+                'layout': {
+                    'visibility': 'visible'
+                },
+                "paint": {
+                    "fill-color": [
+                        "match",
+                        ["get", "PROVINCE"],
+                        'APPALACHIAN PLATEAUS',"rgba(184, 224, 252, 1)",
+                        'COASTAL PLAIN',"rgba(252, 184, 184, 1)",
+                        'NEW ENGLAND',"rgba(179, 252, 205, 1)",
+                        'PIEDMONT',"rgba(252, 245, 212, 1)",
+                        'VALLEY AND RIDGE', "rgba(239, 179, 252, 1)",
+                        "rgba(239, 179, 252, 1)"
+                    ],
+                    'fill-opacity': 0.8
+                },
+                'minzoom': 0,
+                'maxzoom': 23,
+            },
+            {
+                'id': 'drb_boundary',
+                'type': 'fill',
+                'source': 'drb_boundary',
+                'minzoom': 2,
+                'maxzoom': 24,
+                'layout': {
+                    'visibility': 'visible',
+                },
+                'paint': {
+                    'fill-color': 'rgb(0,0,0)',
+                    'fill-opacity': 0.1
+                }
             },
             {
                 'id': 'Counties',
@@ -1299,8 +1299,7 @@ export default {
                 },
                 'source': 'openmaptiles',
                 'source-layer': 'place',
-                'type': 'symbol',
-                'showButtonLayerToggle': false
+                'type': 'symbol'
             },
             {
                 'id': 'monitoring-location-clusters',
@@ -1322,11 +1321,7 @@ export default {
                     'circle-opacity': .5
                 },
                 'minzoom': 3,
-                'maxzoom': 23,
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': false
+                'maxzoom': 23
             },
             {
                 'id': 'monitoring-location-cluster-count',
@@ -1349,11 +1344,7 @@ export default {
                     'text-halo-color': 'rgba(255,255,255, 1)',
                 },
                 'minzoom': 3,
-                'maxzoom': 23,
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': false
+                'maxzoom': 23
             },
             {
                 'id': 'monitoring-location-unclustered-point',
@@ -1368,11 +1359,7 @@ export default {
                     'circle-radius': 4
                 },
                 'minzoom': 3,
-                'maxzoom': 23,
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': true
+                'maxzoom': 23
             },
             {
                 'id': 'site names',
@@ -1401,56 +1388,7 @@ export default {
                     'text-halo-color': 'rgba(255,255,255, 1)',
                 },
                 'minzoom': 3,
-                'maxzoom': 23,
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': true,
-                'inLegend': false
-            },
-            {
-                'id': 'physiographic_provinces',
-                'type': 'fill',
-                'source': 'physiographic_provinces',
-                'layout': {
-                    'visibility': 'visible'
-                },
-                "paint": {
-                    "fill-color": [
-                        "match",
-                        ["get", "PROVINCE"],
-                        'APPALACHIAN PLATEAUS',"rgba(184, 224, 252, 1)",
-                        'COASTAL PLAIN',"rgba(252, 184, 184, 1)",
-                        'NEW ENGLAND',"rgba(179, 252, 205, 1)",
-                        'PIEDMONT',"rgba(252, 245, 212, 1)",
-                        'VALLEY AND RIDGE', "rgba(239, 179, 252, 1)",
-                        "rgba(239, 179, 252, 1)"
-                      ],
-                      'fill-opacity': 0.8
-                },
-                'minzoom': 0,
-                'maxzoom': 23,
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': true
-            },
-            {
-                'id': 'drb_boundary',
-                'type': 'fill',
-                'source': 'drb_boundary',
-                'minzoom': 2,
-                'maxzoom': 24,
-                'layout': {
-                    'visibility': 'visible',
-                },
-                'paint': {
-                    'fill-color': 'rgb(0,0,0)',
-                    'fill-opacity': 0.1
-                },
-                'showButtonLayerToggle': false,
-                'showButtonStreamToggle': false,
-                'showButtonProjectSpecific': false,
-                'inLegend': true
+                'maxzoom': 23
             }
         ]
     }

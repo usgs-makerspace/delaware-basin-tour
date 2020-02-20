@@ -18,7 +18,8 @@
         v-if="!isInternetExplorer"
         id="mapContainer"
       >
-        <div id="map-section" data-intro="...and the map will update here." data-position="right" data-step="2">
+<!--        <div id="map-section" data-intro="...and the map will update here." data-position="right" data-step="2">-->
+        <div id="map-section" >
           <MglMap
             id="mapgl"
             :container="container"
@@ -53,10 +54,12 @@
             <MglFullscreenControl position="bottom-right" />
             <MglGeolocateControl position="bottom-right" />
           </MglMap>
+          <canvas id="deck-canvas"></canvas>
         </div>
       </div>
-      <div id="story-section" data-intro="Scroll through the chapters here..." data-position="left" data-step="1">
-        <StoryBoard />
+<!--      <div id="story-section" data-intro="Scroll through the chapters here..." data-position="left" data-step="1">-->
+        <div id="story-section" >
+        <StoryBoard :dark-layer-ids="darkLayerIds" />
       </div>
     </div>
     
@@ -121,7 +124,8 @@
                 pitch: 0, // tips the map from 0 to 60 degrees
                 bearing: 0, // starting rotation of the map from 0 to 360
                 maxBounds: [[-168.534393,-4.371744], [-19.832382,71.687625]], // The coordinates needed to make a bounding box for the continental United States.
-                isLoading: true
+                isLoading: true,
+                darkLayerIds: []
             };
         },
         created() {
@@ -133,10 +137,12 @@
             },
             onMapLoaded(event) {
                 this.map = event.map; // This gives us access to the map as an object but only after the map has loaded.
-                this.map.resize(); // This cures the mysterious whitespace that appears above the footer is was caused by the 'official' banner at the top.
-                this.map.touchZoomRotate.enable({ around: 'center' }); // Add pinch to zoom for touch devices.
-                this.map.touchZoomRotate.disableRotation(); // Disable the rotation functionality, but keep pinch to zoom.
-                this.map.fitBounds([[-125.3321, 23.8991], [-65.7421, 49.4325]]); // Once map is loaded, zoom in a bit more so that the map neatly fills the screen.
+                const map = this.map;
+                const onMapLoadedThis = this;
+                map.resize(); // This cures the mysterious whitespace that appears above the footer is was caused by the 'official' banner at the top.
+                map.touchZoomRotate.enable({ around: 'center' }); // Add pinch to zoom for touch devices.
+                map.touchZoomRotate.disableRotation(); // Disable the rotation functionality, but keep pinch to zoom.
+                map.fitBounds([[-125.3321, 23.8991], [-65.7421, 49.4325]]); // Once map is loaded, zoom in a bit more so that the map neatly fills the screen.
                 this.$store.map = event.map; // Add the map to the Vuex store so that we can use it in other components.
                 // Pause the code here to make sure the fitbounds has time to finish before fade away of loading screen.
                 setTimeout(() => { this.isLoading = false; }, 200);
@@ -146,12 +152,12 @@
                 process.env.VUE_APP_ADD_ZOOM_LEVEL_DISPLAY === 'true' ? this.map.on("zoomend", this.addZoomLevelIndicator) : null;
 
 
-                this.map.addSource('delawareBasinAllNewEnhancedLocations', {
+                map.addSource('delawareBasinAllNewEnhancedLocations', {
                     type: 'geojson',
                     data: delawareBasinNextGenerationMonitoringLocations.delawareBasinNextGenerationsMonitoringLocations
                 });
 
-                this.map.addLayer({
+                map.addLayer({
                     "id": "all_locations",
                     "source": "delawareBasinAllNewEnhancedLocations",
                     "type": "circle",
@@ -160,8 +166,6 @@
                         "circle-color": generalColorAndStyle.generalColorsAndStyles.monitoringLocationAll.mapDotColor
                     }
                 });
-
-                let map = this.map;
 
                 // Get all the information for all the monitoring locations
                 let allMonitoringLocations = delawareBasinNextGenerationMonitoringLocations.delawareBasinNextGenerationsMonitoringLocations.features;
@@ -194,10 +198,7 @@
                                     'maxzoom': 23,
                                 };
 
-                                // Add the layer to the map
-                                map.addLayer(mapLayerStyle);
-                                // add the layer to the style sheet in memory
-                                mapStyles.style.layers.push(mapLayerStyle);
+                                map.addLayer(mapLayerStyle); // Add the layer to the map
                             }
                         });
                     });

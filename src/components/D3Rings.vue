@@ -59,11 +59,11 @@ export default {
 
         function createPieData(feature) {
           let pieData = [];
-          let allPosibleMonitoringLocationFeatures = Object.keys(generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors);
+          let allPossibleMonitoringLocationFeatures = Object.keys(generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors);
 
           // Go through the list of all possible monitoring location features and make a segment of the pie for that
           // If that feature is one of the features at the current monitoring location, mark it as active
-          allPosibleMonitoringLocationFeatures.forEach(function(oneOfAllPossibleFeatures) {
+          allPossibleMonitoringLocationFeatures.forEach(function(oneOfAllPossibleFeatures) {
             let ringSegment = {
                 "featureType": oneOfAllPossibleFeatures,
                 "segment": 1,

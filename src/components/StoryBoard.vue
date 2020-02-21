@@ -61,6 +61,24 @@
             >
               pause the tour
             </button>
+            <button
+              v-show="chapter.DarkButton && !isDarkStyle"
+              @click="toggleDarkStyle"
+            >
+              dark style
+            </button>
+            <button
+              v-show="chapter.DarkButton && isDarkStyle"
+              @click="toggleDarkStyle"
+            >
+              regular style
+            </button>
+            <button
+              v-show="chapter.DarkButton"
+              @click="zoomToggle"
+            >
+              zoom a bit
+            </button>
           </div>
         </section>
       </div>
@@ -74,6 +92,8 @@
         from "../assets/monitoring_locations/delawareBasinNextGenerationMonitoringLocations";
     import D3Rings from './D3Rings';
     import generalColorAndStyle from "../assets/mapStyleConstants/generalColorAndStyle";
+    import mapStylesDark from "../assets/mapStyles/mapStylesDark";
+    import mapStyles from "../assets/mapStyles/mapStyles";
 
     export default {
         name: "StoryBoard",
@@ -89,10 +109,39 @@
                 layersToUnshow: [],
                 isTourPauseActive: false,
                 indexOfPausedTour: 0,
-                locationsRemainingInTour: null
+                locationsRemainingInTour: null,
+                isZoomedIn: false,
+                isDarkStyle: false
             };
         },
         methods: {
+            zoomToggle() {
+                const self = this;
+                const map = this.$store.map;
+                let zoomLevel = null;
+                self.isZoomedIn === false ? zoomLevel = 12 : zoomLevel = 4; // Set the minimum and maximum zoom levels for the fly to
+                map.flyTo(
+                        {
+                            "duration": 9000,
+                            "bearing": 0,
+                            "center": [-75.600766, 40.4467],
+                            "zoom": zoomLevel,
+                            "pitch": 0,
+                            "speed": 0.2,
+                            "essential": true
+                        }
+                );
+                self.isZoomedIn = !self.isZoomedIn;
+            },
+            toggleDarkStyle() {
+                const self = this;
+                const map = this.$store.map;
+                self.isDarkStyle === false ? map.setStyle(mapStylesDark.style) : map.setStyle(mapStyles.style); // If the map is not dark, make it dark and vice versa
+                self.isDarkStyle = !self.isDarkStyle;
+                map.on('style.load', function () {
+                    self.$emit('addDynamicLayers');
+                });
+            },
             moveToLocation(flyToCommands, elementId) {
                 let allActiveSectionElements = document.querySelectorAll("section.active");
                 [...allActiveSectionElements].forEach((selection) => {

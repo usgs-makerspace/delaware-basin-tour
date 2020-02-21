@@ -18,7 +18,8 @@
         v-if="!isInternetExplorer"
         id="mapContainer"
       >
-        <div id="map-section" data-intro="...and the map will update here." data-position="right" data-step="2">
+        <!--        <div id="map-section" data-intro="...and the map will update here." data-position="right" data-step="2">-->
+        <div id="map-section">
           <MglMap
             id="mapgl"
             :container="container"
@@ -55,8 +56,9 @@
           </MglMap>
         </div>
       </div>
-      <div id="story-section" data-intro="Scroll through the chapters here..." data-position="left" data-step="1">
-        <StoryBoard />
+      <!--      <div id="story-section" data-intro="Scroll through the chapters here..." data-position="left" data-step="1">-->
+      <div id="story-section">
+        <StoryBoard @addDynamicLayers="addDynamicLayers()" />
       </div>
     </div>
     
@@ -131,41 +133,31 @@
             addZoomLevelIndicator() {
                 document.getElementById("zoom-level-div").innerHTML = 'Current Zoom Level (listed for development purposes): ' + this.map.getZoom() ;
             },
-            onMapLoaded(event) {
-                this.map = event.map; // This gives us access to the map as an object but only after the map has loaded.
-                this.map.resize(); // This cures the mysterious whitespace that appears above the footer is was caused by the 'official' banner at the top.
-                this.map.touchZoomRotate.enable({ around: 'center' }); // Add pinch to zoom for touch devices.
-                this.map.touchZoomRotate.disableRotation(); // Disable the rotation functionality, but keep pinch to zoom.
-                this.map.fitBounds([[-125.3321, 23.8991], [-65.7421, 49.4325]]); // Once map is loaded, zoom in a bit more so that the map neatly fills the screen.
-                this.$store.map = event.map; // Add the map to the Vuex store so that we can use it in other components.
-                // Pause the code here to make sure the fitbounds has time to finish before fade away of loading screen.
-                setTimeout(() => { this.isLoading = false; }, 200);
-                // intro.js needs a slightly longer pause before kicking off, or it will appear as the loading screen is fading out
-                setTimeout(() => { let introJS = require("intro.js"); introJS.introJs().start(); }, 400);
-                // Next line adds the current zoom level display. The zoom level should only show in 'development' versions of the application.
-                process.env.VUE_APP_ADD_ZOOM_LEVEL_DISPLAY === 'true' ? this.map.on("zoomend", this.addZoomLevelIndicator) : null;
+            addDynamicLayers() {
+                const map = this.$store.map;
+                if(!map.getStyle().sources.hasOwnProperty('delawareBasinAllNewEnhancedLocations')) {
+                    map.addSource('delawareBasinAllNewEnhancedLocations', {
+                        type: 'geojson',
+                        data: delawareBasinNextGenerationMonitoringLocations.delawareBasinNextGenerationsMonitoringLocations
+                    });
+                }
 
-
-                this.map.addSource('delawareBasinAllNewEnhancedLocations', {
-                    type: 'geojson',
-                    data: delawareBasinNextGenerationMonitoringLocations.delawareBasinNextGenerationsMonitoringLocations
-                });
-
-                this.map.addLayer({
-                    "id": "all_locations",
-                    "source": "delawareBasinAllNewEnhancedLocations",
-                    "type": "circle",
-                    "paint": {
-                        "circle-radius": generalColorAndStyle.generalColorsAndStyles.monitoringLocationAll.mapDotSize,
-                        "circle-color": generalColorAndStyle.generalColorsAndStyles.monitoringLocationAll.mapDotColor
-                    }
-                });
-
-                let map = this.map;
+                if(!map.getLayer('all_locations')) {
+                    map.addLayer({
+                        'id': 'all_locations',
+                        'source': 'delawareBasinAllNewEnhancedLocations',
+                        'type': 'circle',
+                        'paint': {
+                            'circle-radius': generalColorAndStyle.generalColorsAndStyles.monitoringLocationAll.mapDotSize,
+                            'circle-color': generalColorAndStyle.generalColorsAndStyles.monitoringLocationAll.mapDotColor
+                        }
+                    });
+                }
 
                 // Get all the information for all the monitoring locations
                 let allMonitoringLocations = delawareBasinNextGenerationMonitoringLocations.delawareBasinNextGenerationsMonitoringLocations.features;
-
+                // Sort through all the locations and add the ones we want monitoring locations features (temperature etc.) and the 'associated region'
+                // as indicated in the monitoring locations JSON file.
                 allMonitoringLocations.forEach(function(location) {
                     // Get the monitoring location features that are available at the current location
                     let locationFeatures = (location.properties.locationFeatures);
@@ -180,28 +172,42 @@
                                     'type': 'circle',
                                     'source': 'delawareBasinAllNewEnhancedLocations',
                                     'layout': {
-                                      'visibility': 'none'
+                                        'visibility': 'none'
                                     },
                                     'filter': ["all", ['in', feature, ['get', 'locationFeatures']], ['in', region, ['get', 'associatedRegions']]],
                                     'paint': {
-                                    'circle-color':  generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors[feature],
-                                            'circle-opacity': generalColorAndStyle.generalColorsAndStyles.locationFeaturesCircleOpacity[feature],
-                                            'circle-radius': generalColorAndStyle.generalColorsAndStyles.locationFeaturesCircleRadius[feature],
-                                            'circle-stroke-width': generalColorAndStyle.generalColorsAndStyles.locationFeaturesStrokeWidth[feature],
-                                            'circle-stroke-color': generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors[feature],
-                                },
+                                        'circle-color':  generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors[feature],
+                                        'circle-opacity': generalColorAndStyle.generalColorsAndStyles.locationFeaturesCircleOpacity[feature],
+                                        'circle-radius': generalColorAndStyle.generalColorsAndStyles.locationFeaturesCircleRadius[feature],
+                                        'circle-stroke-width': generalColorAndStyle.generalColorsAndStyles.locationFeaturesStrokeWidth[feature],
+                                        'circle-stroke-color': generalColorAndStyle.generalColorsAndStyles.locationFeaturesColors[feature],
+                                    },
                                     'minzoom': 3,
                                     'maxzoom': 23,
                                 };
 
-                                // Add the layer to the map
-                                map.addLayer(mapLayerStyle);
-                                // add the layer to the style sheet in memory
-                                mapStyles.style.layers.push(mapLayerStyle);
+                                map.addLayer(mapLayerStyle); // Add the layer to the map
                             }
                         });
                     });
                 });
+            },
+            onMapLoaded(event) {
+                this.map = event.map; // This gives us access to the map as an object but only after the map has loaded.
+                const map = this.map;
+                const onMapLoadedThis = this;
+                map.resize(); // This cures the mysterious whitespace that appears above the footer is was caused by the 'official' banner at the top.
+                map.touchZoomRotate.enable({ around: 'center' }); // Add pinch to zoom for touch devices.
+                map.touchZoomRotate.disableRotation(); // Disable the rotation functionality, but keep pinch to zoom.
+                map.fitBounds([[-125.3321, 23.8991], [-65.7421, 49.4325]]); // Once map is loaded, zoom in a bit more so that the map neatly fills the screen.
+                this.$store.map = event.map; // Add the map to the Vuex store so that we can use it in other components.
+                // Pause the code here to make sure the fitbounds has time to finish before fade away of loading screen.
+                setTimeout(() => { this.isLoading = false; }, 200);
+                // intro.js needs a slightly longer pause before kicking off, or it will appear as the loading screen is fading out
+                setTimeout(() => { let introJS = require("intro.js"); introJS.introJs().start(); }, 400);
+                // Next line adds the current zoom level display. The zoom level should only show in 'development' versions of the application.
+                process.env.VUE_APP_ADD_ZOOM_LEVEL_DISPLAY === 'true' ? this.map.on("zoomend", this.addZoomLevelIndicator) : null;
+                this.addDynamicLayers(); // Add all the layers that are not part of the standard layer set
             }
         }
     };

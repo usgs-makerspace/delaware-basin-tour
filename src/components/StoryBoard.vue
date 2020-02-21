@@ -63,13 +63,13 @@
             </button>
             <button
               v-show="chapter.DarkButton && !isDarkStyle"
-              @click="activateDarkStyle"
+              @click="toggleDarkStyle"
             >
               dark style
             </button>
             <button
               v-show="chapter.DarkButton && isDarkStyle"
-              @click="activateDarkStyle"
+              @click="toggleDarkStyle"
             >
               regular style
             </button>
@@ -133,7 +133,7 @@
                 );
                 self.isZoomedIn = !self.isZoomedIn;
             },
-            activateDarkStyle() {
+            toggleDarkStyle() {
                 const self = this;
                 const map = this.$store.map;
                 self.isDarkStyle === false ? map.setStyle(mapStylesDark.style) : map.setStyle(mapStyles.style); // If the map is not dark, make it dark and vice versa
